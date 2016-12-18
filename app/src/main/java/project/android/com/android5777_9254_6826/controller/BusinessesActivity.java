@@ -67,6 +67,12 @@ public class BusinessesActivity extends AppCompatActivity {
         initItemByListView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initItemByListView();
+    }
+
     private void getAccountfromIntent() {
         currentAccount = (Account) getIntent().getSerializableExtra("account");
     }
