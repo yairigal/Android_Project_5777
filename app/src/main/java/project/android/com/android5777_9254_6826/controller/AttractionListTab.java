@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +40,8 @@ public class AttractionListTab extends Fragment {
         //TODO get business object from BusinessActivity
         db = FactoryDatabase.getDatabase();
         rootView = inflater.inflate(R.layout.content_attractions, container, false);
-        initItemByListView(rootView);
+        //initItemByListView(rootView); <-- in onResume
+        //in onResume ^^
         init(rootView);
         return rootView;
     }
@@ -56,6 +58,10 @@ public class AttractionListTab extends Fragment {
 
     void initItemByListView(View v) {
         final Attraction[] myItemList = getAttractionListAsyncTask();
+        if(myItemList.length == 0) {
+            Toast.makeText(getContext(), "No Attractions found", Toast.LENGTH_LONG).show();
+            return;
+        }
         ListView lv = (ListView) v.findViewById(R.id.attractionsLV);
         ArrayAdapter<Attraction> adapter = new ArrayAdapter<Attraction>(getContext(), R.layout.single_attraction_layout, myItemList) {
             @Override

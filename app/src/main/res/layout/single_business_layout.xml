@@ -6,20 +6,10 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="109dp"
+        android:layout_height="110dp"
         android:orientation="vertical"
-        android:background="@drawable/business_background2"
+        android:background="@drawable/business_background3"
         android:layout_marginTop="10dp">
-
-        <TextView
-            android:text="Business ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:id="@+id/tvID"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
         <TextView
             android:text="Business Name"
@@ -27,9 +17,47 @@
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:id="@+id/tvName"
+            android:textColor="@color/common_action_bar_splitter"
+            android:textStyle="normal|bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1" />
+
+        <TextView
+            android:text="Business Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="@color/common_action_bar_splitter"
+            android:textStyle="normal|bold"
+            android:shadowRadius="1"
+            android:shadowDy="2"
+            android:shadowDx="2"
+            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+            android:id="@+id/tvaddre"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="Business Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="@color/common_action_bar_splitter"
+            android:textStyle="normal|bold"
+            android:shadowRadius="1"
+            android:shadowDy="2"
+            android:shadowDx="2"
+            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+            android:id="@+id/tvEmail"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>
 
