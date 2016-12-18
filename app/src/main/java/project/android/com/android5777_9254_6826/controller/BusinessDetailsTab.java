@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import project.android.com.android5777_9254_6826.R;
+import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 /**
@@ -16,6 +17,7 @@ import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public class BusinessDetailsTab extends Fragment {
     Business currentBusiness;
+    Account currentAccount;
 
     TextView Id;
     TextView name;
@@ -35,8 +37,10 @@ public class BusinessDetailsTab extends Fragment {
         return rootView;
     }
 
-    public void setBusiness(Business toUpdate){
+    public void setBusiness(Business toUpdate, Account currentaccount){
         currentBusiness = toUpdate;
+        currentAccount = currentaccount;
+
     }
 
     public void setCurrentBusiness(View v) {

@@ -21,11 +21,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import project.android.com.android5777_9254_6826.R;
+import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public class BusinessDeatilsActivity extends AppCompatActivity {
 
     Business currentBusiness;
+    Account currentAccount;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -46,7 +48,7 @@ public class BusinessDeatilsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_deatils);
-        currentBusiness = getBusinessFromIntent();
+        getDataFromIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -68,8 +70,9 @@ public class BusinessDeatilsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private Business getBusinessFromIntent() {
-        return (Business) getIntent().getSerializableExtra("business");
+    private void getDataFromIntent() {
+        currentBusiness=(Business) getIntent().getSerializableExtra("business");
+        currentAccount = (Account)getIntent().getSerializableExtra("account");
     }
 
 
@@ -150,7 +153,7 @@ public class BusinessDeatilsActivity extends AppCompatActivity {
             switch (position){
                 case 0:
                     BusinessDetailsTab tab1 = new BusinessDetailsTab();
-                    tab1.setBusiness(currentBusiness);
+                    tab1.setBusiness(currentBusiness, currentAccount);
                     return tab1;
                 case 1:
                     AttractionListTab tab2 = new AttractionListTab();
@@ -158,7 +161,7 @@ public class BusinessDeatilsActivity extends AppCompatActivity {
                     return tab2;
                 default:
                     BusinessDetailsTab tab3 = new BusinessDetailsTab();
-                    tab3.setBusiness(currentBusiness);
+                    tab3.setBusiness(currentBusiness, currentAccount);
                     return tab3;
             }
         }

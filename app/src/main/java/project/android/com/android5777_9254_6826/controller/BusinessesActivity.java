@@ -73,6 +73,7 @@ public class BusinessesActivity extends AppCompatActivity {
 
     private void moveToAddBusinessActivity() {
         Intent toBuss = new Intent(getBaseContext(), AddBusinessActivity.class);
+        toBuss.putExtra("account", currentAccount);
         startActivity(toBuss);
     }
 
@@ -146,14 +147,14 @@ public class BusinessesActivity extends AppCompatActivity {
         return toReturn;
     }
     private void tempAddBusinessses(){
-        for (int i=0;i<100;i++){
-            db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "name"+i, new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
-        }
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "name", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
     }
     private void moveToBusinessActivity(Business toSend){
         Intent intent = new Intent(getBaseContext(),BusinessDeatilsActivity.class);
         intent.putExtra("business", toSend);
         intent.putExtra("account", currentAccount);
+
+
         startActivity(intent);
     }
 }
