@@ -20,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -58,13 +59,11 @@ public class BusinessesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .show();
                 moveToAddBusinessActivity();
             }
         });
         cbar.setTitle("Businesses");
-        tempAddBusinessses();
+        //tempAddBusinessses();
         initItemByListView();
     }
 
@@ -84,6 +83,8 @@ public class BusinessesActivity extends AppCompatActivity {
 
     void initItemByListView() {
         final Business[] myItemList = getBusinessesListAsyncTask();
+        if(myItemList.length == 0)
+            Toast.makeText(getApplicationContext(),"No Businesses Found",Toast.LENGTH_LONG).show();
         ListView lv = (ListView) findViewById(R.id.itemsLV);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
             @Override
@@ -146,12 +147,13 @@ public class BusinessesActivity extends AppCompatActivity {
     }
     private void tempAddBusinessses(){
         for (int i=0;i<100;i++){
-            db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()),"ID"+i, "name"+i, new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+            db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "name"+i, new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
         }
     }
     private void moveToBusinessActivity(Business toSend){
         Intent intent = new Intent(getBaseContext(),BusinessDeatilsActivity.class);
         intent.putExtra("business", toSend);
+        intent.putExtra("account", currentAccount);
         startActivity(intent);
     }
 }

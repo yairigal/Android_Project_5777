@@ -33,7 +33,7 @@ public interface IAttractionDatabase extends IDatabase {
      * @param BusinessID
      * @return returns true if succeeded , else false;
      */
-    int addNewAttraction(String ID,Properties.AttractionType Type,String AttractionName, String Country, String StartDate,
+    int addNewAttraction(Properties.AttractionType Type,String AttractionName, String Country, String StartDate,
                          String EndDate, float Price, String Description, String BusinessID);
     int addNewAttraction(Attraction toInsert);
 
@@ -41,6 +41,7 @@ public interface IAttractionDatabase extends IDatabase {
      * @return list of the attraction in the database
      */
     ArrayList<Attraction> getAttractionList();
+    ArrayList<Attraction> getAttractionList(String BusinessID);
     Cursor CgetAttractionList();
     Attraction getAttraction(String attractionID) throws Exception;
     boolean ifNewAttractionAdded();
