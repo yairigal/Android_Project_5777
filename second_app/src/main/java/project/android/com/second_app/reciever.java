@@ -16,6 +16,8 @@ public class reciever extends BroadcastReceiver {
         // an Intent broadcast.
         Toast.makeText(context,"Intent Received",Toast.LENGTH_SHORT).show();
         Log.d("second app: ", "broadcast received");
-        context.startActivity(new Intent(context,MainActivity.class));
+        Intent intnt = new Intent(context,MainActivity.class);
+        intnt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intnt);
     }
 }
