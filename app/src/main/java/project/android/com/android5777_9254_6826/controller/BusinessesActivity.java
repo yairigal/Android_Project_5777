@@ -64,7 +64,8 @@ public class BusinessesActivity extends AppCompatActivity {
         });
         cbar.setTitle("Businesses");
         //tempAddBusinessses();
-        initItemByListView();
+        //initItemByListView();  <-- in onResume
+        //onResume ^^
     }
 
     @Override
@@ -90,8 +91,10 @@ public class BusinessesActivity extends AppCompatActivity {
 
     void initItemByListView() {
         final Business[] myItemList = getBusinessesListAsyncTask();
-        if(myItemList.length == 0)
-            Toast.makeText(getApplicationContext(),"No Businesses Found",Toast.LENGTH_LONG).show();
+        if(myItemList.length == 0) {
+            Toast.makeText(getApplicationContext(), "No Businesses Found", Toast.LENGTH_LONG).show();
+            return;
+        }
         ListView lv = (ListView) findViewById(R.id.itemsLV);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
             @Override
@@ -99,10 +102,7 @@ public class BusinessesActivity extends AppCompatActivity {
                 if (convertView == null)
                     convertView = View.inflate(BusinessesActivity.this, R.layout.single_business_layout, null);
 
-                TextView Name = (TextView) convertView.findViewById(R.id.tvName);
-                TextView ID = (TextView) convertView.findViewById(R.id.tvID);
-                Name.setText(myItemList[position].getBusinessName());
-                ID.setText(myItemList[position].getBusinessID());
+                setBusinessFields(position, convertView, myItemList);
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,6 +125,16 @@ public class BusinessesActivity extends AppCompatActivity {
             layout.addView(view);
         }*/
 
+    }
+
+    private void setBusinessFields(int position, View convertView, Business[] myItemList) {
+        Business curr = myItemList[position];
+        TextView Name = (TextView) convertView.findViewById(R.id.tvName);
+        TextView address = (TextView) convertView.findViewById(R.id.tvaddre);
+        TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
+        Name.setText(curr.getBusinessName());
+        address.setText(curr.getBusinessAddress().toString());
+        email.setText(curr.getEmail());
     }
 
     private Business[] getBusinessesListAsyncTask() {

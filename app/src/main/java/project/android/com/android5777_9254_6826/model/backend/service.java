@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 public class service extends Service {
@@ -13,7 +14,7 @@ public class service extends Service {
 
     public service() {
         db = FactoryDatabase.getDatabase();
-        toStop = false;
+        running = true;
 
         background = new Thread(new Runnable() {
             @Override
@@ -46,19 +47,26 @@ public class service extends Service {
         stopCheck();
     }
 
-    boolean toStop = false;
+    boolean running = true;
 
     private void checkForChange() throws InterruptedException {
-        while (!toStop) {
+        while (running) {
             if (db.ifNewAttractionAdded() || db.ifNewBusinessAdded()) {
-                //TODO something if new business added.
+                broadcastIntent();
             }
             Log.d("service: ", "running");
             Thread.sleep(timeToSleep);
         }
     }
 
+    public void broadcastIntent() {
+        Intent intent = new Intent();
+        intent.setAction("com.project.CHECK_DATABASE");
+        sendBroadcast(intent);
+        Log.d("service: ", "broadcast sent");
+    }
+
     private void stopCheck() {
-        toStop = true;
+        running = false;
     }
 }
