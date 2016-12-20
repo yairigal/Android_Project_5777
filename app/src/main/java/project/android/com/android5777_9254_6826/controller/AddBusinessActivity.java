@@ -1,5 +1,6 @@
 package project.android.com.android5777_9254_6826.controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import java.net.URL;
 import project.android.com.android5777_9254_6826.R;
 import project.android.com.android5777_9254_6826.model.backend.Backend;
 import project.android.com.android5777_9254_6826.model.backend.FactoryDatabase;
+import project.android.com.android5777_9254_6826.model.backend.LoadingTask;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Properties;
@@ -40,14 +42,14 @@ public class AddBusinessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_business);
         db = FactoryDatabase.getDatabase();
-        BusinessName =(EditText) findViewById(R.id.BusinessNameID);
-        Street = (EditText)findViewById(R.id.StreetId);
-        City = (EditText)findViewById(R.id.CityId);
-        Country = (EditText)findViewById(R.id.CountryId);
-        Website = (EditText)findViewById(R.id.WebId);
-        CompanyEmail= (EditText)findViewById(R.id.EmailId);
+        BusinessName = (EditText) findViewById(R.id.BusinessNameID);
+        Street = (EditText) findViewById(R.id.StreetId);
+        City = (EditText) findViewById(R.id.CityId);
+        Country = (EditText) findViewById(R.id.CountryId);
+        Website = (EditText) findViewById(R.id.WebId);
+        CompanyEmail = (EditText) findViewById(R.id.EmailId);
         homeactivity = this;
-        currentAccount = (Account)getIntent().getSerializableExtra("account");
+        currentAccount = (Account) getIntent().getSerializableExtra("account");
 
 
         final Button addatt = (Button) findViewById(R.id.AddBusinessbutton);
@@ -70,8 +72,39 @@ public class AddBusinessActivity extends AppCompatActivity {
                     final URL w = web;
                     final String email = CompanyEmail.getText().toString();
 
+                    /**new LoadingTask<Void,Void,Void>(){
+                    @Override protected Void backgroundAction(Void... params) {
+                    publishProgress();
+                    db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), bname, new Address(country, city, street), email, w);
+                    try {
+                    Thread.sleep(6000);
+                    } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    }
+                    return null;
+                    }
+
+                    @Override protected void onProgress() {
+                    addatt.setEnabled(false);
+                    }
+
+                    @Override protected void preAction() {
+
+                    }
+
+                    @Override protected void postAction() {
+                    Toast.makeText(homeactivity, "Business Added!", Toast.LENGTH_SHORT).show();
+                    finish();
+                    }
+
+                    @Override protected Context getApplicationContext() {
+                    return AddBusinessActivity.this;
+                    }
+                    }.execute();
+                     */
 
                     new AsyncTask<Void, Void, Void>() {
+                        ProgressDialog pd = LoginActivity.getProgressInstance(AddBusinessActivity.this);
                         @Override
                         protected Void doInBackground(Void... params) {
                             //this function disables the add button
@@ -89,8 +122,15 @@ public class AddBusinessActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
+                            LoginActivity.stopProgressAnimation(pd);
                             Toast.makeText(homeactivity, "Business Added!", Toast.LENGTH_SHORT).show();
                             finish();
+                        }
+
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+                            LoginActivity.showLoadingAnimation(pd,"Adding Business To Database",ProgressDialog.STYLE_SPINNER);
                         }
                     }.execute();
                     //Intent intent = new Intent(getBaseContext(), BusinessesActivity.class);
@@ -106,16 +146,14 @@ public class AddBusinessActivity extends AppCompatActivity {
     }
 
 
-
     private boolean restIsFilledOut() {
 
-        return BusinessName.getText().toString().length() >0&&
-        Street.getText().toString().length() >0&&
-        City.getText().toString().length() >0&&
-        Country.getText().toString().length() >0&&
-        Website.getText().toString().length() >0&&
-        CompanyEmail.getText().toString().length() >0&&
-        CompanyEmail.getText().toString().contains("@");
+        return BusinessName.getText().toString().length() > 0 &&
+                Street.getText().toString().length() > 0 &&
+                City.getText().toString().length() > 0 &&
+                Country.getText().toString().length() > 0 &&
+                Website.getText().toString().length() > 0 &&
+                CompanyEmail.getText().toString().length() > 0 &&
+                CompanyEmail.getText().toString().contains("@");
     }
-    //TODO implement this class
 }

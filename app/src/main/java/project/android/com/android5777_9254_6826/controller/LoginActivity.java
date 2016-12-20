@@ -3,7 +3,9 @@ package project.android.com.android5777_9254_6826.controller;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.IntentService;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -343,6 +345,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mPassword = password;
         }
 
+        ProgressDialog progressDialog = getProgressInstance(LoginActivity.this);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showLoadingAnimation(progressDialog,"Loading...",ProgressDialog.STYLE_SPINNER);
+        }
+
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
@@ -385,6 +394,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+            stopProgressAnimation(progressDialog);
+            Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -401,14 +412,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //if registered - log in
                 //Thread.sleep(6000);
                 if (DB.verifyPassword(email, pass)) {
-                    //TODO make login arrangements
                     toToast = "- Logged in -";
                     SaveSharedpreferences();
                     IntentNextActivity();
-                    publishProgress();
+                    //publishProgress();
                 } else {
                     toToast = "- Wrong password -";
-                    publishProgress();
+                    //publishProgress();
                 }
 
             } catch (Exception ex) {
@@ -417,7 +427,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 toToast = "- Registered -";
                 SaveSharedpreferences();
                 IntentNextActivity();
-                publishProgress();
+                //publishProgress();
             }
         }
         private void SaveSharedpreferences(){
@@ -455,6 +465,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onDestroy(){
         super.onDestroy();
         stopService(new Intent(this,service.class));
+    }
+    public static void showLoadingAnimation(ProgressDialog progDailog,String msg,int style) {
+        progDailog.setMessage(msg);
+        progDailog.setIndeterminate(false);
+        progDailog.setProgressStyle(style);
+        progDailog.setCancelable(false);
+        progDailog.show();
+    }
+    public static ProgressDialog getProgressInstance(Context currentActivity){
+        return new ProgressDialog(currentActivity);
+    }
+    public static void stopProgressAnimation(ProgressDialog progDailog) {
+        progDailog.dismiss();
     }
 }
 

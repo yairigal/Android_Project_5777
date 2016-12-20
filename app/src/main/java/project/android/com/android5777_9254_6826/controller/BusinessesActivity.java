@@ -1,5 +1,6 @@
 package project.android.com.android5777_9254_6826.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
@@ -140,6 +141,19 @@ public class BusinessesActivity extends AppCompatActivity {
     private Business[] getBusinessesListAsyncTask() {
         Business[] toReturn=null;
         AsyncTask<Void,Void,Business[]> as = new AsyncTask<Void, Void, Business[]>() {
+            ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                LoginActivity.showLoadingAnimation(pd,"Loading Businesses...",ProgressDialog.STYLE_SPINNER);
+            }
+
+            @Override
+            protected void onPostExecute(Business[] businesses) {
+                super.onPostExecute(businesses);
+                LoginActivity.stopProgressAnimation(pd);
+            }
+
             @Override
             protected Business[] doInBackground(Void... params) {
                 return getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber())));

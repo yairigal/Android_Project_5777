@@ -1,5 +1,6 @@
 package project.android.com.android5777_9254_6826.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -105,6 +106,19 @@ public class AttractionListTab extends Fragment {
     private Attraction[] getAttractionListAsyncTask() {
         //TODO need to change this to real AsyncTask and to get attractions by Business
         AsyncTask<Void,Void,Attraction[]> asyncTask = new AsyncTask<Void, Void, Attraction[]>() {
+            ProgressDialog pd = LoginActivity.getProgressInstance(getContext());
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                LoginActivity.showLoadingAnimation(pd,"Loading Attractions...",ProgressDialog.STYLE_SPINNER);
+            }
+
+            @Override
+            protected void onPostExecute(Attraction[] attractions) {
+                super.onPostExecute(attractions);
+                LoginActivity.stopProgressAnimation(pd);
+            }
+
             @Override
             protected Attraction[] doInBackground(Void... params) {
                 return getList(db.getAttractionList(currentBusiness.getBusinessID()));
