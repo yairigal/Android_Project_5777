@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,7 +65,7 @@ public class BusinessesActivity extends AppCompatActivity {
             }
         });
         cbar.setTitle("Businesses");
-        //tempAddBusinessses();
+        tempAddBusinessses();
         //initItemByListView();  <-- in onResume
         //onResume ^^
     }
@@ -97,6 +98,8 @@ public class BusinessesActivity extends AppCompatActivity {
             return;
         }
         ListView lv = (ListView) findViewById(R.id.itemsLV);
+        lv.setDivider(null);
+        lv.setDividerHeight(0);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
@@ -128,16 +131,52 @@ public class BusinessesActivity extends AppCompatActivity {
 
     }
 
-    private void setBusinessFields(int position, View convertView, Business[] myItemList) {
+    private void setBusinessFields(final int position, final View convertView, final Business[] myItemList) {
         Business curr = myItemList[position];
-        TextView Name = (TextView) convertView.findViewById(R.id.tvName);
+        /**TextView Name = (TextView) convertView.findViewById(R.id.tvName);
         TextView address = (TextView) convertView.findViewById(R.id.tvaddre);
         TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
         Name.setText(curr.getBusinessName());
         address.setText(curr.getBusinessAddress().toString());
-        email.setText(curr.getEmail());
+        email.setText(curr.getEmail());*/
+        TextView name = (TextView) convertView.findViewById(R.id.notification_title);
+        TextView Description = (TextView) convertView.findViewById(R.id.notification_text);
+        name.setText(curr.getBusinessName());
+        Description.setText(curr.getBusinessAddress().toString());
+
+        Button remove = (Button) convertView.findViewById(R.id.removeBtn);
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteThisCurrentBusiness(myItemList[position],convertView);
+            }
+        });
     }
 
+    private void deleteThisCurrentBusiness(final Business curr,final View v) {
+        new AsyncTask<Void,Void,Void>(){
+            ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
+            @Override
+            protected Void doInBackground(Void... params) {
+                db.removeBusiness(curr.getBusinessID());
+                return null;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                LoginActivity.showLoadingAnimation(pd,"Deleting business",ProgressDialog.STYLE_SPINNER);
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                LoginActivity.stopProgressAnimation(pd);
+                Snackbar.make(v,"Business Deleted",Snackbar.LENGTH_SHORT).show();
+                initItemByListView();
+            }
+        }.execute();
+    }
     private Business[] getBusinessesListAsyncTask() {
         Business[] toReturn=null;
         AsyncTask<Void,Void,Business[]> as = new AsyncTask<Void, Void, Business[]>() {
@@ -177,7 +216,12 @@ public class BusinessesActivity extends AppCompatActivity {
         return toReturn;
     }
     private void tempAddBusinessses(){
-        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "name", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Moti Luhim ", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Asaf Lots", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Sami Saviv", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Avi Ron", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Eli Kopter", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
+        db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Simha Mutsim", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
     }
     private void moveToBusinessActivity(Business toSend){
         Intent intent = new Intent(getBaseContext(),BusinessDeatilsActivity.class);

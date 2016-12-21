@@ -303,6 +303,12 @@ public class ListDatabase implements Backend {
 
     @Override
     public int removeBusiness(String businessID) {
+        for (int i = 0 ;i<businessList.size();i++){
+            if(businessList.get(i).getAccountID().equals(businessID)) {
+                businessList.remove(i);
+                return i;
+            }
+        }
         return 0;
     }
 

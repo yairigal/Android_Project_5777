@@ -1,63 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_notification"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:orientation="vertical"
-        android:background="@drawable/business_background3"
-        android:layout_marginTop="10dp">
+        android:layout_height="wrap_content"
+        android:id="@+id/cv"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:text="Business Name"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:id="@+id/tvName"
-            android:textColor="@color/common_action_bar_splitter"
-            android:textStyle="normal|bold"
+            android:id="@+id/person_photo"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="1" />
+            android:layout_marginRight="16dp"
+            app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
-            android:text="Business Address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/common_action_bar_splitter"
-            android:textStyle="normal|bold"
-            android:shadowRadius="1"
-            android:shadowDy="2"
-            android:shadowDx="2"
-            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
-            android:id="@+id/tvaddre"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/notification_title"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_alignParentTop="true"
+            android:textSize="30sp"
+            android:text="Title Name" />
 
         <TextView
-            android:text="Business Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/common_action_bar_splitter"
-            android:textStyle="normal|bold"
-            android:shadowRadius="1"
-            android:shadowDy="2"
-            android:shadowDx="2"
-            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
-            android:id="@+id/tvEmail"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/notification_text"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_below="@+id/notification_title"
+            android:text="Description"
+            android:fontFamily="sans-serif" />
     </RelativeLayout>
-</LinearLayout>
+    </android.support.v7.widget.CardView>
 
+</RelativeLayout>-->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:background="@drawable/business_background3"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:text="Business Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:id="@+id/tvName"
+                    android:textColor="@color/common_action_bar_splitter"
+                    android:textStyle="normal|bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="1" />
+
+                <TextView
+                    android:text="Business Address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:textColor="@color/common_action_bar_splitter"
+                    android:textStyle="normal|bold"
+                    android:shadowRadius="1"
+                    android:shadowDy="2"
+                    android:shadowDx="2"
+                    android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:id="@+id/tvaddre"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:text="Business Email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:textColor="@color/common_action_bar_splitter"
+                    android:textStyle="normal|bold"
+                    android:shadowRadius="1"
+                    android:shadowDy="2"
+                    android:shadowDx="2"
+                    android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:id="@+id/tvEmail"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+    -->
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/custom_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="86dp"
+            android:background="#04804e">
+
+            <ImageView
+                android:id="@+id/notification_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="7dp"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/business_icon_reversed" />
+
+            <TextView
+                android:id="@+id/notification_title"
+                style="@style/NotificationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/notification_image"
+                android:layout_toRightOf="@id/notification_image"
+                android:text="Notification Title"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="25dp"
+                tools:text="Notification Title" />
+
+            <TextView
+                android:id="@+id/notification_text"
+                style="@style/NotificationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notification_title"
+                android:layout_toRightOf="@+id/notification_image"
+                android:text="Notification Text Text Text TextTextTextTextTextTextTextTextTextText"
+                android:textAppearance="@style/NotificationText"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+            <Button
+                android:id="@+id/removeBtn"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Remove" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

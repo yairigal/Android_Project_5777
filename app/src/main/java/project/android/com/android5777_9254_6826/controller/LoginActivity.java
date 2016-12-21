@@ -380,6 +380,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: register the new account here
             //calling Login();
             Login(mEmail,mPassword);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
