@@ -195,7 +195,12 @@ public class BusinessesActivity extends AppCompatActivity {
 
             @Override
             protected Business[] doInBackground(Void... params) {
-                return getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber())));
+                try {
+                    return getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
         };
         as.execute();

@@ -11,11 +11,16 @@ public class FactoryDatabase {
     private static Backend instance = null;
 
     public static Backend getDatabase(){
-        return getListDatabase();
+        return getSQLDatabase();
     }
     private static Backend getListDatabase(){
         if (instance == null)
             instance = new ListDatabase();
+        return instance;
+    }
+    private static Backend getSQLDatabase(){
+        if (instance == null)
+            instance = new SQLDatabase();
         return instance;
     }
 

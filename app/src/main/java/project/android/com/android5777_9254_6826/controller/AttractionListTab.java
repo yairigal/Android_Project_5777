@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -121,6 +122,7 @@ public class AttractionListTab extends Fragment {
 
             @Override
             protected Attraction[] doInBackground(Void... params) {
+
                 return getList(db.getAttractionList(currentBusiness.getBusinessID()));
             }
         };

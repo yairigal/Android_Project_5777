@@ -20,7 +20,7 @@ import java.net.URL;
 import project.android.com.android5777_9254_6826.R;
 import project.android.com.android5777_9254_6826.model.backend.Backend;
 import project.android.com.android5777_9254_6826.model.backend.FactoryDatabase;
-import project.android.com.android5777_9254_6826.model.backend.LoadingTask;
+//import project.android.com.android5777_9254_6826.model.backend.LoadingTask;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Properties;

@@ -26,7 +26,7 @@ public interface IBusinessDatabase extends IDatabase {
 	int addNewBusiness(String accountID,String Name, Address address, String Email, URL Website);
 	int addNewBusiness(Business toInsert);
 	ArrayList<Business> getBusinessList();
-	Cursor CgetBusinessList();
+	Cursor CgetBusinessList() throws Exception;
 	boolean ifNewBusinessAdded();
 	Business getBusiness(String businessID) throws Exception;
 	int removeBusiness(String businessID);
@@ -37,5 +37,5 @@ public interface IBusinessDatabase extends IDatabase {
 			   String[] selectionArgs);
 	Cursor query(Uri uri, String[] projection, String selection,
 				 String[] selectionArgs, String sortOrder);
-	ArrayList<Business> getBusinessList(String AccountID);
+	ArrayList<Business> getBusinessList(String AccountID) throws Exception;
 }

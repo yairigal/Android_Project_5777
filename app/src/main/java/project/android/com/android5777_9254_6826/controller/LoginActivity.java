@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -416,18 +417,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 //if registered - log in
                 //Thread.sleep(6000);
-                if (DB.verifyPassword(email, pass)) {
+                currentAccount = DB.verifyPassword(email, pass);
+                if (currentAccount != null){
                     toToast = "- Logged in -";
                     SaveSharedpreferences();
                     IntentNextActivity();
                     //publishProgress();
-                } else {
+                 }
+                else {
                     toToast = "- Wrong password -";
                     //publishProgress();
                 }
 
-            } catch (Exception ex) {
+                } catch (Exception ex) {
+                //ast.makeText(getApplicationContext(),ex.toString(),Toast.LENGTH_SHORT);
                 //if couldn't find the account - register
+                Log.d("", ex.toString());
                 DB.addNewAccount(email, pass);
                 toToast = "- Registered -";
                 SaveSharedpreferences();
@@ -448,21 +453,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private void IntentNextActivity(){
 
-        AsyncTask<Void,Void,Void> as = new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
+//        AsyncTask<Void,Void,Void> as = new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected Void doInBackground(Void... params) {
                 try {
-                    Intent Bus = new Intent(getBaseContext(),BusinessesActivity.class);
-                    currentAccount = DB.getAccount(email);
+                    Intent Bus = new Intent(LoginActivity.this,BusinessesActivity.class);
                     Bus.putExtra("account",currentAccount);
                     startActivity(Bus);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return null;
-            }
-        };
-        as.execute();
+                //return null;
+//            }
+//        };
+//        as.execute();
 
     }
 

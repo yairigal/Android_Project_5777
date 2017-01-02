@@ -42,7 +42,7 @@ public interface IAttractionDatabase extends IDatabase {
      */
     ArrayList<Attraction> getAttractionList();
     ArrayList<Attraction> getAttractionList(String BusinessID);
-    Cursor CgetAttractionList();
+    Cursor CgetAttractionList() throws Exception;
     Attraction getAttraction(String attractionID) throws Exception;
     boolean ifNewAttractionAdded();
 

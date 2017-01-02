@@ -7,19 +7,12 @@ import android.net.Uri;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
 
-import project.android.com.android5777_9254_6826.model.datasource.IAccountDatabase;
-import project.android.com.android5777_9254_6826.model.datasource.IAttractionDatabase;
-import project.android.com.android5777_9254_6826.model.datasource.IBusinessDatabase;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Attraction;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 import project.android.com.android5777_9254_6826.model.entities.Properties;
-
-import static android.os.Build.ID;
 
 /**
  * Created by Yair on 2016-11-27.
@@ -110,11 +103,11 @@ public class ListDatabase implements Backend {
     }
 
     @Override
-    public boolean verifyPassword(String userName, String passToCheck) throws Exception {
+    public Account verifyPassword(String userName, String passToCheck) throws Exception {
         Account curr = getAccount(userName);
         if (curr.getPassword().equals(passToCheck))
-            return true;
-        return false;
+            return curr;
+        return null;
     }
 
     @Override
