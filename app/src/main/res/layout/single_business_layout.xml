@@ -119,13 +119,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardElevation="2dp"
-        card_view:cardUseCompatPadding="true">
+        card_view:cardUseCompatPadding="true"
+        card_view:cardBackgroundColor="?android:attr/textColorPrimaryInverseDisableOnly">
 
         <RelativeLayout
             android:id="@+id/custom_notification"
             android:layout_width="wrap_content"
             android:layout_height="86dp"
-            android:background="#04804e">
+            android:background="@android:color/holo_purple">
 
             <ImageView
                 android:id="@+id/notification_image"

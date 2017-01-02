@@ -340,6 +340,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
         private String toToast;
+        private boolean flag = true;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -381,11 +382,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: register the new account here
             //calling Login();
             Login(mEmail,mPassword);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return true;
         }
 
@@ -399,6 +395,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
+            }
+            if(flag) {
+                SaveSharedpreferences();
+                IntentNextActivity();
             }
             stopProgressAnimation(progressDialog);
             Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
@@ -420,13 +420,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 currentAccount = DB.verifyPassword(email, pass);
                 if (currentAccount != null){
                     toToast = "- Logged in -";
-                    SaveSharedpreferences();
-                    IntentNextActivity();
                     //publishProgress();
+                    flag = true;
                  }
                 else {
                     toToast = "- Wrong password -";
                     //publishProgress();
+                    flag = false;
                 }
 
                 } catch (Exception ex) {
@@ -434,9 +434,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //if couldn't find the account - register
                 Log.d("", ex.toString());
                 DB.addNewAccount(email, pass);
+                try {
+                    currentAccount = DB.getAccount(email);
+                } catch (Exception e) {
+                    //Toast.makeText(getApplicationContext(), "Error Adding Account", Toast.LENGTH_SHORT).show();
+                    Log.d("error,",e.getMessage().toString());
+                    toToast = "Error adding account";
+                    flag = false;
+                    return;
+                }
+                flag = true;
                 toToast = "- Registered -";
-                SaveSharedpreferences();
-                IntentNextActivity();
                 //publishProgress();
             }
         }

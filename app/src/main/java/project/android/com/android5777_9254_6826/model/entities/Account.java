@@ -44,6 +44,11 @@ public class Account implements Serializable{
 	private String Password;
 	private long AccountNumber;
 
+	public static final String ACCOUNT = "Account";
+	public static final String USERNAME = "UserName";
+	public static final String PASSWORD = "Password";
+	public static final String ID = "AccountNumber";
+
 	public Account(long id, String userName, String password) {
 		this.AccountNumber = id;
 		this.UserName = userName;

@@ -105,7 +105,6 @@ public class AttractionListTab extends Fragment {
     }
 
     private Attraction[] getAttractionListAsyncTask() {
-        //TODO need to change this to real AsyncTask and to get attractions by Business
         AsyncTask<Void,Void,Attraction[]> asyncTask = new AsyncTask<Void, Void, Attraction[]>() {
             ProgressDialog pd = LoginActivity.getProgressInstance(getContext());
             @Override
@@ -122,7 +121,6 @@ public class AttractionListTab extends Fragment {
 
             @Override
             protected Attraction[] doInBackground(Void... params) {
-
                 return getList(db.getAttractionList(currentBusiness.getBusinessID()));
             }
         };

@@ -30,6 +30,11 @@ public class Address implements Serializable {
 	private String City;
 	private String Street;
 
+	public static final String ADDRESS = "Address";
+	public static final String COUNTRY = "Country";
+	public static final String CITY = "City";
+	public static final String STREET = "Street";
+
 	public String getCountry() {
 		return Country;
 	}

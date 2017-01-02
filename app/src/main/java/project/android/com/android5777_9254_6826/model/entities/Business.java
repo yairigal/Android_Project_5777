@@ -28,7 +28,15 @@ public class Business implements Serializable {
     private String BusinessName;
     private Address BusinessAddress;
     private String Email;
-    private URL Website;
+    private String Website;
+
+    public static final String BUSINESS = "Business";
+    public static final String ACCOUNTID = Account.ID;
+    public static final String ID = "BusinessID";
+    public static final String NAME = "BusinessName";
+    public static final String ADDRESS = "baddr";
+    public static final String EMAIL = "Email";
+    public static final String WEBSITE = "Website";
 
     public String getAccountID() {
         return AccountID;
@@ -70,34 +78,20 @@ public class Business implements Serializable {
         Email = email;
     }
 
-    public URL getWebsite() {
+    public String getWebsite() {
         return Website;
     }
 
-    public void setWebsite(URL website) {
-        if (website == null)
-            try {
-                Website = new URL("http://www.google.com");
-            } catch (MalformedURLException e) {
-                Log.d("Error in Business:", e.getMessage());
-            }
-        else
-            Website = website;
+    public void setWebsite(String  website) {
+        Website = website;
     }
 
-    public Business(String accountID,String id, String name, Address address, String email, URL website) {
+    public Business(String accountID,String id, String name, Address address, String email, String website) {
         AccountID = accountID;
         BusinessID = id;
         BusinessName = name;
         BusinessAddress = address;
         Email = email;
-        if (website == null)
-            try {
-                Website = new URL("http://www.google.com");
-            } catch (MalformedURLException e) {
-                Log.d("Error in Business:", e.getMessage());
-            }
-        else
-            Website = website;
+        Website = website;
     }
 }

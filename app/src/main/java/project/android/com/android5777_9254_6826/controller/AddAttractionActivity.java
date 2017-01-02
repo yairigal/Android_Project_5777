@@ -105,7 +105,7 @@ public class AddAttractionActivity extends AppCompatActivity {
         Price = (EditText) findViewById(R.id.AttPrice);
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                Properties.AttractionType.getTypes());
+                Properties.getTypes());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

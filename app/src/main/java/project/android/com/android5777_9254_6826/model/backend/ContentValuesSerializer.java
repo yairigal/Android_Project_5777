@@ -70,7 +70,7 @@ public class ContentValuesSerializer {
         adr.setCountry(values.getAsString("country"));
         adr.setStreet(values.getAsString("street"));
 
-        URL url = new URL(values.getAsString("url"));
+        String url = values.getAsString("url");
 
         Business toReturn = new Business(
                 values.getAsString("accountID"),

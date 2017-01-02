@@ -2,9 +2,13 @@ package project.android.com.android5777_9254_6826.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,6 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.Inflater;
 
@@ -65,7 +70,7 @@ public class BusinessesActivity extends AppCompatActivity {
             }
         });
         cbar.setTitle("Businesses");
-        tempAddBusinessses();
+        //tempAddBusinessses();
         //initItemByListView();  <-- in onResume
         //onResume ^^
     }
@@ -101,6 +106,7 @@ public class BusinessesActivity extends AppCompatActivity {
         lv.setDivider(null);
         lv.setDividerHeight(0);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
                 if (convertView == null)
@@ -131,6 +137,7 @@ public class BusinessesActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void setBusinessFields(final int position, final View convertView, final Business[] myItemList) {
         Business curr = myItemList[position];
         /**TextView Name = (TextView) convertView.findViewById(R.id.tvName);
@@ -144,6 +151,8 @@ public class BusinessesActivity extends AppCompatActivity {
         name.setText(curr.getBusinessName());
         Description.setText(curr.getBusinessAddress().toString());
 
+        //convertView.findViewById(R.id.custom_notification).setBackgroundColor(getRandomColor());
+
         Button remove = (Button) convertView.findViewById(R.id.removeBtn);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +160,20 @@ public class BusinessesActivity extends AppCompatActivity {
                 deleteThisCurrentBusiness(myItemList[position],convertView);
             }
         });
+    }
+
+    private int getRandomColor() {
+        Random r = new Random();
+        switch (r.nextInt(3)) {
+            case 0:
+                return Color.RED;
+            case 1:
+                return  Color.CYAN;
+            case 2:
+                return Color.RED;
+            default:
+                return Color.GREEN;
+        }
     }
 
     private void deleteThisCurrentBusiness(final Business curr,final View v) {

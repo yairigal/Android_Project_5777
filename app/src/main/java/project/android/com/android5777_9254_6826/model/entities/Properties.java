@@ -14,32 +14,49 @@ package project.android.com.android5777_9254_6826.model.entities;
 import java.io.Serializable;
 
 public class Properties implements Serializable {
-	public static enum AttractionType {
+	public enum AttractionType {
 		HotelDeal,
 		TravelAgency,
 		EntertainmentShow,
 		Airline;
-		public static int valueof(String str){
-			switch(str){
-				case "HotelDeal":
-					return 0;
-				case "TravelAgency":
-					return 1;
-				case "EntertainmentShow":
-					return 2;
-				case "Airline":
-					return 3;
-				default:
-					return -1;
 
-			}
+	}
+	public static int valueof(String str){
+		switch(str){
+			case "HotelDeal":
+				return 0;
+			case "TravelAgency":
+				return 1;
+			case "EntertainmentShow":
+				return 2;
+			case "Airline":
+				return 3;
+			default:
+				return -1;
 
 		}
-		public static String[] getTypes() {
-			return new String[]{"HotelDeal",
-					"TravelAgency",
-					"EntertainmentShow",
-					"Airline"};
+
+	}
+	public static AttractionType Valueof(String str){
+		switch(str){
+			case "HotelDeal":
+				return AttractionType.HotelDeal;
+			case "TravelAgency":
+				return AttractionType.TravelAgency;
+			case "EntertainmentShow":
+				return AttractionType.EntertainmentShow;
+			case "Airline":
+				return AttractionType.Airline;
+			default:
+				return AttractionType.HotelDeal;
+
 		}
+
+	}
+	public static String[] getTypes() {
+		return new String[]{"HotelDeal",
+				"TravelAgency",
+				"EntertainmentShow",
+				"Airline"};
 	}
 }

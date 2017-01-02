@@ -24,10 +24,19 @@ public class Attraction implements Serializable {
 	private String Description;
 	private String BusinessID;
 	private String AttractionID;
-
-
-
 	private String AttractionName;
+
+	public static final String ATTRACTION = "Attraction";
+	public static final String TYPE = "Type";
+	public static final String COUNTRY = "Country";
+	public static final String STARTDATE = "StartDate";
+	public static final String ENDDATE = "EndDate";
+	public static final String PRICE = "Price";
+	public static final String DESCRIPITION = "Description";
+	public static final String BUSINESSID = Business.ID;
+	public static final String ID = "AttractionID";
+	public static final String NAME = "AttractionName";
+
 
 	public Attraction(String attractionID,Properties.AttractionType type,String attractionName,  String country, String startDate, String endDate, float price, String description, String businessID) {
 		AttractionName= attractionName;

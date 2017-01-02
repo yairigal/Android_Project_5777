@@ -62,14 +62,7 @@ public class AddBusinessActivity extends AppCompatActivity {
                     final String street = Street.getText().toString();
                     final String city = City.getText().toString();
                     final String country = Country.getText().toString();
-                    URL web;
-                    try {
-                        web = new URL(Website.getText().toString());
-                    } catch (MalformedURLException e) {
-                        web = null;
-                        Log.d("Error in Business:", e.getMessage());
-                    }
-                    final URL w = web;
+                    final String w = Website.getText().toString();
                     final String email = CompanyEmail.getText().toString();
 
                     /**new LoadingTask<Void,Void,Void>(){
