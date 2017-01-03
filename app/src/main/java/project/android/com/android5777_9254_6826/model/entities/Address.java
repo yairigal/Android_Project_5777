@@ -35,6 +35,10 @@ public class Address implements Serializable {
 	public static final String CITY = "City";
 	public static final String STREET = "Street";
 
+	public static String[] getColumns(){
+		return new String[]{COUNTRY,CITY,STREET};
+	}
+
 	public String getCountry() {
 		return Country;
 	}

@@ -45,9 +45,9 @@ public class SQLDatabase implements Backend {
     private boolean latelyAddedNewBusiness = false;
 
     public SQLDatabase(){
-        //TODO load Counters from sql
     }
 
+    //region Interface Functions
     @Override
     public int addNewAccount(String UserName, String Password) {
         try {
@@ -75,12 +75,10 @@ public class SQLDatabase implements Backend {
 
         return Integer.parseInt(String.valueOf(a.getAccountNumber()));
     }
-
     @Override
     public int addNewAccount(Account toInsert) {
         return addNewAccount(toInsert.getUserName(),toInsert.getPassword());
     }
-
     @Override
     public ArrayList<Account> getAccountList() {
         ArrayList<Account> toReturn = new ArrayList<>();
@@ -102,7 +100,6 @@ public class SQLDatabase implements Backend {
         }
         return toReturn;
     }
-
     @Override
     public Cursor getAccountCursor() throws Exception {
         MatrixCursor accountCursor = new MatrixCursor(new String[]{Account.ID,Account.USERNAME,Account.PASSWORD });
@@ -124,7 +121,6 @@ public class SQLDatabase implements Backend {
         }
         return accountCursor;
     }
-
     @Override
     public Account getAccount(long id) throws Exception {
         ArrayList<Account> list = getAccountList();
@@ -136,7 +132,6 @@ public class SQLDatabase implements Backend {
         }
         throw new Exception("Account not found");
     }
-
     @Override
     public Account getAccount(String username) throws Exception {
         Cursor accounts = getAccountCursor();
@@ -150,7 +145,6 @@ public class SQLDatabase implements Backend {
         }
         return null;
     }
-
     @Override
     public boolean isRegistered(String userName) {
         try {
@@ -160,7 +154,6 @@ public class SQLDatabase implements Backend {
             return false;
         }
     }
-
     @Override
     public Account verifyPassword(String userName, String passToCheck) throws Exception {
         Account account= getAccount(userName);
@@ -168,33 +161,28 @@ public class SQLDatabase implements Backend {
             return account;
         throw new Exception("Password is incorrect");
     }
-
     @Override
     public int removeAccount(String username) {
         //TODO need to implement removeAccount
         return 0;
     }
-
     @Override
     public int removeAccount(int rowID) {
         //TODO need to implement removeAccount
         return 0;
     }
-
     @Override
     public Uri insert(Account ac) {
         int id = addNewAccount(ac);
         String a = String.valueOf(id);
         return Uri.parse(a);
     }
-
     @Override
     public int addNewAttraction(Properties.AttractionType Type, String AttractionName, String Country, String StartDate, String EndDate, float Price, String Description, String BusinessID) {
         String id = null;
         Attraction insert = new Attraction(id,Type,AttractionName,Country,StartDate,EndDate,Price,Description,BusinessID);
         return addNewAttraction(insert);
     }
-
     @Override
     public int addNewAttraction(Attraction toInsert) {
         try {
@@ -220,18 +208,17 @@ public class SQLDatabase implements Backend {
             throw new IllegalArgumentException(e.getMessage());
         }
 
-        Attraction a;
+        Attraction a = null;
+
         try {
-            //TODO make it work
-             a = getAttraction(toInsert.getBusinessID(),toInsert.getAttractionName());
+            a = getAttraction(toInsert.getBusinessID(),toInsert.getAttractionName());
         } catch (Exception e) {
-            e.printStackTrace();
+            return -1;
         }
 
         //returns attraction id
         return Integer.parseInt(a.getAttractionID());
     }
-
     @Override
     public ArrayList<Attraction> getAttractionList() {
         ArrayList<Attraction> toReturn = new ArrayList<>();
@@ -260,7 +247,6 @@ public class SQLDatabase implements Backend {
         }
         return toReturn;
     }
-
     @Override
     public ArrayList<Attraction> getAttractionList(String BusinessID) {
         ArrayList<Attraction> list = getAttractionList();
@@ -271,35 +257,6 @@ public class SQLDatabase implements Backend {
         }
         return toReturn;
     }
-
-    public Cursor getAttractionCursor(String BusinessID) throws Exception {
-        MatrixCursor attractionCursor = new MatrixCursor(
-                new String[]{Attraction.ID,Attraction.TYPE, Attraction.COUNTRY,
-                    Attraction.STARTDATE,Attraction.ENDDATE,Attraction.PRICE,Attraction.DESCRIPITION,Attraction.BUSINESSID,Attraction.NAME});
-        Cursor attractionlist = getAttractionCursor();
-        attractionlist.moveToFirst();
-        while (!attractionlist.isAfterLast()) {
-            String accountIdString = attractionlist.getString(7);
-            if(accountIdString.equals(BusinessID)){
-                attractionCursor.addRow(new Object[]{
-                        attractionlist.getString(0),
-                        attractionlist.getString(1),
-                        attractionlist.getString(2),
-                        attractionlist.getString(3),
-                        attractionlist.getString(4),
-                        attractionlist.getString(5),
-                        attractionlist.getString(6),
-                        attractionlist.getString(7),
-                        attractionlist.getString(8)
-                });
-            }
-            attractionlist.moveToNext();
-        }
-        return attractionCursor;
-
-
-    }
-
     @Override
     public Cursor getAttractionCursor() throws Exception {
 
@@ -332,7 +289,6 @@ public class SQLDatabase implements Backend {
         }
         return attractionCursor;
     }
-
     @Override
     public Attraction getAttraction(String attractionID) throws Exception {
         ArrayList<Attraction> list = getAttractionList();
@@ -342,7 +298,16 @@ public class SQLDatabase implements Backend {
         }
         throw new Exception("No Attraction Found");
     }
+    @Override
+    public Attraction getAttraction(String BusinessID, String AttrationName) throws Exception {
+        ArrayList<Attraction> list = getAttractionList();
+        for (Attraction curr:list) {
+            if(curr.getBusinessID().equals(BusinessID) && curr.getAttractionName().equals(AttrationName))
+                return curr;
 
+        }
+        throw new Exception("No Attraction Found");
+    }
     @Override
     public boolean ifNewAttractionAdded() {
         if (latelyAddedNewAttraction) {
@@ -351,26 +316,22 @@ public class SQLDatabase implements Backend {
         }
         return false;
     }
-
     @Override
     public int removeAttraction(String attractionID) {
         //TODO need to implement removeAttraction
         return 0;
     }
-
     @Override
     public int removeAttraction(int rowID) {
         //TODO need to implement removeAttraction
         return 0;
     }
-
     @Override
     public Uri insert(Attraction ac) {
         int id = addNewAttraction(ac);
         String a = String.valueOf(id);
         return Uri.parse(a);
     }
-
     @Override
     public int addNewBusiness(String accountID, String Name, Address address, String Email, String Website) {
         try {
@@ -406,7 +367,6 @@ public class SQLDatabase implements Backend {
         //returns attraction id
         return Integer.parseInt(String.valueOf(a.getBusinessID()));
     }
-
     @Override
     public int addNewBusiness(Business toInsert) {
         return addNewBusiness(
@@ -416,7 +376,6 @@ public class SQLDatabase implements Backend {
                 toInsert.getEmail(),
                 toInsert.getWebsite());
     }
-
     @Override
     public ArrayList<Business> getBusinessList() {
         ArrayList<Business> toReturn = new ArrayList<>();
@@ -449,7 +408,6 @@ public class SQLDatabase implements Backend {
         }
         return toReturn;
     }
-
     @Override
     public Cursor getBusinessCursor() throws Exception {
         Business bus;
@@ -473,7 +431,6 @@ public class SQLDatabase implements Backend {
         }
         return businessCursor;
     }
-
     @Override
     public boolean ifNewBusinessAdded() {
         if (latelyAddedNewBusiness) {
@@ -482,7 +439,6 @@ public class SQLDatabase implements Backend {
         }
         return false;
     }
-
     @Override
     public Business getBusiness(String businessID) throws Exception {
         ArrayList<Business> list = getBusinessList();
@@ -492,44 +448,37 @@ public class SQLDatabase implements Backend {
         }
         throw new Exception("Business Not Found");
     }
-
     @Override
     public int removeBusiness(String businessID) {
         //TODO need to implement removeBusiness
         return 0;
     }
-
     @Override
     public int removeBusiness(int rowID) {
         //TODO need to implement removeBusiness
         return 0;
     }
-
     @Override
     public Uri insert(Business ac) {
         int id = addNewBusiness(ac);
         String a = String.valueOf(id);
         return Uri.parse(a);
     }
-
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         //TODO need to implement delete
         return 0;
     }
-
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         //TODO need to implement update
         return 0;
     }
-
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         //TODO need to implement query
         return null;
     }
-
     @Override
     public ArrayList<Business> getBusinessList(String AcID) throws Exception {
         ArrayList<Business> toReturn = new ArrayList<>();
@@ -563,7 +512,35 @@ public class SQLDatabase implements Backend {
         }
         return toReturn;
     }
+    //endregion
+    //region other functions
+    public Cursor getAttractionCursor(String BusinessID) throws Exception {
+        MatrixCursor attractionCursor = new MatrixCursor(
+                new String[]{Attraction.ID,Attraction.TYPE, Attraction.COUNTRY,
+                        Attraction.STARTDATE,Attraction.ENDDATE,Attraction.PRICE,Attraction.DESCRIPITION,Attraction.BUSINESSID,Attraction.NAME});
+        Cursor attractionlist = getAttractionCursor();
+        attractionlist.moveToFirst();
+        while (!attractionlist.isAfterLast()) {
+            String accountIdString = attractionlist.getString(7);
+            if(accountIdString.equals(BusinessID)){
+                attractionCursor.addRow(new Object[]{
+                        attractionlist.getString(0),
+                        attractionlist.getString(1),
+                        attractionlist.getString(2),
+                        attractionlist.getString(3),
+                        attractionlist.getString(4),
+                        attractionlist.getString(5),
+                        attractionlist.getString(6),
+                        attractionlist.getString(7),
+                        attractionlist.getString(8)
+                });
+            }
+            attractionlist.moveToNext();
+        }
+        return attractionCursor;
 
+
+    }
     public Cursor CgetBusinessList(String AccountID) throws Exception {
         MatrixCursor businescursor = new MatrixCursor(  new String[]{Business.ACCOUNTID,Business.ID,Business.NAME, Address.CITY,Address.COUNTRY,Address.STREET,
                 Business.EMAIL,Business.WEBSITE});
@@ -587,9 +564,8 @@ public class SQLDatabase implements Backend {
         }
         return businescursor;
     }
-
-
-
+    //endregion
+    //region Web Connection Functions
     private static String GET(String url) throws Exception {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -652,5 +628,5 @@ public class SQLDatabase implements Backend {
         }
         else return "";
     }
-
+    //endregion
 }

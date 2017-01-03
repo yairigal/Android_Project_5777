@@ -38,6 +38,11 @@ public class Business implements Serializable {
     public static final String EMAIL = "Email";
     public static final String WEBSITE = "Website";
 
+    public static String[] getColumns(){
+        return new String[]{ACCOUNTID,ID,NAME,Address.COUNTRY,Address.CITY,Address.STREET,EMAIL,WEBSITE};
+    }
+
+    //region getters and setters
     public String getAccountID() {
         return AccountID;
     }
@@ -84,6 +89,44 @@ public class Business implements Serializable {
 
     public void setWebsite(String  website) {
         Website = website;
+    }
+    //endregion
+
+
+    public Object[] getAttributes(){
+        return new Object[] {
+                AccountID,
+                BusinessID,
+                BusinessName,
+                BusinessAddress.getCountry(),
+                BusinessAddress.getCity(),
+                BusinessAddress.getStreet(),
+                Email,
+                Website
+        };
+    }
+
+    public String getValue(String Col) throws Exception {
+        switch (Col){
+            case Business.ACCOUNTID:
+                return getAccountID();
+            case Address.COUNTRY:
+                return getBusinessAddress().getCountry();
+            case Address.CITY:
+                return getBusinessAddress().getCity();
+            case Address.STREET:
+                return getBusinessAddress().getStreet();
+            case Business.ID:
+                return getBusinessID();
+            case Business.EMAIL:
+                return getEmail();
+            case Business.NAME:
+                return getBusinessName();
+            case Business.WEBSITE:
+                return getWebsite();
+            default:
+                throw new Exception("Column doesn't Exist");
+        }
     }
 
     public Business(String accountID,String id, String name, Address address, String email, String website) {

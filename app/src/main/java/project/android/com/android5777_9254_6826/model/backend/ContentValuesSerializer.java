@@ -93,4 +93,63 @@ public class ContentValuesSerializer {
         values.put("url",business.getWebsite().toString());
         return values;
     }
+
+    public static String getValue(Business current,String Col) throws Exception {
+        switch (Col){
+            case Business.ACCOUNTID:
+                return current.getAccountID();
+            case Address.COUNTRY:
+                return current.getBusinessAddress().getCountry();
+            case Address.CITY:
+                return current.getBusinessAddress().getCity();
+            case Address.STREET:
+                return current.getBusinessAddress().getStreet();
+            case Business.ID:
+                return current.getBusinessID();
+            case Business.EMAIL:
+                return current.getEmail();
+            case Business.NAME:
+                return current.getBusinessName();
+            case Business.WEBSITE:
+                return current.getWebsite();
+            default:
+                throw new Exception("Column doesn't Exist");
+        }
+    }
+    public static String getValue(Attraction current,String Col) throws Exception {
+        switch (Col){
+            case Attraction.BUSINESSID:
+                return current.getBusinessID();
+            case Attraction.TYPE:
+                return current.getType().toString();
+            case Attraction.COUNTRY:
+                return current.getCountry();
+            case Attraction.STARTDATE:
+                return current.getStartDate();
+            case Attraction.ENDDATE:
+                return current.getEndDate();
+            case Attraction.PRICE:
+                return String.valueOf(current.getPrice());
+            case Attraction.DESCRIPITION:
+                return current.getDescription();
+            case Attraction.ID:
+                return current.getAttractionID();
+            case Attraction.NAME:
+                return current.getAttractionName();
+            default:
+                throw new Exception("Column doesn't Exist");
+        }
+    }
+    public static String getValue(Account current,String Col) throws Exception {
+        switch (Col){
+            case Account.USERNAME:
+                return current.getUserName();
+            case Account.PASSWORD:
+                return current.getPassword();
+            case Account.ID:
+                return String.valueOf(current.getAccountNumber());
+            default:
+                throw new Exception("Column doesn't Exist");
+        }
+    }
 }

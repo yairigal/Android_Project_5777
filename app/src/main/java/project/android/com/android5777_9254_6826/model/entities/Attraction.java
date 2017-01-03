@@ -37,6 +37,9 @@ public class Attraction implements Serializable {
 	public static final String ID = "AttractionID";
 	public static final String NAME = "AttractionName";
 
+	public static String[] getColumns(){
+		return new String[]{TYPE,COUNTRY,STARTDATE,ENDDATE,PRICE,DESCRIPITION,BUSINESSID,ID,NAME};
+	}
 
 	public Attraction(String attractionID,Properties.AttractionType type,String attractionName,  String country, String startDate, String endDate, float price, String description, String businessID) {
 		AttractionName= attractionName;
@@ -50,6 +53,35 @@ public class Attraction implements Serializable {
 		AttractionID = attractionID;
 	}
 
+	public Object[] getAttributes(){
+		return new Object[] {Type,Country,StartDate,EndDate,Price,Description,BusinessID,AttractionID,AttractionName};
+	}
+
+	public String getValue(String Col) throws Exception {
+		switch (Col){
+			case Attraction.BUSINESSID:
+				return getBusinessID();
+			case Attraction.TYPE:
+				return getType().toString();
+			case Attraction.COUNTRY:
+				return getCountry();
+			case Attraction.STARTDATE:
+				return getStartDate();
+			case Attraction.ENDDATE:
+				return getEndDate();
+			case Attraction.PRICE:
+				return String.valueOf(getPrice());
+			case Attraction.DESCRIPITION:
+				return getDescription();
+			case Attraction.ID:
+				return getAttractionID();
+			case Attraction.NAME:
+				return getAttractionName();
+			default:
+				throw new Exception("Column doesn't Exist");
+		}
+	}
+	//region getters and setters
 	public String getAttractionName() {
 		return AttractionName;
 	}
@@ -120,4 +152,5 @@ public class Attraction implements Serializable {
 	public void setAttractionID(String attractionID) {
 		AttractionID = attractionID;
 	}
+	//endregion
 }
