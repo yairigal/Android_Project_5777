@@ -204,6 +204,11 @@ public class ListDatabase implements Backend {
     }
 
     @Override
+    public Attraction getAttraction(String BusinessID, String AttrationName) throws Exception {
+        return null;
+    }
+
+    @Override
     public boolean ifNewAttractionAdded() {
         if (latelyAddedNewAttraction) {
             latelyAddedNewAttraction = false;
