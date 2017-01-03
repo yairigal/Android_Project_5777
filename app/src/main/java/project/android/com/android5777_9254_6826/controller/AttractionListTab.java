@@ -106,7 +106,7 @@ public class AttractionListTab extends Fragment {
 
     private Attraction[] getAttractionListAsyncTask() {
         AsyncTask<Void,Void,Attraction[]> asyncTask = new AsyncTask<Void, Void, Attraction[]>() {
-            ProgressDialog pd = LoginActivity.getProgressInstance(getContext());
+            ProgressDialog pd = LoginActivity.getProgressInstance(getActivity());
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();

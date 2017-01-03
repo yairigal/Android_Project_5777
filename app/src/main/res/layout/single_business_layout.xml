@@ -126,7 +126,7 @@
             android:id="@+id/custom_notification"
             android:layout_width="wrap_content"
             android:layout_height="86dp"
-            android:background="@android:color/holo_purple">
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/notification_image"

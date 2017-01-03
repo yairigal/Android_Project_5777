@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ public class AddBusinessActivity extends AppCompatActivity {
         currentAccount = (Account) getIntent().getSerializableExtra("account");
 
 
-        final Button addatt = (Button) findViewById(R.id.AddBusinessbutton);
+        final FloatingActionButton addatt = (FloatingActionButton) findViewById(R.id.AddBusinessbutton);
         addatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,9 +116,9 @@ public class AddBusinessActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
-                            LoginActivity.stopProgressAnimation(pd);
                             Toast.makeText(homeactivity, "Business Added!", Toast.LENGTH_SHORT).show();
                             finish();
+                            LoginActivity.stopProgressAnimation(pd);
                         }
 
                         @Override
