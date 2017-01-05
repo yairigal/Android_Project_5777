@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                new UserLoginTask(mEmailView.getText().toString(),mPasswordView.getText().toString()).execute();
             }
         });
 
@@ -136,6 +136,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
         //add this to the main activity.
         startService(new Intent(getBaseContext(),service.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void populateAutoComplete() {
@@ -346,6 +351,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private String toToast;
         private boolean flag = true;
         Business[] listarr;
+        SplashScreen splashScreen;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -355,8 +361,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = LoginActivity.getProgressInstance(LoginActivity.this);
-            showLoadingAnimation(progressDialog,"Loading...",ProgressDialog.STYLE_SPINNER);
+            Log.d("LoginAsyncTask","preExecute");
+            //progressDialog = LoginActivity.getProgressInstance(LoginActivity.this);
+            //showLoadingAnimation(progressDialog,"Loading...",ProgressDialog.STYLE_SPINNER);
+/*            Intent inte = new Intent(LoginActivity.this,SplashScreen.class);
+            inte.putExtra("text","Logging In...");
+            startActivity(inte);*/
+            StaticDeclarations.showLoadingScreen(LoginActivity.this,"Logging in...");
+            //StaticDeclarations.showSplashScreen(LoginActivity.this,"Loading...");
 
         }
 
@@ -387,6 +399,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here
             //calling Login();
+            Log.d("LoginAsyncTask","doInBackground");
             Login(mEmail,mPassword);
             if(flag)
                 try {
@@ -400,17 +413,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
+            Log.d("LoginAsyncTask","postExecute");
             //showProgress(false);
             //if logged in
             if(flag) {
                 SaveSharedpreferences();
-                stopProgressAnimation(progressDialog);
+                //stopProgressAnimation(progressDialog);
+                //StaticDeclarations.hideProgress();
+                //StaticDeclarations.hideSplashScreen(LoginActivity.this,R.layout.activity_login);
+                //SplashScreen.hideSplashScreen();
+                StaticDeclarations.hideLoadingScreen();
                 IntentNextActivity(listarr);
                 Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
                 return;
             }
             else {
-                stopProgressAnimation(progressDialog);
+                //stopProgressAnimation(progressDialog);
+                //StaticDeclarations.hideProgress();
+                //StaticDeclarations.hideSplashScreen(LoginActivity.this,R.layout.activity_login);
+                //SplashScreen.hideSplashScreen();
+                StaticDeclarations.hideLoadingScreen();
                 Toast.makeText(getApplicationContext(), toToast, Toast.LENGTH_SHORT).show();
             }
 
@@ -497,16 +519,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                LoginActivity.showLoadingAnimation(progressDialog, "Loading Businesses...", ProgressDialog.STYLE_SPINNER);
+                //LoginActivity.showLoadingAnimation(progressDialog, "Loading Businesses...", ProgressDialog.STYLE_SPINNER);
                 //progressOverlay = findViewById(R.id.progress_overlay);
                 //Properties.animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
+                StaticDeclarations.showProgress(LoginActivity.this,"Loading...");
             }
 
             @Override
             protected void onPostExecute(Business[] businesses) {
                 super.onPostExecute(businesses);
-                LoginActivity.stopProgressAnimation(progressDialog);
+                //LoginActivity.stopProgressAnimation(progressDialog);
                 //Properties.animateView(progressOverlay, View.GONE, 0, 200);
+                StaticDeclarations.hideProgress();
             }
 
             @Override
