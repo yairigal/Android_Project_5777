@@ -29,7 +29,7 @@ public interface IAccountDatabase extends IDatabase {
 	int addNewAccount(String UserName, String Password);
 	int addNewAccount(Account toInsert);
 	ArrayList<Account> getAccountList();
-	Cursor CgetAccountList();
+	Cursor getAccountCursor() throws Exception;
 	Account getAccount(long id) throws Exception;
 	Account getAccount(String username) throws Exception;
 	boolean isRegistered(String userName);
@@ -42,7 +42,7 @@ public interface IAccountDatabase extends IDatabase {
 	 * @return true if the passtoCheck equals to the account's password
 	 * @throws Exception if the account was not found.
      */
-	boolean verifyPassword(String userName,String passToCheck) throws Exception;
+	Account verifyPassword(String userName, String passToCheck) throws Exception;
 	int removeAccount(String username);
 	int removeAccount(int rowID);
 	Uri insert(Account ac);

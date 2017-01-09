@@ -10,6 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="project.android.com.android5777_9254_6826.controller.LoginActivity">
 
+    <include layout="@layout/include_progress_overlay"/>
+
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"

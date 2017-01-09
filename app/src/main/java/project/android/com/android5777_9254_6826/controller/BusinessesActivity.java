@@ -2,9 +2,13 @@ package project.android.com.android5777_9254_6826.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +17,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +35,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.Inflater;
 
@@ -39,18 +45,23 @@ import project.android.com.android5777_9254_6826.model.backend.FactoryDatabase;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Business;
+import project.android.com.android5777_9254_6826.model.entities.Properties;
 
 public class BusinessesActivity extends AppCompatActivity {
 
     Backend db;
     LinearLayout layout;
     Account currentAccount;
+    static Business[] BusinessArray;
+    boolean cameFromSplashScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //startActivity(new Intent(this,SplashScreen.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_businesses);
         getAccountfromIntent();
+        getBusinessesFromIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CollapsingToolbarLayout cbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
@@ -65,7 +76,7 @@ public class BusinessesActivity extends AppCompatActivity {
             }
         });
         cbar.setTitle("Businesses");
-        tempAddBusinessses();
+        //tempAddBusinessses();
         //initItemByListView();  <-- in onResume
         //onResume ^^
     }
@@ -73,11 +84,25 @@ public class BusinessesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initItemByListView();
+        if(!cameFromSplashScreen)
+            getBusinessesListAsyncTask();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    public static void setArray(Business [] lst){
+        BusinessArray = lst;
     }
 
     private void getAccountfromIntent() {
         currentAccount = (Account) getIntent().getSerializableExtra("account");
+    }
+
+    private void getBusinessesFromIntent(){
+        BusinessArray = (Business[]) getIntent().getSerializableExtra("array");
     }
 
     private void moveToAddBusinessActivity() {
@@ -92,15 +117,16 @@ public class BusinessesActivity extends AppCompatActivity {
     }
 
     void initItemByListView() {
-        final Business[] myItemList = getBusinessesListAsyncTask();
-        if(myItemList.length == 0) {
+        final Business[] myItemList = BusinessArray;
+        if (myItemList.length == 0) {
             Toast.makeText(getApplicationContext(), "No Businesses Found", Toast.LENGTH_LONG).show();
             return;
         }
-        ListView lv = (ListView) findViewById(R.id.itemsLV);
-        lv.setDivider(null);
-        lv.setDividerHeight(0);
+        ListView lv = (ListView) BusinessesActivity.this.findViewById(R.id.itemsLV);
+        //lv.setDivider(null);
+        //lv.setDividerHeight(0);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
                 if (convertView == null)
@@ -128,34 +154,52 @@ public class BusinessesActivity extends AppCompatActivity {
             ID.setText(myItemList[i].getBusinessID());
             layout.addView(view);
         }*/
-
+        Log.d("InitITemByListView","END");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void setBusinessFields(final int position, final View convertView, final Business[] myItemList) {
         Business curr = myItemList[position];
         /**TextView Name = (TextView) convertView.findViewById(R.id.tvName);
-        TextView address = (TextView) convertView.findViewById(R.id.tvaddre);
-        TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
-        Name.setText(curr.getBusinessName());
-        address.setText(curr.getBusinessAddress().toString());
-        email.setText(curr.getEmail());*/
+         TextView address = (TextView) convertView.findViewById(R.id.tvaddre);
+         TextView email = (TextView) convertView.findViewById(R.id.tvEmail);
+         Name.setText(curr.getBusinessName());
+         address.setText(curr.getBusinessAddress().toString());
+         email.setText(curr.getEmail());*/
         TextView name = (TextView) convertView.findViewById(R.id.notification_title);
         TextView Description = (TextView) convertView.findViewById(R.id.notification_text);
         name.setText(curr.getBusinessName());
         Description.setText(curr.getBusinessAddress().toString());
 
+        //convertView.findViewById(R.id.custom_notification).setBackgroundColor(getRandomColor());
+
         Button remove = (Button) convertView.findViewById(R.id.removeBtn);
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteThisCurrentBusiness(myItemList[position],convertView);
+                deleteThisCurrentBusiness(myItemList[position], convertView);
             }
         });
     }
 
-    private void deleteThisCurrentBusiness(final Business curr,final View v) {
-        new AsyncTask<Void,Void,Void>(){
+    private int getRandomColor() {
+        Random r = new Random();
+        switch (r.nextInt(3)) {
+            case 0:
+                return Color.RED;
+            case 1:
+                return Color.CYAN;
+            case 2:
+                return Color.RED;
+            default:
+                return Color.GREEN;
+        }
+    }
+
+    private void deleteThisCurrentBusiness(final Business curr, final View v) {
+        new AsyncTask<Void, Void, Void>() {
             ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
+
             @Override
             protected Void doInBackground(Void... params) {
                 db.removeBusiness(curr.getBusinessID());
@@ -165,49 +209,70 @@ public class BusinessesActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                LoginActivity.showLoadingAnimation(pd,"Deleting business",ProgressDialog.STYLE_SPINNER);
+                LoginActivity.showLoadingAnimation(pd, "Deleting business", ProgressDialog.STYLE_SPINNER);
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 LoginActivity.stopProgressAnimation(pd);
-                Snackbar.make(v,"Business Deleted",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(v, "Business Deleted", Snackbar.LENGTH_SHORT).show();
                 initItemByListView();
             }
         }.execute();
     }
-    private Business[] getBusinessesListAsyncTask() {
-        Business[] toReturn=null;
-        AsyncTask<Void,Void,Business[]> as = new AsyncTask<Void, Void, Business[]>() {
-            ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
+
+    private void getBusinessesListAsyncTask() {
+        Business[] toReturn = null;
+        AsyncTask<Void, Void,Void> as = new AsyncTask<Void, Void,Void>() {
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                LoginActivity.showLoadingAnimation(pd,"Loading Businesses...",ProgressDialog.STYLE_SPINNER);
+                Log.d("BusinessesAsyncTask","PreExecute - START");
+                //LoginActivity.showLoadingAnimation(pd, "Loading Businesses...", ProgressDialog.STYLE_SPINNER);
+                //StaticDeclarations.showSplashScreen(BusinessesActivity.this,"Loading Businesses...");
+  /*              Intent inte = new Intent(getBaseContext(),SplashScreen.class);
+                inte.putExtra("text","Loading Businesses...");
+                startActivityForResult(inte,5);*/
+                StaticDeclarations.showLoadingScreen(BusinessesActivity.this,"Loading Businesses...");
+                cameFromSplashScreen = true;
+                Log.d("BusinessesAsyncTask","PreExecute - END");
+
             }
 
             @Override
-            protected void onPostExecute(Business[] businesses) {
-                super.onPostExecute(businesses);
-                LoginActivity.stopProgressAnimation(pd);
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Log.d("BusinessesAsyncTask","PostExecute - START");
+                //LoginActivity.stopProgressAnimation(pd);
+                //Properties.animateView(progressOverlay, View.GONE, 0, 200);
+                //StaticDeclarations.hideProgress();
+                //StaticDeclarations.hideSplashScreen(BusinessesActivity.this,R.layout.activity_businesses);
+                //finishActivity(5);
+                StaticDeclarations.hideLoadingScreen();
+                initItemByListView();
+                Log.d("BusinessesAsyncTask","PostExecute - END");
+
             }
 
+
             @Override
-            protected Business[] doInBackground(Void... params) {
-                return getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber())));
+            protected Void doInBackground(Void... params) {
+                try {
+                    Log.d("BusinessesAsyncTask","doInBackground - START");
+                     BusinessesActivity.setArray(getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber()))));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Log.d("BusinessesAsyncTask","doInBackground - END");
+                return null;
+
             }
         };
         as.execute();
-        try {
-            toReturn = as.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return toReturn;
     }
+
     private Business[] getList(ArrayList<Business> bs) {
         Business[] toReturn = new Business[bs.size()];
         for (int i = 0; i < bs.size(); i++) {
@@ -215,7 +280,8 @@ public class BusinessesActivity extends AppCompatActivity {
         }
         return toReturn;
     }
-    private void tempAddBusinessses(){
+
+    private void tempAddBusinessses() {
         db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Moti Luhim ", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
         db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Asaf Lots", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
         db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Sami Saviv", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
@@ -223,12 +289,12 @@ public class BusinessesActivity extends AppCompatActivity {
         db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Eli Kopter", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
         db.addNewBusiness(Long.toString(currentAccount.getAccountNumber()), "Simha Mutsim", new Address("israel", "israel", "rishon"), "adaw@gamil.com", null);
     }
-    private void moveToBusinessActivity(Business toSend){
-        Intent intent = new Intent(getBaseContext(),BusinessDeatilsActivity.class);
+
+    private void moveToBusinessActivity(Business toSend) {
+        Intent intent = new Intent(getBaseContext(), BusinessDeatilsActivity.class);
         intent.putExtra("business", toSend);
         intent.putExtra("account", currentAccount);
-
-
         startActivity(intent);
+        cameFromSplashScreen = false;
     }
 }
