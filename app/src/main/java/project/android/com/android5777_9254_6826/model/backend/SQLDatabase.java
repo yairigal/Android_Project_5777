@@ -359,7 +359,7 @@ public class SQLDatabase implements Backend {
 
         Business a = null;
         try {
-            a = getBusiness(accountID);
+            a = getBusiness(accountID,Name);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -367,6 +367,16 @@ public class SQLDatabase implements Backend {
         //returns attraction id
         return Integer.parseInt(String.valueOf(a.getBusinessID()));
     }
+
+    private Business getBusiness(String accountID, String name) throws Exception {
+        ArrayList<Business> list = getBusinessList();
+        for (Business curr:list) {
+            if(curr.getAccountID().equals(accountID) && curr.getBusinessName().equals(name))
+                return curr;
+        }
+        throw new Exception("Business Not Found");
+    }
+
     @Override
     public int addNewBusiness(Business toInsert) {
         return addNewBusiness(
