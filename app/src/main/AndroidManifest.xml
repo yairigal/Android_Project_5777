@@ -26,8 +26,8 @@
         </activity>
 
         <provider
-            android:name=".model.backend.Provider"
-            android:authorities="Business;Attractions;Accounts"
+            android:name="project.android.com.android5777_9254_6826.model.backend.Provider"
+            android:authorities="project.android.com.android5777_9254_6826.model.backend.Provider"
             android:enabled="true"
             android:exported="true" />
 
@@ -46,7 +46,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controller.AddBusinessActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".controller.AddAttractionActivity"
             android:label="@string/title_activity_add_attraction"
@@ -64,13 +64,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".controller.Test">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
         <activity android:name=".controller.SplashScreen"></activity>
     </application>

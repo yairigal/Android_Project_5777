@@ -61,7 +61,7 @@ public class BusinessesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_businesses);
         getAccountfromIntent();
-        getBusinessesFromIntent();
+        //getBusinessesFromIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CollapsingToolbarLayout cbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
