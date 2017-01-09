@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -104,9 +105,8 @@ public class AttractionListTab extends Fragment {
     }
 
     private Attraction[] getAttractionListAsyncTask() {
-        //TODO need to change this to real AsyncTask and to get attractions by Business
         AsyncTask<Void,Void,Attraction[]> asyncTask = new AsyncTask<Void, Void, Attraction[]>() {
-            ProgressDialog pd = LoginActivity.getProgressInstance(getContext());
+            ProgressDialog pd = LoginActivity.getProgressInstance(getActivity());
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();

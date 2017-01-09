@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import java.net.URL;
 import project.android.com.android5777_9254_6826.R;
 import project.android.com.android5777_9254_6826.model.backend.Backend;
 import project.android.com.android5777_9254_6826.model.backend.FactoryDatabase;
-import project.android.com.android5777_9254_6826.model.backend.LoadingTask;
+//import project.android.com.android5777_9254_6826.model.backend.LoadingTask;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Properties;
@@ -52,7 +53,7 @@ public class AddBusinessActivity extends AppCompatActivity {
         currentAccount = (Account) getIntent().getSerializableExtra("account");
 
 
-        final Button addatt = (Button) findViewById(R.id.AddBusinessbutton);
+        final FloatingActionButton addatt = (FloatingActionButton) findViewById(R.id.AddBusinessbutton);
         addatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,14 +63,7 @@ public class AddBusinessActivity extends AppCompatActivity {
                     final String street = Street.getText().toString();
                     final String city = City.getText().toString();
                     final String country = Country.getText().toString();
-                    URL web;
-                    try {
-                        web = new URL(Website.getText().toString());
-                    } catch (MalformedURLException e) {
-                        web = null;
-                        Log.d("Error in Business:", e.getMessage());
-                    }
-                    final URL w = web;
+                    final String w = Website.getText().toString();
                     final String email = CompanyEmail.getText().toString();
 
                     /**new LoadingTask<Void,Void,Void>(){
@@ -122,9 +116,9 @@ public class AddBusinessActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
-                            LoginActivity.stopProgressAnimation(pd);
                             Toast.makeText(homeactivity, "Business Added!", Toast.LENGTH_SHORT).show();
                             finish();
+                            LoginActivity.stopProgressAnimation(pd);
                         }
 
                         @Override

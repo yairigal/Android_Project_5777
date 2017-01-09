@@ -7,19 +7,12 @@ import android.net.Uri;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
 
-import project.android.com.android5777_9254_6826.model.datasource.IAccountDatabase;
-import project.android.com.android5777_9254_6826.model.datasource.IAttractionDatabase;
-import project.android.com.android5777_9254_6826.model.datasource.IBusinessDatabase;
 import project.android.com.android5777_9254_6826.model.entities.Account;
 import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Attraction;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 import project.android.com.android5777_9254_6826.model.entities.Properties;
-
-import static android.os.Build.ID;
 
 /**
  * Created by Yair on 2016-11-27.
@@ -52,8 +45,8 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Account> getAccountList() {return accountList;}
-
-    public Cursor CgetAccountList() {
+    @Override
+    public Cursor getAccountCursor() {
         Account acc;
 
         MatrixCursor accountCursor = new MatrixCursor(new String[]{"AccountNumber","UserName", "Password"});
@@ -110,11 +103,11 @@ public class ListDatabase implements Backend {
     }
 
     @Override
-    public boolean verifyPassword(String userName, String passToCheck) throws Exception {
+    public Account verifyPassword(String userName, String passToCheck) throws Exception {
         Account curr = getAccount(userName);
         if (curr.getPassword().equals(passToCheck))
-            return true;
-        return false;
+            return curr;
+        return null;
     }
 
     @Override
@@ -179,8 +172,8 @@ public class ListDatabase implements Backend {
         }
         return nw;
     }
-
-    public Cursor CgetAttractionList() {
+    @Override
+    public Cursor getAttractionCursor() {
         Attraction att;
 
         MatrixCursor attractionCursor = new MatrixCursor(
@@ -208,6 +201,11 @@ public class ListDatabase implements Backend {
             throw new Exception("Cannot find this Account");
         return curr;
 
+    }
+
+    @Override
+    public Attraction getAttraction(String BusinessID, String AttrationName) throws Exception {
+        return null;
     }
 
     @Override
@@ -240,7 +238,7 @@ public class ListDatabase implements Backend {
     }
 
     @Override
-    public int addNewBusiness(String accountID,  String Name, Address address, String Email, URL Website) {
+    public int addNewBusiness(String accountID,  String Name, Address address, String Email, String Website) {
         Business a = new Business(accountID,Long.toString(++BusinessNumber), Name, address, Email, Website);
         businessList.add(a);
         latelyAddedNewBusiness = true;
@@ -258,7 +256,8 @@ public class ListDatabase implements Backend {
         return businessList;
     }
 
-    public Cursor CgetBusinessList() {
+    @Override
+    public Cursor getBusinessCursor() {
         Business bus;
         MatrixCursor businessCursor = new MatrixCursor(
                 new String[]{"BusinessID","BusinessName", "BusinessAddress",
