@@ -1,5 +1,6 @@
 package project.android.com.second_app.controller;
 
+import android.graphics.Region;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,9 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import project.android.com.second_app.R;
+import project.android.com.second_app.model.backend.Backend;
+import project.android.com.second_app.model.backend.BackendFactory;
+import project.android.com.second_app.model.backend.ListDatabase;
 
 public class StartingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Backend db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +48,13 @@ public class StartingActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        db = BackendFactory.getFactoryDatabase();
+        db.setUpDatabase();
     }
 
+
+
+    //region Navigation Drawer
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,4 +107,8 @@ public class StartingActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    //endregion
+
+
+
 }
