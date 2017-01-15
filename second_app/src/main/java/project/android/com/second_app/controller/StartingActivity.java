@@ -1,5 +1,6 @@
 package project.android.com.second_app.controller;
 
+import android.content.Context;
 import android.graphics.Region;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ public class StartingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Backend db;
+    public static Context ctx ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class StartingActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        ctx = this;
         db = BackendFactory.getFactoryDatabase();
         db.setUpDatabase();
     }

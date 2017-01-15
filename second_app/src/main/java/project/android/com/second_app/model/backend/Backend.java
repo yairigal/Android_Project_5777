@@ -12,7 +12,7 @@ import project.android.com.second_app.model.entities.Business;
 public interface Backend {
     ArrayList<Business> getBusinessList();
     ArrayList<Attraction> getAttractionList();
-    ArrayList<Attraction> getAttractionList(String Country);
+    ArrayList<Business> getBusinessList(String Country);
     ArrayList<Attraction> getAttractionList(Business business);
     void setUpDatabase();
 }
