@@ -1,4 +1,4 @@
-package project.android.com.second_app;
+package project.android.com.second_app.model;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import project.android.com.second_app.R;
+import project.android.com.second_app.controller.MainActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 

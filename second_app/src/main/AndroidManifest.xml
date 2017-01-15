@@ -2,25 +2,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.android.com.second_app">
 
-    <application android:allowBackup="true" android:icon="@drawable/second_app_icon"
-        android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/second_app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".controller.MainActivity">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+        <receiver
+            android:name=".model.reciever"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.project.CHECK_DATABASE"></action>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".controller.StartingActivity"
+            android:label="@string/title_activity_starting"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".reciever"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.project.CHECK_DATABASE">
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

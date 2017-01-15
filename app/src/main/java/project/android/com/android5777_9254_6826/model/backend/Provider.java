@@ -155,6 +155,14 @@ public class Provider extends ContentProvider {
     private Cursor getMultipleAttractionCursor(String selection, String[] selectionArgs) throws Exception {
         MatrixCursor matrix;
         ArrayList<Attraction> list = db.getAttractionList();
+        //return all
+        if(selection.equals(null) || selectionArgs.equals(null)){
+            matrix = new MatrixCursor(Account.getColumns());
+            for (Attraction cur:list) {
+                matrix.addRow(cur.getAttributes());
+            }
+            return matrix;
+        }
         String[] selec = selection.split(",");
         matrix = new MatrixCursor(Attraction.getColumns());
         for (Attraction curr : list)
@@ -167,6 +175,14 @@ public class Provider extends ContentProvider {
     private Cursor getMultipleBusinessCursor(String selection, String[] selectionArgs) throws Exception {
         MatrixCursor matrix;
         ArrayList<Business> list = db.getBusinessList();
+        //return all
+        if(selection.equals(null) || selectionArgs.equals(null)){
+            matrix = new MatrixCursor(Account.getColumns());
+            for (Business cur:list) {
+                matrix.addRow(cur.getAttributes());
+            }
+            return matrix;
+        }
         String[] selec = selection.split(",");
         matrix = new MatrixCursor(Business.getColumns());
         for (Business curr : list)
@@ -179,6 +195,15 @@ public class Provider extends ContentProvider {
     private Cursor getMultipleAccountCursor(String selection, String[] selectionArgs) throws Exception {
         MatrixCursor matrix;
         ArrayList<Account> list = db.getAccountList();
+        //return all
+        if(selection.equals(null) || selectionArgs.equals(null)){
+            matrix = new MatrixCursor(Account.getColumns());
+            for (Account cur:list) {
+                matrix.addRow(cur.getAttributes());
+            }
+            return matrix;
+        }
+
         String[] selec = selection.split(",");
         matrix = new MatrixCursor(Account.getColumns());
         for (Account curr : list)
