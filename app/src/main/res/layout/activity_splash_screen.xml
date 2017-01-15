@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash_screen"
     android:layout_width="match_parent"
@@ -8,8 +8,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:weightSum="2"
     tools:context="project.android.com.android5777_9254_6826.controller.SplashScreen">
 
-    <include layout="@layout/include_progress_overlay"/>
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="264dp"
+            android:layout_height="115dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:indeterminate="true"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/loadingTV"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:textSize="36sp"
+        android:paddingTop="40dp"
+        android:textAlignment="center" />
+
+</LinearLayout>

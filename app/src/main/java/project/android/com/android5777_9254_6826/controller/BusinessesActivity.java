@@ -17,6 +17,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +52,8 @@ public class BusinessesActivity extends AppCompatActivity {
     Backend db;
     LinearLayout layout;
     Account currentAccount;
-    Business[] BusinessArray;
-    static boolean doneLoading = false;
+    static Business[] BusinessArray;
+    boolean cameFromSplashScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +84,17 @@ public class BusinessesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initItemByListView(BusinessArray);
-        doneLoading = true;
+        if(!cameFromSplashScreen)
+            getBusinessesListAsyncTask();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        doneLoading = true;
+    }
+
+    public static void setArray(Business [] lst){
+        BusinessArray = lst;
     }
 
     private void getAccountfromIntent() {
@@ -112,15 +116,15 @@ public class BusinessesActivity extends AppCompatActivity {
         startActivity(toBuss);
     }
 
-    void initItemByListView(Business [] arr) {
-        final Business[] myItemList = arr;
+    void initItemByListView() {
+        final Business[] myItemList = BusinessArray;
         if (myItemList.length == 0) {
             Toast.makeText(getApplicationContext(), "No Businesses Found", Toast.LENGTH_LONG).show();
             return;
         }
-        ListView lv = (ListView) findViewById(R.id.itemsLV);
-        lv.setDivider(null);
-        lv.setDividerHeight(0);
+        ListView lv = (ListView) BusinessesActivity.this.findViewById(R.id.itemsLV);
+        //lv.setDivider(null);
+        //lv.setDividerHeight(0);
         ArrayAdapter<Business> adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -150,7 +154,7 @@ public class BusinessesActivity extends AppCompatActivity {
             ID.setText(myItemList[i].getBusinessID());
             layout.addView(view);
         }*/
-
+        Log.d("InitITemByListView","END");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -213,52 +217,60 @@ public class BusinessesActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 LoginActivity.stopProgressAnimation(pd);
                 Snackbar.make(v, "Business Deleted", Snackbar.LENGTH_SHORT).show();
-                initItemByListView(BusinessArray);
+                initItemByListView();
             }
         }.execute();
     }
 
-    private Business[] getBusinessesListAsyncTask() {
+    private void getBusinessesListAsyncTask() {
         Business[] toReturn = null;
-        AsyncTask<Void, Void, Business[]> as = new AsyncTask<Void, Void, Business[]>() {
-            ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
-            View progressOverlay;
+        AsyncTask<Void, Void,Void> as = new AsyncTask<Void, Void,Void>() {
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                Log.d("BusinessesAsyncTask","PreExecute - START");
                 //LoginActivity.showLoadingAnimation(pd, "Loading Businesses...", ProgressDialog.STYLE_SPINNER);
-                progressOverlay = findViewById(R.id.progress_overlay);
-                Properties.animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
+                //StaticDeclarations.showSplashScreen(BusinessesActivity.this,"Loading Businesses...");
+  /*              Intent inte = new Intent(getBaseContext(),SplashScreen.class);
+                inte.putExtra("text","Loading Businesses...");
+                startActivityForResult(inte,5);*/
+                StaticDeclarations.showLoadingScreen(BusinessesActivity.this,"Loading Businesses...");
+                cameFromSplashScreen = true;
+                Log.d("BusinessesAsyncTask","PreExecute - END");
+
             }
 
             @Override
-            protected void onPostExecute(Business[] businesses) {
-                super.onPostExecute(businesses);
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Log.d("BusinessesAsyncTask","PostExecute - START");
                 //LoginActivity.stopProgressAnimation(pd);
-                Properties.animateView(progressOverlay, View.GONE, 0, 200);
+                //Properties.animateView(progressOverlay, View.GONE, 0, 200);
+                //StaticDeclarations.hideProgress();
+                //StaticDeclarations.hideSplashScreen(BusinessesActivity.this,R.layout.activity_businesses);
+                //finishActivity(5);
+                StaticDeclarations.hideLoadingScreen();
+                initItemByListView();
+                Log.d("BusinessesAsyncTask","PostExecute - END");
+
             }
 
+
             @Override
-            protected Business[] doInBackground(Void... params) {
+            protected Void doInBackground(Void... params) {
                 try {
-                    Thread.sleep(3000);
-                    return getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber())));
+                    Log.d("BusinessesAsyncTask","doInBackground - START");
+                     BusinessesActivity.setArray(getList(db.getBusinessList(Long.toString(currentAccount.getAccountNumber()))));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return null;
                 }
+                Log.d("BusinessesAsyncTask","doInBackground - END");
+                return null;
+
             }
         };
         as.execute();
-        try {
-            toReturn = as.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return toReturn;
     }
 
     private Business[] getList(ArrayList<Business> bs) {
@@ -282,12 +294,7 @@ public class BusinessesActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), BusinessDeatilsActivity.class);
         intent.putExtra("business", toSend);
         intent.putExtra("account", currentAccount);
-
-
         startActivity(intent);
-    }
-
-    public static boolean done(){
-        return doneLoading;
+        cameFromSplashScreen = false;
     }
 }

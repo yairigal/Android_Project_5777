@@ -54,7 +54,7 @@ public class service extends Service {
             if (db.ifNewAttractionAdded() || db.ifNewBusinessAdded()) {
                 broadcastIntent();
             }
-            Log.d("service: ", "running");
+            //Log.d("service: ", "running");
             Thread.sleep(timeToSleep);
         }
     }
