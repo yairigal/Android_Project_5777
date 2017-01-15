@@ -2,6 +2,7 @@ package project.android.com.android5777_9254_6826.controller;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -105,7 +106,7 @@ public class AddAttractionActivity extends AppCompatActivity {
         Price = (EditText) findViewById(R.id.AttPrice);
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                Properties.AttractionType.getTypes());
+                Properties.getTypes());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -160,6 +161,8 @@ public class AddAttractionActivity extends AppCompatActivity {
                     final String id = currentbusiness.getBusinessID();
 
                     new AsyncTask<Void, Void, Void>() {
+                        ProgressDialog pd = LoginActivity.getProgressInstance(AddAttractionActivity.this);
+
                         @Override
                         protected Void doInBackground(Void... params) {
                             //this function disables the add button
@@ -177,8 +180,16 @@ public class AddAttractionActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void aVoid) {
                             super.onPostExecute(aVoid);
+                            LoginActivity.stopProgressAnimation(pd);
                             Toast.makeText(homeactivity, "Attraction Added!", Toast.LENGTH_SHORT).show();
                             finish();
+                        }
+
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+                            LoginActivity.showLoadingAnimation(pd,"Adding Attraction",ProgressDialog.STYLE_SPINNER);
+
                         }
                     }.execute();
                     //Intent intent = new Intent(getBaseContext(), BusinessesActivity.class);

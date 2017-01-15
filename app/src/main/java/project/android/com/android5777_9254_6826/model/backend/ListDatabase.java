@@ -45,8 +45,8 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Account> getAccountList() {return accountList;}
-
-    public Cursor CgetAccountList() {
+    @Override
+    public Cursor getAccountCursor() {
         Account acc;
 
         MatrixCursor accountCursor = new MatrixCursor(new String[]{"AccountNumber","UserName", "Password"});
@@ -172,8 +172,8 @@ public class ListDatabase implements Backend {
         }
         return nw;
     }
-
-    public Cursor CgetAttractionList() {
+    @Override
+    public Cursor getAttractionCursor() {
         Attraction att;
 
         MatrixCursor attractionCursor = new MatrixCursor(
@@ -201,6 +201,11 @@ public class ListDatabase implements Backend {
             throw new Exception("Cannot find this Account");
         return curr;
 
+    }
+
+    @Override
+    public Attraction getAttraction(String BusinessID, String AttrationName) throws Exception {
+        return null;
     }
 
     @Override
@@ -233,7 +238,7 @@ public class ListDatabase implements Backend {
     }
 
     @Override
-    public int addNewBusiness(String accountID,  String Name, Address address, String Email, URL Website) {
+    public int addNewBusiness(String accountID,  String Name, Address address, String Email, String Website) {
         Business a = new Business(accountID,Long.toString(++BusinessNumber), Name, address, Email, Website);
         businessList.add(a);
         latelyAddedNewBusiness = true;
@@ -251,7 +256,8 @@ public class ListDatabase implements Backend {
         return businessList;
     }
 
-    public Cursor CgetBusinessList() {
+    @Override
+    public Cursor getBusinessCursor() {
         Business bus;
         MatrixCursor businessCursor = new MatrixCursor(
                 new String[]{"BusinessID","BusinessName", "BusinessAddress",

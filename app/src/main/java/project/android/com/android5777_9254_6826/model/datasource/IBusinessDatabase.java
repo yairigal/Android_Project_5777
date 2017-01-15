@@ -23,10 +23,10 @@ import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public interface IBusinessDatabase extends IDatabase {
-	int addNewBusiness(String accountID,String Name, Address address, String Email, URL Website);
+	int addNewBusiness(String accountID,String Name, Address address, String Email, String Website);
 	int addNewBusiness(Business toInsert);
 	ArrayList<Business> getBusinessList();
-	Cursor CgetBusinessList() throws Exception;
+	Cursor getBusinessCursor() throws Exception;
 	boolean ifNewBusinessAdded();
 	Business getBusiness(String businessID) throws Exception;
 	int removeBusiness(String businessID);
