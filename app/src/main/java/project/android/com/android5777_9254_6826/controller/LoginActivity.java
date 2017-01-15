@@ -400,13 +400,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: register the new account here
             //calling Login();
             Log.d("LoginAsyncTask","doInBackground");
-            Login(mEmail,mPassword);
-            if(flag)
+            switch(Login2(mEmail,mPassword)) {
+                //OK
+                case 1:
+                    try {
+                        currentAccount = DB.getAccount(mEmail);
+                    } catch (Exception e) {
+                        toToast = "Error adding account";
+                        flag = false;
+                    }
+                    toToast = "- Logged in -";
+                    //publishProgress();
+                    flag = true;
+                    break;
+                    //FAIL TO LOGIN
+                case 0:
+                    toToast = "- Wrong password -";
+                    //publishProgress();
+                    flag = false;
+                    break;
+                    //NOT REGISTERED
+                default:
+                    DB.addNewAccount(mEmail, mPassword);
+                    try {
+                        currentAccount = DB.getAccount(mEmail);
+                    } catch (Exception e) {
+                        //Toast.makeText(getApplicationContext(), "Error Adding Account", Toast.LENGTH_SHORT).show();
+                        toToast = "Error adding account";
+                        flag = false;
+                    }
+                    break;
+            }
+/*            if(flag)
                 try {
                     listarr = getList(DB.getBusinessList(Long.toString(currentAccount.getAccountNumber())));
                 } catch (Exception e) {
                     listarr = null;
-                }
+                }*/
             return true;
         }
 
@@ -447,22 +477,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private void Login(String email, String pass) {
 
             try {
-                //AccountListDB DB = AccountListDB.getDB();
+                    //AccountListDB DB = AccountListDB.getDB();
 
-                //if registered - log in
-                //Thread.sleep(6000);
-                currentAccount = DB.verifyPassword(email, pass);
-                if (currentAccount != null){
-                    toToast = "- Logged in -";
-                    //publishProgress();
-                    flag = true;
-                 }
-                else {
-                    toToast = "- Wrong password -";
-                    //publishProgress();
-                    flag = false;
+                    //if registered - log in
+                    //Thread.sleep(6000);
+                    currentAccount = DB.verifyPassword(email, pass);
+                    if (currentAccount != null){
+                        toToast = "- Logged in -";
+                        //publishProgress();
+                        flag = true;
+                     }
+                    else {
+                        toToast = "- Wrong password -";
+                        //publishProgress();
+                        flag = false;
+                    }
                 }
-                } catch (Exception ex) {
+            catch (Exception ex) {
                 //ast.makeText(getApplicationContext(),ex.toString(),Toast.LENGTH_SHORT);
                 //if couldn't find the account - register
                 DB.addNewAccount(email, pass);
@@ -479,6 +510,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //publishProgress();
             }
         }
+        //returns 1 - OK
+        //        0 - WRONG PASSWORD
+        //       -1 - NOT REGISTERED
+        private int Login2(String email, String pass) {
+            try {
+                Account thisAccount = DB.getAccount(email);
+                //if pass is ok
+                if(thisAccount.getPassword().equals(pass))
+                    return 1;
+                else
+                    return 0;
+            } catch (Exception e) {
+                //we got here only if the account is not registered
+                return -1;
+            }
+        }
         private void SaveSharedpreferences(){
             String n = mPasswordView.getText().toString();
             String e = mEmailView.getText().toString();
@@ -487,7 +534,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             editor.putString(Email, e);
             editor.commit();
         }
-
 
     }
 

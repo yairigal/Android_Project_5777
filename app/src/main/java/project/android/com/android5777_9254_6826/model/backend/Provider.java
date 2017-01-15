@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -17,13 +18,14 @@ import project.android.com.android5777_9254_6826.model.entities.Attraction;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public class Provider extends ContentProvider {
-    public final String currentUri = "content://" + "project.android.com.android5777_9254_6826.model.backend.Provider/";
+    public static final String currentUri = "content://" + "project.android.com.android5777_9254_6826.model.backend.Provider";
+    //public static final String currentUri = "content://" + ".model.backend.Provider";
     Uri thisUri = Uri.parse(currentUri);
     //this is a sample of a Uri to the database :
-    //currentUri+"Business/1";
-    //currentUri+"Attractions/1";
-    //currentUri+"Accounts/1";
-    UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+    //currentUri+"/Business/1";
+    //currentUri+"/Attractions/1";
+    //currentUri+"/Accounts/1";
+    static UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
     Backend db = FactoryDatabase.getDatabase();
     final int ACCOUNTS = 0, BUSINESS = 1, ATTRACTIONS = 2, ACCOUNTS_ID = 3, BUSINESS_ID = 4, ATTRACTIONS_ID = 5;
 
@@ -72,8 +74,10 @@ public class Provider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
+        Log.d("Provider","InQuery");
         try {
-            switch (matcher.match(uri)) {
+            int a = getLastSegment(uri);
+            switch (a) {
                 case ACCOUNTS:
                     return getMultipleAccountCursor(selection, selectionArgs);
                 case BUSINESS:
@@ -93,7 +97,7 @@ public class Provider extends ContentProvider {
                     return null;
             }
         } catch (Exception e) {
-            return null;
+                return null;
         }
 //        String token = uri.getLastPathSegment();
 //        switch (matcher.match(uri)) {
@@ -275,14 +279,37 @@ public class Provider extends ContentProvider {
     }
 
     private void initMatcher() {
-        matcher.addURI(currentUri, "/Accounts", ACCOUNTS);
-        matcher.addURI(currentUri, "/Business", BUSINESS);
-        matcher.addURI(currentUri, "/Attractions", ATTRACTIONS);
-        matcher.addURI(currentUri, "/Accounts/*", ACCOUNTS_ID);
-        matcher.addURI(currentUri, "/Business/*", BUSINESS_ID);
-        matcher.addURI(currentUri, "/Attractions/*", ATTRACTIONS_ID);
+        matcher.addURI(currentUri, "Accounts", ACCOUNTS);
+        matcher.addURI(currentUri, "Business", BUSINESS);
+        matcher.addURI(currentUri, "Attractions", ATTRACTIONS);
+        matcher.addURI(currentUri, "Accounts/*", ACCOUNTS_ID);
+        matcher.addURI(currentUri, "Business/*", BUSINESS_ID);
+        matcher.addURI(currentUri, "Attractions/*", ATTRACTIONS_ID);
     }
 
+    private int getLastSegment(Uri uri) throws Exception {
+        String last = uri.toString();
+        String[] vars = last.split("/");
+            switch (vars[3]) {
+                case "Accounts":
+                    if (vars.length == 4)
+                        return ACCOUNTS;
+                    else
+                        return ACCOUNTS_ID;
+                case "Business":
+                    if (vars.length == 4)
+                        return BUSINESS;
+                    else
+                        return BUSINESS_ID;
+                case "Attractions":
+                    if (vars.length == 4)
+                        return ATTRACTIONS;
+                    else
+                        return ATTRACTIONS_ID;
+                    default:
+                        throw new Exception("Match ERROR");
+            }
+    }
 
     //region no need to implement yet
     //no need to implement yet
