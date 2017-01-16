@@ -2,9 +2,11 @@ package project.android.com.second_app.controller;
 
 import android.content.Context;
 import android.graphics.Region;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import project.android.com.second_app.R;
 import project.android.com.second_app.model.backend.Backend;
@@ -52,9 +55,18 @@ public class StartingActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         ctx = this;
         db = BackendFactory.getFactoryDatabase();
-        db.setUpDatabase();
+        setUpDatabase();
     }
 
+    private void setUpDatabase() {
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+                db.setUpDatabase();
+                return null;
+            }
+        }.execute();
+    }
 
 
     //region Navigation Drawer
@@ -96,15 +108,23 @@ public class StartingActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_container);
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        try{
+            if (id == R.id.nav_bus) {
+                //open business fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new BusinessesListFragment()).commit();
+            } else if (id == R.id.nav_att) {
+                //open attraction fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AttractionsListFragment()).commit();
+            } else if (id == R.id.nav_exit) {
+                finish();
+            }
+        }catch (Exception e)
+        {
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

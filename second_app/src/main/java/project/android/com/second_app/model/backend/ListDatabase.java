@@ -2,7 +2,6 @@ package project.android.com.second_app.model.backend;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.net.Uri;
 
 import java.util.ArrayList;
@@ -29,7 +28,11 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Business> getBusinessList() {
-        Uri uri = Uri.parse(currentUri+"/Business");
+        return businessList;
+    }
+
+    private ArrayList<Business> getAsyncListBusineesses() {
+        Uri uri = Uri.parse(currentUri+"/"+Business.BUSINESS);
         Cursor Businesses;
         Businesses = resolver.query(uri,null,null,null,null);
         ArrayList<Business> list = getBusinessListFromCursor(Businesses);
@@ -38,7 +41,11 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Attraction> getAttractionList() {
-        Uri uri = Uri.parse(currentUri+"/Attraction");
+        return attractionList;
+    }
+
+    private ArrayList<Attraction> getAsyncListAttractions() {
+        Uri uri = Uri.parse(currentUri+"/"+Attraction.ATTRACTION);
         Cursor atts;
         atts = resolver.query(uri,null,null,null,null);
         ArrayList<Attraction> list = getAttractionListFromCursor(atts);
@@ -47,7 +54,7 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Business> getBusinessList(String Country) {
-        ArrayList<Business> list = getBusinessList();
+        ArrayList<Business> list = businessList;
         ArrayList<Business> toReturn = new ArrayList<>();
         for (Business att:list) {
             if(att.getBusinessAddress().getCountry().equals(Country))
@@ -58,7 +65,7 @@ public class ListDatabase implements Backend {
 
     @Override
     public ArrayList<Attraction> getAttractionList(Business business) {
-        ArrayList<Attraction> list = getAttractionList();
+        ArrayList<Attraction> list = attractionList;
         ArrayList<Attraction> toReturn = new ArrayList<>();
         for (Attraction att:list) {
             if(att.getBusinessID().equals(business.getBusinessID()))
@@ -69,8 +76,8 @@ public class ListDatabase implements Backend {
 
     @Override
     public void setUpDatabase() {
-        attractionList = getAttractionList();
-        businessList = getBusinessList();
+        attractionList = getAsyncListAttractions();
+        businessList = getAsyncListBusineesses();
     }
 
     private ArrayList<Attraction> getAttractionListFromCursor(Cursor list) {
