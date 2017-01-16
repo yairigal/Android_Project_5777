@@ -156,11 +156,10 @@ public class Provider extends ContentProvider {
         MatrixCursor matrix;
         ArrayList<Attraction> list = db.getAttractionList();
         //return all
-        if(selection.equals(null) || selectionArgs.equals(null)){
-            matrix = new MatrixCursor(Account.getColumns());
-            for (Attraction cur:list) {
+        if(selection == (null) || selectionArgs == (null)){
+            matrix = new MatrixCursor(Attraction.getColumns());
+            for (Attraction cur:list)
                 matrix.addRow(cur.getAttributes());
-            }
             return matrix;
         }
         String[] selec = selection.split(",");
@@ -176,8 +175,8 @@ public class Provider extends ContentProvider {
         MatrixCursor matrix;
         ArrayList<Business> list = db.getBusinessList();
         //return all
-        if(selection.equals(null) || selectionArgs.equals(null)){
-            matrix = new MatrixCursor(Account.getColumns());
+        if(selection == null || selectionArgs == (null)){
+            matrix = new MatrixCursor(Business.getColumns());
             for (Business cur:list) {
                 matrix.addRow(cur.getAttributes());
             }
@@ -196,7 +195,7 @@ public class Provider extends ContentProvider {
         MatrixCursor matrix;
         ArrayList<Account> list = db.getAccountList();
         //return all
-        if(selection.equals(null) || selectionArgs.equals(null)){
+        if(selection == null || selectionArgs == null){
             matrix = new MatrixCursor(Account.getColumns());
             for (Account cur:list) {
                 matrix.addRow(cur.getAttributes());
@@ -291,17 +290,17 @@ public class Provider extends ContentProvider {
         String last = uri.toString();
         String[] vars = last.split("/");
             switch (vars[3]) {
-                case "Accounts":
+                case Account.ACCOUNT:
                     if (vars.length == 4)
                         return ACCOUNTS;
                     else
                         return ACCOUNTS_ID;
-                case "Business":
+                case Business.BUSINESS:
                     if (vars.length == 4)
                         return BUSINESS;
                     else
                         return BUSINESS_ID;
-                case "Attractions":
+                case Attraction.ATTRACTION:
                     if (vars.length == 4)
                         return ATTRACTIONS;
                     else

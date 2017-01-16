@@ -13,4 +13,10 @@
     tools:context="project.android.com.second_app.controller.StartingActivity"
     tools:showIn="@layout/app_bar_starting">
 
+    <!-- FrameLayout to display Fragments -->
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
