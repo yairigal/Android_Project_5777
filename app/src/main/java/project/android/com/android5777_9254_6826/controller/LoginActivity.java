@@ -367,8 +367,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 /*            Intent inte = new Intent(LoginActivity.this,SplashScreen.class);
             inte.putExtra("text","Logging In...");
             startActivity(inte);*/
-            StaticDeclarations.showLoadingScreen(LoginActivity.this,"Logging in...");
+            //StaticDeclarations.showLoadingScreen(LoginActivity.this,"Logging in...");
             //StaticDeclarations.showSplashScreen(LoginActivity.this,"Loading...");
+            (findViewById(R.id.pBarLogin)).setVisibility(View.VISIBLE);
 
         }
 
@@ -452,7 +453,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //StaticDeclarations.hideProgress();
                 //StaticDeclarations.hideSplashScreen(LoginActivity.this,R.layout.activity_login);
                 //SplashScreen.hideSplashScreen();
-                StaticDeclarations.hideLoadingScreen();
+                //StaticDeclarations.hideLoadingScreen();
+                (findViewById(R.id.pBarLogin)).setVisibility(View.GONE);
                 IntentNextActivity(listarr);
                 Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
                 return;
@@ -462,7 +464,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //StaticDeclarations.hideProgress();
                 //StaticDeclarations.hideSplashScreen(LoginActivity.this,R.layout.activity_login);
                 //SplashScreen.hideSplashScreen();
-                StaticDeclarations.hideLoadingScreen();
+                //StaticDeclarations.hideLoadingScreen();
+                (findViewById(R.id.pBarLogin)).setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), toToast, Toast.LENGTH_SHORT).show();
             }
 

@@ -4,6 +4,6 @@ package project.android.com.second_app.model.backend;
  * Created by Yair on 2017-01-16.
  */
 
-public interface AsyncResponse {
-    void processFinish(String output);
+public interface Delegate {
+    void Do();
 }

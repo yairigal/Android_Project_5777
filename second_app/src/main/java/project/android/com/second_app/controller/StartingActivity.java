@@ -1,12 +1,11 @@
 package project.android.com.second_app.controller;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Region;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +20,8 @@ import android.widget.FrameLayout;
 import project.android.com.second_app.R;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
-import project.android.com.second_app.model.backend.ListDatabase;
+import project.android.com.second_app.model.backend.Delegate;
+import project.android.com.second_app.model.backend.PublicObjects;
 
 public class StartingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,19 +31,11 @@ public class StartingActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PublicObjects.start = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,19 +47,55 @@ public class StartingActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         ctx = this;
         db = BackendFactory.getFactoryDatabase();
-        setUpDatabase();
+        setUpDatabase(new Delegate() {
+            @Override
+            public void Do() {
+
+            }
+        });
     }
 
-    private void setUpDatabase() {
+    private void setUpDatabase(final Delegate func) {
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 db.setUpDatabase();
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                func.Do();
+            }
         }.execute();
     }
 
+    public void updateDatabase(){
+        setUpDatabase(new Delegate() {
+            @Override
+            public void Do() {
+                updateUI();
+            }
+        });
+    }
+
+    private void updateUI() {
+        android.support.v4.app.Fragment current = getSupportFragmentManager().findFragmentByTag("buss");
+        if(PublicObjects.BussFrag != null) {
+            //found it bussiness
+            if (current != null) {
+                PublicObjects.BussFrag.updateView();
+                return;
+            }
+        }
+        if(PublicObjects.AttFrag != null) {
+            current = getSupportFragmentManager().findFragmentByTag("att");
+            if (current.getId() == PublicObjects.AttFrag.getId())
+                PublicObjects.AttFrag.updateView();
+        }
+
+    }
 
     //region Navigation Drawer
     @Override
@@ -113,10 +141,10 @@ public class StartingActivity extends AppCompatActivity
         try{
             if (id == R.id.nav_bus) {
                 //open business fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new BusinessesListFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,PublicObjects.getBusinessFragment(),"buss").commit();
             } else if (id == R.id.nav_att) {
                 //open attraction fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AttractionsListFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(),"att").commit();
             } else if (id == R.id.nav_exit) {
                 finish();
             }

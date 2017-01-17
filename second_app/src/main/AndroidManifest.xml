@@ -17,7 +17,7 @@
         </activity>
 
         <receiver
-            android:name=".model.reciever"
+            android:name=".model.backend.reciever"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -45,6 +45,7 @@ public class SQLDatabase implements Backend {
     private boolean latelyAddedNewBusiness = false;
 
     public SQLDatabase(){
+
     }
 
     //region Interface Functions
@@ -216,6 +217,7 @@ public class SQLDatabase implements Backend {
             return -1;
         }
 
+        latelyAddedNewAttraction = true;
         //returns attraction id
         return Integer.parseInt(a.getAttractionID());
     }
@@ -364,6 +366,7 @@ public class SQLDatabase implements Backend {
             e.printStackTrace();
         }
 
+        latelyAddedNewBusiness = true;
         //returns attraction id
         return Integer.parseInt(String.valueOf(a.getBusinessID()));
     }

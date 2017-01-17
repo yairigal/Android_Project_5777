@@ -1,9 +1,10 @@
 package project.android.com.second_app.controller;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,15 +12,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import project.android.com.second_app.R;
-import project.android.com.second_app.controller.dummy.DummyContent;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
-import project.android.com.second_app.model.backend.AsyncResponse;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
+import project.android.com.second_app.model.backend.PublicObjects;
 import project.android.com.second_app.model.backend.StaticDeclarations;
 import project.android.com.second_app.model.entities.Business;
 
@@ -41,6 +51,11 @@ public class BusinessesListFragment extends Fragment {
     private boolean noDataRecieved = true;
     private boolean showingLoadingScreen = false;
     MyBusinessesListFragmentRecyclerViewAdapter adap = null;
+    BaseExpandableListAdapter adp = null;
+    ExpandableListView listView;
+    ProgressBar pBar;
+    View RootView;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,7 +64,6 @@ public class BusinessesListFragment extends Fragment {
     public BusinessesListFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static BusinessesListFragment newInstance(int columnCount) {
         BusinessesListFragment fragment = new BusinessesListFragment();
@@ -62,7 +76,6 @@ public class BusinessesListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getListAsyncTask();
 /*        if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }*/
@@ -72,18 +85,107 @@ public class BusinessesListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_businesseslistfragment_list, container, false);
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        pBar = (ProgressBar) view.findViewById(R.id.pBarBusinessFragment);
+        listView = (ExpandableListView) view.findViewById(R.id.Busslist);
+        adp = new BaseExpandableListAdapter() {
+            @Override
+            public int getGroupCount() {
+                return businessList.size();
             }
-            adap = new MyBusinessesListFragmentRecyclerViewAdapter(businessList, mListener);
-            recyclerView.setAdapter(adap);
-        }
+
+            @Override
+            public int getChildrenCount(int groupPosition) {
+                return 5;
+            }
+
+            @Override
+            public Object getGroup(int groupPosition) {
+                return businessList;
+            }
+
+            @Override
+            public Object getChild(int groupPosition, int childPosition) {
+                Business count =  businessList.get(groupPosition);
+                switch (childPosition)
+                {
+                    case 0:
+                        return count.getBusinessName();
+                    case 1:
+                        return count.getBusinessAddress().getCountry();
+                    case 3:
+                        return count.getEmail();
+                    case 4:
+                        return count.getWebsite();
+                    default:
+                        return count.getBusinessName();
+                }
+            }
+
+            @Override
+            public long getGroupId(int groupPosition) {
+                return 0;
+            }
+
+            @Override
+            public long getChildId(int groupPosition, int childPosition) {
+                return 0;
+            }
+
+            @Override
+            public boolean hasStableIds() {
+                return false;
+            }
+
+            private String getTitle(int groupPosition, int childPosition) {
+                Business count =  businessList.get(groupPosition);
+                switch (childPosition)
+                {
+                    case 0:
+                        return "Name: ";
+                    case 1:
+                        return "Country: ";
+                    case 3:
+                        return "Email: ";
+                    case 4:
+                        return "Website: ";
+                    default:
+                        return "Name: ";
+                }
+            }
+
+            @Override
+            public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+                if(convertView == null){
+                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(R.layout.parent_layout, parent,false);
+                }
+                TextView parent_textview = (TextView) convertView.findViewById(R.id.parentTv);
+                parent_textview.setTypeface(null, Typeface.BOLD);
+                parent_textview.setText(businessList.get(groupPosition).getBusinessName());
+                return convertView;
+            }
+
+            @Override
+            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                if(convertView == null)
+                {
+                    LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflator.inflate(R.layout.fragment_businesseslistfragment, parent,false);
+                }
+                TextView child_textview = (TextView) convertView.findViewById(R.id.content);
+                TextView title = (TextView) convertView.findViewById(R.id.id);
+                child_textview.setText((String) getChild(groupPosition,childPosition));
+                title.setText(getTitle(groupPosition,childPosition));
+                return convertView;
+            }
+
+            @Override
+            public boolean isChildSelectable(int groupPosition, int childPosition) {
+                return false;
+            }
+        };
+        listView.setAdapter(adp);
+        getListAsyncTask();
         return view;
     }
 
@@ -118,6 +220,10 @@ public class BusinessesListFragment extends Fragment {
         mListener = null;
     }
 
+    public void updateView() {
+        getListAsyncTask();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -135,20 +241,41 @@ public class BusinessesListFragment extends Fragment {
 
     private void getListAsyncTask(){
         class myTask extends AsyncTask<Void,Void,Void>{
+            ArrayList<Business> newList = new ArrayList<>();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+/*                if(listView!= null)
+                    listView.setVisibility(View.GONE);*//*
+                if(pBar != null)
+                    pBar.setVisibility(View.VISIBLE);*/
+            }
+
             @Override
             protected Void doInBackground(Void... params) {
-                businessList = db.getBusinessList();
+                newList = db.getBusinessList();
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if(adap != null)
-                    adap.notifyDataSetChanged();
+                if(pBar != null)
+                    pBar.setVisibility(View.GONE);
+                if(listView != null)
+                    listView.setVisibility(View.VISIBLE);
+                if(adp != null)
+                    refreshAdapter(adp,businessList,newList);
             }
         }
         myTask task = new myTask();
         task.execute();
+    }
+
+    public static void refreshAdapter(BaseExpandableListAdapter ad,ArrayList originList,ArrayList newList){
+        originList.clear();
+        originList.addAll(newList);
+        ad.notifyDataSetChanged();
     }
 }
