@@ -1,7 +1,9 @@
 package project.android.com.second_app.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
@@ -20,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -181,10 +184,49 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public boolean isChildSelectable(int groupPosition, int childPosition) {
-                return false;
+                return true;
             }
         };
         listView.setAdapter(adp);
+
+
+        /////////////////////
+       // send out all the nice intents
+        /////////////////////
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (childPosition)
+                {
+                    case 0:
+                        Uri uri = Uri.parse("http://www.google.com/#q="+businessList.get(groupPosition).getBusinessName());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                        break;
+                        //return "Name: ";
+                    case 1:
+                        Intent Chooser;
+                        String url = "http://maps.google.com/maps?daddr="+businessList.get(groupPosition).getBusinessAddress().getCity() +" "+businessList.get(groupPosition).getBusinessAddress().getStreet();
+                        Intent iintent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
+                        Chooser = Intent.createChooser(iintent,"Launch Maps");
+                        startActivity(Chooser);
+                        break;//return "Country: ";
+                    case 3:
+                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                "mailto", businessList.get(groupPosition).getEmail(), null));
+                        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+                        break;
+                    case 4:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" +businessList.get(groupPosition).getWebsite())));
+                        //return "Website: ";
+                        break;
+                    default:
+                        //return "Name: ";
+
+                }
+                return true;
+            }
+        });
         getListAsyncTask();
         return view;
     }
