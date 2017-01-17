@@ -1,6 +1,7 @@
 package project.android.com.second_app.controller;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,16 +11,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import project.android.com.second_app.R;
-import project.android.com.second_app.controller.dummy.DummyContent;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
+import project.android.com.second_app.model.backend.PublicObjects;
 import project.android.com.second_app.model.entities.Attraction;
+import project.android.com.second_app.model.entities.Business;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -35,7 +41,9 @@ public class AttractionsListFragment extends Fragment {
     private int mColumnCount = 1;
     ArrayList<Attraction> attractions = new ArrayList<>();
     private OnListFragmentInteractionListener mListener;
-    MyAttractionsListRecyclerViewAdapter adap;
+    BaseExpandableListAdapter adap;
+    ExpandableListView listView;
+    ProgressBar pBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,56 +62,121 @@ public class AttractionsListFragment extends Fragment {
         return fragment;
     }
 
+    //region override functions
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getAttractionListAsyncTask();
 /*        if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }*/
-    }
-
-    private void getAttractionListAsyncTask() {
-        class myTask extends AsyncTask<Void,Void,Void> {
-            @Override
-            protected Void doInBackground(Void... params) {
-                Backend db = BackendFactory.getFactoryDatabase();
-                attractions = db.getAttractionList();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if(adap != null)
-                    adap.notifyDataSetChanged();
-            }
-        }
-        myTask task = new myTask();
-        task.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attractionslist_list, container, false);
+            pBar = (ProgressBar) view.findViewById(R.id.pBarAttractionFragment);
+            listView = (ExpandableListView) view.findViewById(R.id.Attlist);
+            adap = new BaseExpandableListAdapter() {
+                @Override
+                public int getGroupCount() {
+                    return attractions.size();
+                }
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            adap = new MyAttractionsListRecyclerViewAdapter(attractions, mListener);
-            recyclerView.setAdapter(adap);
-        }
+                @Override
+                public int getChildrenCount(int groupPosition) {
+                    return 5;
+                }
+
+                @Override
+                public Object getGroup(int groupPosition) {
+                    return attractions;
+                }
+
+                @Override
+                public Object getChild(int groupPosition, int childPosition) {
+                    Attraction count =  attractions.get(groupPosition);
+                    switch (childPosition)
+                    {
+                        case 0:
+                            return count.getAttractionName();
+                        case 1:
+                            return count.getCountry();
+                        case 3:
+                            return count.getBusinessID();
+                        case 4:
+                            return count.getStartDate().toString();
+                        default:
+                            return count.getPrice()+" $";
+                    }
+                }
+
+                @Override
+                public long getGroupId(int groupPosition) {
+                    return 0;
+                }
+
+                @Override
+                public long getChildId(int groupPosition, int childPosition) {
+                    return 0;
+                }
+
+                @Override
+                public boolean hasStableIds() {
+                    return false;
+                }
+
+                private String getTitle(int groupPosition, int childPosition) {
+                    switch (childPosition)
+                    {
+                        case 0:
+                            return "Name: ";
+                        case 1:
+                            return "Country: ";
+                        case 3:
+                            return "Email: ";
+                        case 4:
+                            return "Website: ";
+                        default:
+                            return "Name: ";
+                    }
+                }
+
+                @Override
+                public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+                    if(convertView == null){
+                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        convertView = inflater.inflate(R.layout.parent_layout_att, parent,false);
+                    }
+                    TextView parent_textview = (TextView) convertView.findViewById(R.id.parentTv);
+                    parent_textview.setTypeface(null, Typeface.BOLD);
+                    parent_textview.setText(attractions.get(groupPosition).getAttractionName());
+                    return convertView;
+                }
+
+                @Override
+                public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+                    if(convertView == null)
+                    {
+                        LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        convertView = inflator.inflate(R.layout.fragment_attractionslist, parent,false);
+                    }
+                    TextView child_textview = (TextView) convertView.findViewById(R.id.content);
+                    TextView title = (TextView) convertView.findViewById(R.id.id);
+                    child_textview.setText((String) getChild(groupPosition,childPosition));
+                    title.setText(getTitle(groupPosition,childPosition));
+                    return convertView;
+                }
+
+                @Override
+                public boolean isChildSelectable(int groupPosition, int childPosition) {
+                    return false;
+                }
+            };
+            listView.setAdapter(adap);
+            getAttractionListAsyncTask();
         return view;
     }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -120,6 +193,50 @@ public class AttractionsListFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    //endregion
+
+    //region other functions
+    private void getAttractionListAsyncTask() {
+        class myTask extends AsyncTask<Void,Void,Void> {
+            ArrayList<Attraction> newList;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                if(listView != null)
+                    listView.setVisibility(View.GONE);
+                if(pBar != null)
+                    pBar.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                Backend db = BackendFactory.getFactoryDatabase();
+                newList = new ArrayList<>();
+                newList = db.getAttractionList();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if(adap != null)
+                    BusinessesListFragment.refreshAdapter(adap,attractions,newList);
+                if(pBar != null)
+                    pBar.setVisibility(View.GONE);
+                if(listView != null)
+                    listView.setVisibility(View.VISIBLE);
+            }
+        }
+        myTask task = new myTask();
+        task.execute();
+    }
+
+    public void updateView() {
+        getAttractionListAsyncTask();
+    }
+    //endregion
 
     /**
      * This interface must be implemented by activities that contain this

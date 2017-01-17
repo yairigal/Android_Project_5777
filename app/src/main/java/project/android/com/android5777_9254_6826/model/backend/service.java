@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class service extends Service {
     Backend db;
-    private final int timeToSleep = 4000;
+    private final int timeToSleep = 10000;
     Thread background;
 
     public service() {
@@ -52,9 +52,10 @@ public class service extends Service {
     private void checkForChange() throws InterruptedException {
         while (running) {
             if (db.ifNewAttractionAdded() || db.ifNewBusinessAdded()) {
+                Log.d("service","broadcast send");
                 broadcastIntent();
             }
-            //Log.d("service: ", "running");
+            Log.d("service: ", "running");
             Thread.sleep(timeToSleep);
         }
     }
