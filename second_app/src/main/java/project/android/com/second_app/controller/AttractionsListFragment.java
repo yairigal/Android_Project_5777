@@ -177,6 +177,9 @@ public class AttractionsListFragment extends Fragment {
             getAttractionListAsyncTask();
         return view;
     }
+
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
