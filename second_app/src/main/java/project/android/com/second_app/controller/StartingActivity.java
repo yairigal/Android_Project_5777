@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,7 @@ import android.widget.FrameLayout;
 import project.android.com.second_app.R;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
+import project.android.com.second_app.model.backend.BusinessFilter;
 import project.android.com.second_app.model.backend.Delegate;
 import project.android.com.second_app.model.backend.PublicObjects;
 
@@ -27,6 +29,7 @@ public class StartingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Backend db;
+    SearchView searchView;
     public static Context ctx ;
 
     @Override
@@ -35,6 +38,7 @@ public class StartingActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        searchView = (SearchView) findViewById(R.id.searchView);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -42,6 +46,46 @@ public class StartingActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                android.support.v4.app.Fragment current = getSupportFragmentManager().findFragmentByTag("buss");
+                if(PublicObjects.BussFrag != null) {
+                    //found it business
+                    if (current != null) {
+                        //resetting the list
+                        //PublicObjects.BussFrag.updateView();
+                        PublicObjects.BussFrag.clearFilter();
+                        PublicObjects.BussFrag.Filter(query.toString());
+                        return true;
+                    }
+                }
+                if(PublicObjects.AttFrag != null) {
+                    current = getSupportFragmentManager().findFragmentByTag("att");
+                    if (current.getId() == PublicObjects.AttFrag.getId()) {
+                        //resetting the list
+                        //PublicObjects.AttFrag.updateView();
+                        PublicObjects.AttFrag.clearFilter();
+                        PublicObjects.AttFrag.Filter(query.toString());
+                        return true;
+                    }
+                }
+                Snackbar.make(searchView,"Please Select a category from the Notification Drawer",Snackbar.LENGTH_LONG);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty()){
+                    if(PublicObjects.currentFrag == PublicObjects.BussFrag && PublicObjects.BussFrag != null)
+                        PublicObjects.BussFrag.clearFilter();
+                    if(PublicObjects.currentFrag == PublicObjects.AttFrag && PublicObjects.AttFrag != null)
+                        PublicObjects.AttFrag.clearFilter();
+                }
+                return true;
+            }
+        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -123,9 +167,6 @@ public class StartingActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -142,9 +183,11 @@ public class StartingActivity extends AppCompatActivity
             if (id == R.id.nav_bus) {
                 //open business fragment
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,PublicObjects.getBusinessFragment(),"buss").commit();
+                PublicObjects.currentFrag = PublicObjects.BussFrag;
             } else if (id == R.id.nav_att) {
                 //open attraction fragment
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(),"att").commit();
+                PublicObjects.currentFrag = PublicObjects.AttFrag;
             } else if (id == R.id.nav_exit) {
                 finish();
             }

@@ -16,10 +16,12 @@ import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -27,10 +29,13 @@ import java.util.ArrayList;
 
 import project.android.com.second_app.R;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
+import project.android.com.second_app.model.backend.AttractionFilter;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
+import project.android.com.second_app.model.backend.BusinessFilter;
 import project.android.com.second_app.model.backend.PublicObjects;
 import project.android.com.second_app.model.backend.StaticDeclarations;
+import project.android.com.second_app.model.entities.Attraction;
 import project.android.com.second_app.model.entities.Business;
 
 /**
@@ -47,6 +52,7 @@ public class BusinessesListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private ArrayList<Business> businessList = new ArrayList<>();
+    private ArrayList<Business> beforeFilterList = new ArrayList<>();
     Backend db = BackendFactory.getFactoryDatabase();
     private boolean noDataRecieved = true;
     private boolean showingLoadingScreen = false;
@@ -95,7 +101,7 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public int getChildrenCount(int groupPosition) {
-                return 5;
+                return 4;
             }
 
             @Override
@@ -105,16 +111,15 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public Object getChild(int groupPosition, int childPosition) {
-                Business count =  businessList.get(groupPosition);
-                switch (childPosition)
-                {
+                Business count = businessList.get(groupPosition);
+                switch (childPosition) {
                     case 0:
                         return count.getBusinessName();
                     case 1:
-                        return count.getBusinessAddress().getCountry();
-                    case 3:
+                        return count.getBusinessAddress().toString();
+                    case 2:
                         return count.getEmail();
-                    case 4:
+                    case 3:
                         return count.getWebsite();
                     default:
                         return count.getBusinessName();
@@ -137,16 +142,15 @@ public class BusinessesListFragment extends Fragment {
             }
 
             private String getTitle(int groupPosition, int childPosition) {
-                Business count =  businessList.get(groupPosition);
-                switch (childPosition)
-                {
+                Business count = businessList.get(groupPosition);
+                switch (childPosition) {
                     case 0:
                         return "Name: ";
                     case 1:
                         return "Country: ";
-                    case 3:
+                    case 2:
                         return "Email: ";
-                    case 4:
+                    case 3:
                         return "Website: ";
                     default:
                         return "Name: ";
@@ -155,10 +159,14 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-                if(convertView == null){
+                if (convertView == null) {
                     LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(R.layout.parent_layout, parent,false);
+                    convertView = inflater.inflate(R.layout.parent_layout, parent, false);
                 }
+                TextView email = (TextView) convertView.findViewById(R.id.TVemail);
+                email.setText(businessList.get(groupPosition).getEmail());
+                TextView country = (TextView) convertView.findViewById(R.id.TVaddress);
+                country.setText(businessList.get(groupPosition).getBusinessAddress().toString());
                 TextView parent_textview = (TextView) convertView.findViewById(R.id.parentTv);
                 parent_textview.setTypeface(null, Typeface.BOLD);
                 parent_textview.setText(businessList.get(groupPosition).getBusinessName());
@@ -167,15 +175,46 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-                if(convertView == null)
-                {
+                if (convertView == null) {
                     LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflator.inflate(R.layout.fragment_businesseslistfragment, parent,false);
+                    convertView = inflator.inflate(R.layout.fragment_businesseslistfragment, parent, false);
                 }
+                ImageView btn = (ImageView)convertView.findViewById(R.id.imageButtonMap);
+
+                if (childPosition == 1) {//map
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO add intent
+                        }
+                    });
+                    btn.setVisibility(View.VISIBLE);
+                }
+                if (childPosition == 2) {//email
+                    //btn.setImageResource();
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO add intent
+                        }
+                    });
+                    btn.setVisibility(View.VISIBLE);
+                }
+                if (childPosition == 3) {//website
+                    //btn.setImageResource();
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO add intent
+                        }
+                    });
+                    btn.setVisibility(View.VISIBLE);
+                }
+
                 TextView child_textview = (TextView) convertView.findViewById(R.id.content);
                 TextView title = (TextView) convertView.findViewById(R.id.id);
-                child_textview.setText((String) getChild(groupPosition,childPosition));
-                title.setText(getTitle(groupPosition,childPosition));
+                child_textview.setText((String) getChild(groupPosition, childPosition));
+                title.setText(getTitle(groupPosition, childPosition));
                 return convertView;
             }
 
@@ -190,7 +229,7 @@ public class BusinessesListFragment extends Fragment {
     }
 
     private void dismissLoadingScreen() {
-        if(showingLoadingScreen)
+        if (showingLoadingScreen)
             StaticDeclarations.hideLoadingScreen();
     }
 
@@ -199,8 +238,8 @@ public class BusinessesListFragment extends Fragment {
     }
 
     private void keepShowingLoadingScreen() {
-        if(!showingLoadingScreen)
-            StaticDeclarations.showLoadingScreen(getContext(),"Loading");
+        if (!showingLoadingScreen)
+            StaticDeclarations.showLoadingScreen(getContext(), "Loading");
     }
 
     @Override
@@ -224,6 +263,30 @@ public class BusinessesListFragment extends Fragment {
         getListAsyncTask();
     }
 
+    public void Filter(String s) {
+        ArrayList list = new ArrayList();
+        //saving current list
+        beforeFilterList.clear();
+        beforeFilterList.addAll(businessList);
+
+        list.addAll(businessList);
+        BusinessFilter filter = new BusinessFilter(s, list);
+        ArrayList<Business> newList;
+        try {
+            newList = filter.Filter();
+            BusinessesListFragment.refreshAdapter(adp, businessList, newList);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Error Parsing Query", Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void clearFilter() {
+        if (beforeFilterList.size() == 0)
+            if (businessList.size() != 0)
+                return;
+        refreshAdapter(adp, businessList, beforeFilterList);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -239,8 +302,8 @@ public class BusinessesListFragment extends Fragment {
         void onListFragmentInteraction(DummyItem item);
     }
 
-    private void getListAsyncTask(){
-        class myTask extends AsyncTask<Void,Void,Void>{
+    private void getListAsyncTask() {
+        class myTask extends AsyncTask<Void, Void, Void> {
             ArrayList<Business> newList = new ArrayList<>();
 
             @Override
@@ -261,19 +324,19 @@ public class BusinessesListFragment extends Fragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if(pBar != null)
+                if (pBar != null)
                     pBar.setVisibility(View.GONE);
-                if(listView != null)
+                if (listView != null)
                     listView.setVisibility(View.VISIBLE);
-                if(adp != null)
-                    refreshAdapter(adp,businessList,newList);
+                if (adp != null)
+                    refreshAdapter(adp, businessList, newList);
             }
         }
         myTask task = new myTask();
         task.execute();
     }
 
-    public static void refreshAdapter(BaseExpandableListAdapter ad,ArrayList originList,ArrayList newList){
+    public static void refreshAdapter(BaseExpandableListAdapter ad, ArrayList originList, ArrayList newList) {
         originList.clear();
         originList.addAll(newList);
         ad.notifyDataSetChanged();

@@ -4,16 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/second_app_icon"
         android:label="@string/app_name"
+        android:icon="@mipmap/new_second_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controller.MainActivity">
-<!--                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--                <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>-->
         </activity>
 
         <receiver
@@ -21,19 +21,19 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.project.CHECK_DATABASE"></action>
+                <action android:name="com.project.CHECK_DATABASE"/>
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".controller.StartingActivity"
-            android:label="@string/title_activity_starting"
+            android:label="Tracvel"
+            android:icon="@drawable/new_second_app_icon"
             android:theme="@style/AppTheme.NoActionBar">
-                <intent-filter>
-                     <action android:name="android.intent.action.MAIN" />
-
-                     <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

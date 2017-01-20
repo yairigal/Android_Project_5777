@@ -2,8 +2,11 @@ package project.android.com.second_app.controller;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +17,16 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import project.android.com.second_app.R;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
+import project.android.com.second_app.model.backend.AttractionFilter;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
 import project.android.com.second_app.model.backend.PublicObjects;
@@ -40,6 +48,7 @@ public class AttractionsListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     ArrayList<Attraction> attractions = new ArrayList<>();
+    ArrayList<Attraction> beforeFilterList = new ArrayList<>();
     private OnListFragmentInteractionListener mListener;
     BaseExpandableListAdapter adap;
     ExpandableListView listView;
@@ -71,6 +80,7 @@ public class AttractionsListFragment extends Fragment {
         }*/
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +95,7 @@ public class AttractionsListFragment extends Fragment {
 
                 @Override
                 public int getChildrenCount(int groupPosition) {
-                    return 5;
+                    return 8;
                 }
 
                 @Override
@@ -101,11 +111,19 @@ public class AttractionsListFragment extends Fragment {
                         case 0:
                             return count.getAttractionName();
                         case 1:
-                            return count.getCountry();
-                        case 3:
+                            return count.getType().toString();
+                        case 2:
                             return count.getBusinessID();
+                        case 3:
+                            return count.getPrice()+" $";
                         case 4:
-                            return count.getStartDate().toString();
+                            return count.getStartDate();
+                        case 5:
+                            return count.getEndDate();
+                        case 6:
+                            return count.getCountry();
+                        case 7:
+                            return count.getDescription();
                         default:
                             return count.getPrice()+" $";
                     }
@@ -130,13 +148,21 @@ public class AttractionsListFragment extends Fragment {
                     switch (childPosition)
                     {
                         case 0:
-                            return "Name: ";
+                            return "Name: ";//att name
                         case 1:
-                            return "Country: ";
+                            return "Deal: ";//type
+                        case 2:
+                            return "Owner: "; //Business name
                         case 3:
-                            return "Email: ";
+                            return "Price ";
                         case 4:
-                            return "Website: ";
+                            return "Starting Date ";
+                        case 5:
+                            return "Ending Date ";
+                        case 6:
+                            return "Country ";
+                        case 7:
+                            return "Description: ";
                         default:
                             return "Name: ";
                     }
@@ -148,9 +174,36 @@ public class AttractionsListFragment extends Fragment {
                         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         convertView = inflater.inflate(R.layout.parent_layout_att, parent,false);
                     }
+                    Attraction current = attractions.get(groupPosition);
+
+                    TextView country = (TextView) convertView.findViewById(R.id.Tvcountry);
+                    TextView enddate = (TextView) convertView.findViewById(R.id.TvEndDate);
+
+                    country.setText(current.getCountry());
+                    enddate.setText(current.getEndDate().toString());
+
                     TextView parent_textview = (TextView) convertView.findViewById(R.id.parentTv);
                     parent_textview.setTypeface(null, Typeface.BOLD);
-                    parent_textview.setText(attractions.get(groupPosition).getAttractionName());
+                    parent_textview.setText(current.getAttractionName());
+                    ImageView img = (ImageView) convertView.findViewById(R.id.imageViewAtt);
+                    TextView desc = (TextView)convertView.findViewById(R.id.TVdesc);
+                    desc.setText(current.getDescription());
+                    switch (current.getType()){
+                        case Airline:
+                            img.setImageResource(R.mipmap.airline_icon);
+                            break;
+                        case EntertainmentShow:
+                            img.setImageResource(R.mipmap.enterintemnt_icon);
+                            break;
+                        case TravelAgency:
+                            img.setImageResource(R.mipmap.travel_icon);
+                            break;
+                        case HotelDeal:
+                            img.setImageResource(R.mipmap.hotel_icon);
+                            break;
+                        default:
+                            break;
+                    }
                     return convertView;
                 }
 
@@ -160,6 +213,17 @@ public class AttractionsListFragment extends Fragment {
                     {
                         LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         convertView = inflator.inflate(R.layout.fragment_attractionslist, parent,false);
+                    }
+                    if(childPosition == 6) // country
+                    {
+                        ImageView mapBtn = (ImageView)convertView.findViewById(R.id.imageButtonMap);
+                        mapBtn.setVisibility(View.VISIBLE);
+                        mapBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //TODO goto map intent
+                            }
+                        });
                     }
                     TextView child_textview = (TextView) convertView.findViewById(R.id.content);
                     TextView title = (TextView) convertView.findViewById(R.id.id);
@@ -173,6 +237,7 @@ public class AttractionsListFragment extends Fragment {
                     return false;
                 }
             };
+            //listView.setIndicatorBoundsRelative(listView.getWidth()-50, listView.getWidth());
             listView.setAdapter(adap);
             getAttractionListAsyncTask();
         return view;
@@ -238,6 +303,30 @@ public class AttractionsListFragment extends Fragment {
 
     public void updateView() {
         getAttractionListAsyncTask();
+    }
+
+    public void Filter(String s) {
+        ArrayList list = new ArrayList();
+        //saving current list
+        beforeFilterList.clear();
+        beforeFilterList.addAll(attractions);
+
+        list.addAll(attractions);
+        AttractionFilter filter = new AttractionFilter(s,list);
+        ArrayList<Attraction> newList;
+        try {
+            newList = filter.Filter();
+            BusinessesListFragment.refreshAdapter(adap,attractions,newList);
+        } catch (Exception e) {
+            Toast.makeText(getContext(),"Error Parsing Query", Toast.LENGTH_SHORT);
+        }
+    }
+
+    public void clearFilter(){
+        if(beforeFilterList.size() == 0)
+            if(attractions.size() != 0)
+                return;
+        BusinessesListFragment.refreshAdapter(adap,attractions,beforeFilterList);
     }
     //endregion
 

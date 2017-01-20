@@ -16,12 +16,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/Busslist"
+        android:groupIndicator="@null"
         android:name="project.android.com.second_app.controller.BusinessesListFragmentFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:divider="@color/colorPrimaryDark"
         tools:context="project.android.com.second_app.controller.BusinessesListFragment"
-        android:dividerHeight="0dp"/>
+        android:dividerHeight="0dp"
+        android:childDivider="@color/colorPrimaryDark" />
 </LinearLayout>
 

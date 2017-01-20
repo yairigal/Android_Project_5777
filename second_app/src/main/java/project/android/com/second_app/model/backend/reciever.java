@@ -31,7 +31,7 @@ public class reciever extends BroadcastReceiver {
 
     private void addNotification(Context context){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.drawable.second_app_icon);
+        builder.setSmallIcon(R.mipmap.second_app_icon);
         builder.setContentTitle("New Attraction/Business Added !");
         builder.setContentText("The Database have changed , need to sync");
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
