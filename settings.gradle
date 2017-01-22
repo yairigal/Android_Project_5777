@@ -1,1 +1,0 @@
-include ':app', ':second_app', ':secondapp'
