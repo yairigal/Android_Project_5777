@@ -83,7 +83,6 @@ public class AddAttractionActivity extends AppCompatActivity {
      */
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
