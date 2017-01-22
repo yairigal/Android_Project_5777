@@ -60,6 +60,7 @@
         <activity
             android:name="project.android.com.android5777_9254_6826.controller.BusinessDeatilsActivity"
             android:label="@string/title_activity_business_deatils"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for

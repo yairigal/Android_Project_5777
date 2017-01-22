@@ -33,14 +33,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0"
-                    app:srcCompat="@android:drawable/ic_menu_mylocation" />
+                    app:srcCompat="@android:drawable/ic_menu_info_details" />
 
                 <EditText
-                    android:id="@+id/CityId"
+                    android:id="@+id/BusinessNameID"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:hint="Enter City"
-                    android:inputType="textPostalAddress" />
+                    android:hint="Enter Business-Name"
+                    android:inputType="textPersonName"
+                    android:layout_height="60dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,14 +52,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0"
-                    app:srcCompat="@android:drawable/ic_menu_info_details" />
+                    app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
                 <EditText
-                    android:id="@+id/BusinessNameID"
+                    android:id="@+id/CityId"
                     android:layout_width="match_parent"
-                    android:hint="Enter Business-Name"
-                    android:inputType="textPersonName"
-                    android:layout_height="60dp" />
+                    android:layout_height="60dp"
+                    android:hint="Enter City"
+                    android:inputType="textPostalAddress" />
             </LinearLayout>
 
             <LinearLayout

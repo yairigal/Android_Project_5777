@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Attr;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
@@ -71,15 +73,19 @@ public class AttractionListTab extends Fragment {
                 if (convertView == null)
                     convertView = View.inflate(getContext(), R.layout.single_attraction_layout, null);
 
-                TextView ID = (TextView) convertView.findViewById(R.id.attractionIDTV);
-                TextView Date = (TextView) convertView.findViewById(R.id.DateTV);
-                TextView Price = (TextView) convertView.findViewById(R.id.PriceTV);
-                TextView Description = (TextView) convertView.findViewById(R.id.DescriptionTV);
-                ID.setText(myItemList[position].getAttractionID());
-                Date.setText(myItemList[position].getStartDate().toString());
-                Price.setText(Float.toString(myItemList[position].getPrice())+"₪");
-                Description.setText(myItemList[position].getDescription());
-
+                TextView ID = (TextView) convertView.findViewById(R.id.TvAttID);
+                TextView Date = (TextView) convertView.findViewById(R.id.TvAttEndDate);
+                TextView Price = (TextView) convertView.findViewById(R.id.TvAttPrice);
+                TextView Country = (TextView) convertView.findViewById(R.id.TvAttCountry);
+                TextView Name = (TextView) convertView.findViewById(R.id.TvAttName);
+                TextView Type = (TextView) convertView.findViewById(R.id.TvAttType);
+                Attraction curr = myItemList[position];
+                ID.setText(curr.getAttractionID());
+                Date.setText(curr.getEndDate());
+                Price.setText(Float.toString(curr.getPrice())+"$");
+                Country.setText(curr.getCountry());
+                Name.setText(curr.getAttractionName());
+                Type.setText(curr.getType().toString());
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -422,7 +422,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     break;
                     //NOT REGISTERED
                 default:
-                    DB.addNewAccount(mEmail, mPassword);
+                    try{
+                        DB.addNewAccount(mEmail, mPassword);
+                    }catch (Exception ex){
+                        Snackbar.make(getCurrentFocus(),"Check your internet conncetion",Snackbar.LENGTH_LONG).show();
+                    }
+
                     try {
                         currentAccount = DB.getAccount(mEmail);
                     } catch (Exception e) {

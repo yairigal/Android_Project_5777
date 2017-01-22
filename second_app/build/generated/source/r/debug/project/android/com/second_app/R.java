@@ -2692,19 +2692,21 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020050;
         public static final int abc_textfield_search_material=0x7f020051;
         public static final int abc_vector_test=0x7f020052;
-        public static final int design_fab_background=0x7f020053;
-        public static final int design_ic_visibility=0x7f020054;
-        public static final int design_snackbar_background=0x7f020055;
-        public static final int ic_menu_camera=0x7f020056;
-        public static final int ic_menu_gallery=0x7f020057;
-        public static final int ic_menu_manage=0x7f020058;
-        public static final int ic_menu_send=0x7f020059;
-        public static final int ic_menu_share=0x7f02005a;
-        public static final int ic_menu_slideshow=0x7f02005b;
-        public static final int navigation_empty_icon=0x7f02005c;
-        public static final int new_second_app_icon=0x7f02005d;
-        public static final int notification_template_icon_bg=0x7f02005f;
-        public static final int side_nav_bar=0x7f02005e;
+        public static final int att_nav_icon=0x7f020053;
+        public static final int buss_nav_icon=0x7f020054;
+        public static final int design_fab_background=0x7f020055;
+        public static final int design_ic_visibility=0x7f020056;
+        public static final int design_snackbar_background=0x7f020057;
+        public static final int ic_menu_camera=0x7f020058;
+        public static final int ic_menu_gallery=0x7f020059;
+        public static final int ic_menu_manage=0x7f02005a;
+        public static final int ic_menu_send=0x7f02005b;
+        public static final int ic_menu_share=0x7f02005c;
+        public static final int ic_menu_slideshow=0x7f02005d;
+        public static final int navigation_empty_icon=0x7f02005e;
+        public static final int new_second_app_icon=0x7f02005f;
+        public static final int notification_template_icon_bg=0x7f020061;
+        public static final int side_nav_bar=0x7f020060;
     }
     public static final class id {
         public static final int Attlist=0x7f0c0086;
@@ -2955,7 +2957,8 @@ containing a value of this type.
         public static final int ic_launcher=0x7f030004;
         public static final int new_second_app_icon=0x7f030005;
         public static final int second_app_icon=0x7f030006;
-        public static final int travel_icon=0x7f030007;
+        public static final int start_activity_splash_screen=0x7f030007;
+        public static final int travel_icon=0x7f030008;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f060000;

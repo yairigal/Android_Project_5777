@@ -12,8 +12,16 @@
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_menu_send.png"
     },
     {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\att_nav_icon.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\att_nav_icon.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_menu_manage.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_menu_manage.png"
+    },
+    {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\buss_nav_icon.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\buss_nav_icon.png"
     },
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_menu_gallery.png",

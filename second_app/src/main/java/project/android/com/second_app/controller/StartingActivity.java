@@ -30,7 +30,7 @@ public class StartingActivity extends AppCompatActivity
 
     Backend db;
     SearchView searchView;
-    public static Context ctx ;
+    public static Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class StartingActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 android.support.v4.app.Fragment current = getSupportFragmentManager().findFragmentByTag("buss");
-                if(PublicObjects.BussFrag != null) {
+                if (PublicObjects.BussFrag != null) {
                     //found it business
                     if (current != null) {
                         //resetting the list
@@ -61,7 +61,7 @@ public class StartingActivity extends AppCompatActivity
                         return true;
                     }
                 }
-                if(PublicObjects.AttFrag != null) {
+                if (PublicObjects.AttFrag != null) {
                     current = getSupportFragmentManager().findFragmentByTag("att");
                     if (current.getId() == PublicObjects.AttFrag.getId()) {
                         //resetting the list
@@ -71,16 +71,16 @@ public class StartingActivity extends AppCompatActivity
                         return true;
                     }
                 }
-                Snackbar.make(searchView,"Please Select a category from the Notification Drawer",Snackbar.LENGTH_LONG);
+                Snackbar.make(searchView, "Please Select a category from the Notification Drawer", Snackbar.LENGTH_LONG);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.isEmpty()){
-                    if(PublicObjects.currentFrag == PublicObjects.BussFrag && PublicObjects.BussFrag != null)
+                if (newText.isEmpty()) {
+                    if (PublicObjects.currentFrag == PublicObjects.BussFrag && PublicObjects.BussFrag != null)
                         PublicObjects.BussFrag.clearFilter();
-                    if(PublicObjects.currentFrag == PublicObjects.AttFrag && PublicObjects.AttFrag != null)
+                    if (PublicObjects.currentFrag == PublicObjects.AttFrag && PublicObjects.AttFrag != null)
                         PublicObjects.AttFrag.clearFilter();
                 }
                 return true;
@@ -100,7 +100,7 @@ public class StartingActivity extends AppCompatActivity
     }
 
     private void setUpDatabase(final Delegate func) {
-        new AsyncTask<Void,Void,Void>(){
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 db.setUpDatabase();
@@ -115,7 +115,7 @@ public class StartingActivity extends AppCompatActivity
         }.execute();
     }
 
-    public void updateDatabase(){
+    public void updateDatabase() {
         setUpDatabase(new Delegate() {
             @Override
             public void Do() {
@@ -125,18 +125,16 @@ public class StartingActivity extends AppCompatActivity
     }
 
     private void updateUI() {
-        android.support.v4.app.Fragment current = getSupportFragmentManager().findFragmentByTag("buss");
-        if(PublicObjects.BussFrag != null) {
-            //found it bussiness
-            if (current != null) {
-                PublicObjects.BussFrag.updateView();
-                return;
-            }
+        android.support.v4.app.Fragment current = PublicObjects.currentFrag;
+        //found it bussiness
+        if (current != null && current == PublicObjects.BussFrag) {
+            PublicObjects.BussFrag.updateView();
+            return;
         }
-        if(PublicObjects.AttFrag != null) {
-            current = getSupportFragmentManager().findFragmentByTag("att");
-            if (current.getId() == PublicObjects.AttFrag.getId())
-                PublicObjects.AttFrag.updateView();
+        //attractions
+        if (current != null && current == PublicObjects.AttFrag) {
+            PublicObjects.AttFrag.updateView();
+            return;
         }
 
     }
@@ -179,20 +177,19 @@ public class StartingActivity extends AppCompatActivity
 
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_container);
 
-        try{
+        try {
             if (id == R.id.nav_bus) {
                 //open business fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,PublicObjects.getBusinessFragment(),"buss").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getBusinessFragment(), "buss").commit();
                 PublicObjects.currentFrag = PublicObjects.BussFrag;
             } else if (id == R.id.nav_att) {
                 //open attraction fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(),"att").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(), "att").commit();
                 PublicObjects.currentFrag = PublicObjects.AttFrag;
             } else if (id == R.id.nav_exit) {
                 finish();
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
@@ -202,7 +199,6 @@ public class StartingActivity extends AppCompatActivity
         return true;
     }
     //endregion
-
 
 
 }
