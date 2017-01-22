@@ -209,6 +209,8 @@ public class SQLDatabase implements Backend {
             throw new IllegalArgumentException(e.getMessage());
         }
 
+        latelyAddedNewAttraction = true;
+
         Attraction a = null;
 
         try {
@@ -216,8 +218,6 @@ public class SQLDatabase implements Backend {
         } catch (Exception e) {
             return -1;
         }
-
-        latelyAddedNewAttraction = true;
         //returns attraction id
         return Integer.parseInt(a.getAttractionID());
     }

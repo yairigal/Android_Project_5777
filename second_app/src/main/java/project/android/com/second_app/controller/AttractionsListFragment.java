@@ -1,6 +1,8 @@
 package project.android.com.second_app.controller;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
@@ -87,6 +89,19 @@ public class AttractionsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_attractionslist_list, container, false);
             pBar = (ProgressBar) view.findViewById(R.id.pBarAttractionFragment);
             listView = (ExpandableListView) view.findViewById(R.id.Attlist);
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (childPosition){
+                    case 6: // maps
+                        Toast.makeText(getContext(),"Maps", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
             adap = new BaseExpandableListAdapter() {
                 @Override
                 public int getGroupCount() {
@@ -214,17 +229,6 @@ public class AttractionsListFragment extends Fragment {
                         LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         convertView = inflator.inflate(R.layout.fragment_attractionslist, parent,false);
                     }
-                    if(childPosition == 6) // country
-                    {
-                        ImageView mapBtn = (ImageView)convertView.findViewById(R.id.imageButtonMap);
-                        mapBtn.setVisibility(View.VISIBLE);
-                        mapBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //TODO goto map intent
-                            }
-                        });
-                    }
                     TextView child_textview = (TextView) convertView.findViewById(R.id.content);
                     TextView title = (TextView) convertView.findViewById(R.id.id);
                     child_textview.setText((String) getChild(groupPosition,childPosition));
@@ -234,7 +238,7 @@ public class AttractionsListFragment extends Fragment {
 
                 @Override
                 public boolean isChildSelectable(int groupPosition, int childPosition) {
-                    return false;
+                    return true;
                 }
             };
             //listView.setIndicatorBoundsRelative(listView.getWidth()-50, listView.getWidth());

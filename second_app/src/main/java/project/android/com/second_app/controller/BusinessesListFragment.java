@@ -1,6 +1,8 @@
 package project.android.com.second_app.controller;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -93,6 +95,25 @@ public class BusinessesListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_businesseslistfragment_list, container, false);
         pBar = (ProgressBar) view.findViewById(R.id.pBarBusinessFragment);
         listView = (ExpandableListView) view.findViewById(R.id.Busslist);
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (childPosition){
+                    case 1: // maps
+                        Toast.makeText(getContext(),"Maps", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2: // email
+                        Toast.makeText(getContext(),"emails", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3: // website
+                        Toast.makeText(getContext(),"website", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
         adp = new BaseExpandableListAdapter() {
             @Override
             public int getGroupCount() {
@@ -128,12 +149,12 @@ public class BusinessesListFragment extends Fragment {
 
             @Override
             public long getGroupId(int groupPosition) {
-                return 0;
+                return groupPosition;
             }
 
             @Override
             public long getChildId(int groupPosition, int childPosition) {
-                return 0;
+                return childPosition;
             }
 
             @Override
@@ -179,48 +200,25 @@ public class BusinessesListFragment extends Fragment {
                     LayoutInflater inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = inflator.inflate(R.layout.fragment_businesseslistfragment, parent, false);
                 }
-                ImageView btn = (ImageView)convertView.findViewById(R.id.imageButtonMap);
-
-                if (childPosition == 1) {//map
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //TODO add intent
-                        }
-                    });
-                    btn.setVisibility(View.VISIBLE);
-                }
-                if (childPosition == 2) {//email
-                    //btn.setImageResource();
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //TODO add intent
-                        }
-                    });
-                    btn.setVisibility(View.VISIBLE);
-                }
-                if (childPosition == 3) {//website
-                    //btn.setImageResource();
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //TODO add intent
-                        }
-                    });
-                    btn.setVisibility(View.VISIBLE);
-                }
-
+                //ImageView btn = (ImageView) convertView.findViewById(R.id.imageButtonMap);
                 TextView child_textview = (TextView) convertView.findViewById(R.id.content);
+
                 TextView title = (TextView) convertView.findViewById(R.id.id);
                 child_textview.setText((String) getChild(groupPosition, childPosition));
                 title.setText(getTitle(groupPosition, childPosition));
+
+
                 return convertView;
             }
 
             @Override
             public boolean isChildSelectable(int groupPosition, int childPosition) {
-                return false;
+                return true;
+            }
+
+            @Override
+            public int getChildTypeCount() {
+                return 4;
             }
         };
         listView.setAdapter(adp);
@@ -309,10 +307,10 @@ public class BusinessesListFragment extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-/*                if(listView!= null)
-                    listView.setVisibility(View.GONE);*//*
+                if(listView!= null)
+                    listView.setVisibility(View.GONE);
                 if(pBar != null)
-                    pBar.setVisibility(View.VISIBLE);*/
+                    pBar.setVisibility(View.VISIBLE);
             }
 
             @Override
