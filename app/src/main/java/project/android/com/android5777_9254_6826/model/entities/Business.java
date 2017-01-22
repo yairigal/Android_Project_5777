@@ -38,6 +38,10 @@ public class Business implements Serializable {
     public static final String EMAIL = "Email";
     public static final String WEBSITE = "Website";
 
+    /**
+     * Returns an array with the names of the attributes
+     * @return an array with the attributes names.
+     */
     public static String[] getColumns(){
         return new String[]{ACCOUNTID,ID,NAME,Address.COUNTRY,Address.CITY,Address.STREET,EMAIL,WEBSITE};
     }
@@ -92,7 +96,10 @@ public class Business implements Serializable {
     }
     //endregion
 
-
+    /**
+     * Returns an array with the names of the attributes
+     * @return an array with the attributes names.
+     */
     public Object[] getAttributes(){
         return new Object[] {
                 AccountID,
@@ -105,7 +112,12 @@ public class Business implements Serializable {
                 Website
         };
     }
-
+    /**
+     * Returns the value of an attribute
+     * @param Col the attribute to get the value for
+     * @return The value for that attribute
+     * @throws Exception if a wrong attribute name was entered
+     */
     public String getValue(String Col) throws Exception {
         switch (Col){
             case Business.ACCOUNTID:
@@ -128,7 +140,15 @@ public class Business implements Serializable {
                 throw new Exception("Column doesn't Exist");
         }
     }
-
+    /**
+     * Constructor
+     * @param accountID
+     * @param id
+     * @param name
+     * @param address
+     * @param email
+     * @param website
+     */
     public Business(String accountID,String id, String name, Address address, String email, String website) {
         AccountID = accountID;
         BusinessID = id;

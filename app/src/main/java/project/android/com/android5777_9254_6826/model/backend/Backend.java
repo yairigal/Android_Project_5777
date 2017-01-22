@@ -9,5 +9,4 @@ package project.android.com.android5777_9254_6826.model.backend;
  */
 
 public interface Backend extends IBusinessDatabase,IAttractionDatabase,IAccountDatabase {
-    //TODO code the functions that has selection arguments
 }

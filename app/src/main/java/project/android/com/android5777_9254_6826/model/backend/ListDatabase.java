@@ -58,8 +58,6 @@ public class ListDatabase implements Backend {
         return accountCursor;
     }
 
-
-
     @Override
     public Account getAccount(long id) throws Exception {
         Account curr = null;

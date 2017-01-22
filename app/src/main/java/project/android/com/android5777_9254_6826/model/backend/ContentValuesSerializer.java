@@ -21,11 +21,21 @@ import project.android.com.android5777_9254_6826.model.entities.Properties;
  */
 
 public class ContentValuesSerializer {
+    /**
+     * Converts a contentValue to an Account object
+     * @param values
+     * @return
+     */
     public static Account contentValuesToAccount(ContentValues values){
         Account toReturn = new Account(values.getAsLong("accountnumber"),values.getAsString("username"),
                 values.getAsString("password"));
         return toReturn;
     }
+    /**
+     * Converts an account object to ConventValue object
+     * @param account
+     * @return
+     */
     public static ContentValues accountToContentValues(Account account){
         ContentValues values = new ContentValues();
         values.put("username",account.getUserName());
@@ -33,7 +43,11 @@ public class ContentValuesSerializer {
         values.put("accountnumber",account.getAccountNumber());
         return values;
     }
-
+    /**
+     * Converts a contentValue to an Attraction object
+     * @param values
+     * @return
+     */
     public static Attraction contentValuesToAttraction(ContentValues values){
         DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         Date dates = null,datee = null;
@@ -50,6 +64,11 @@ public class ContentValuesSerializer {
                 values.getAsString("businessid"));
         return toReturn;
     }
+    /**
+     * Converts an Attraction object to ConventValue object
+     * @param attraction
+     * @return
+     */
     public static ContentValues attractionToContentValues(Attraction attraction){
         ContentValues values = new ContentValues();
         values.put("attractionid",attraction.getAttractionID());
@@ -63,7 +82,11 @@ public class ContentValuesSerializer {
         values.put("businessid",attraction.getBusinessID());
         return values;
     }
-
+    /**
+     * Converts a contentValue to an Business object
+     * @param values
+     * @return
+     */
     public static Business contentValuesToBusiness(ContentValues values) throws MalformedURLException {
         Address adr = new Address();
         adr.setCity(values.getAsString("city"));
@@ -81,6 +104,11 @@ public class ContentValuesSerializer {
                 url);
         return toReturn;
     }
+    /**
+     * Converts an Business object to ConventValue object
+     * @param business
+     * @return
+     */
     public static ContentValues businessToContentValues(Business business){
         ContentValues values = new ContentValues();
         values.put("accountID",business.getAccountID());
@@ -94,6 +122,7 @@ public class ContentValuesSerializer {
         return values;
     }
 
+    //region not used
     public static String getValue(Business current,String Col) throws Exception {
         switch (Col){
             case Business.ACCOUNTID:
@@ -152,4 +181,5 @@ public class ContentValuesSerializer {
                 throw new Exception("Column doesn't Exist");
         }
     }
+    //endregion
 }

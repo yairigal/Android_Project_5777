@@ -23,7 +23,10 @@ public class Account implements Serializable{
 	public static final String USERNAME = "UserName";
 	public static final String PASSWORD = "Password";
 	public static final String ID = "AccountNumber";
-
+	/**
+	 * Returns an array with the names of the attributes
+	 * @return an array with the attributes names.
+	 */
 	public static String[] getColumns(){
 		String[] col = new String[]{USERNAME,PASSWORD,ID};
 		return col;
@@ -34,11 +37,19 @@ public class Account implements Serializable{
 		this.UserName = userName;
 		this.Password = password;
 	}
-
+	/**
+	 * Returns an array with the names of the attributes
+	 * @return an array with the attributes names.
+	 */
 	public Object[] getAttributes(){
 		return new Object[] {UserName,Password,AccountNumber};
 	}
-
+	/**
+	 * This function returns the value of a current attribute
+	 * @param Col the attribute to get the value for.
+	 * @return the value of the Col attribute
+	 * @throws Exception if an unknown Col was entered.
+	 */
 	public String getValue(String Col) throws Exception {
 		switch (Col){
 			case Account.USERNAME:

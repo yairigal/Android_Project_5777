@@ -53,10 +53,19 @@ public class Attraction implements Serializable {
 		AttractionID = attractionID;
 	}
 
+	/**
+	 * This function returns s string array with all the attribute names.
+	 * @return string array with attribute names
+     */
 	public Object[] getAttributes(){
 		return new Object[] {Type,Country,StartDate,EndDate,Price,Description,BusinessID,AttractionID,AttractionName};
 	}
-
+	/**
+	 * This function returns the value of a current attribute
+	 * @param Col the attribute to get the value for.
+	 * @return the value of the Col attribute
+	 * @throws Exception if an unknown Col was entered.
+     */
 	public String getValue(String Col) throws Exception {
 		switch (Col){
 			case Attraction.BUSINESSID:

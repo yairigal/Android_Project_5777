@@ -49,6 +49,11 @@ public class service extends Service {
 
     boolean running = true;
 
+    /**
+     * The thread function , this function checks from a new database update and send a
+     * broadcast.
+     * @throws InterruptedException if there was an error from the database.
+     */
     private void checkForChange() throws InterruptedException {
         while (running) {
             if (db.ifNewAttractionAdded() || db.ifNewBusinessAdded()) {
@@ -59,7 +64,9 @@ public class service extends Service {
             Thread.sleep(timeToSleep);
         }
     }
-
+    /**
+     * Broadcast an intent for the broadcast receiver to catch
+     */
     public void broadcastIntent() {
         Intent intent = new Intent();
         intent.setAction("com.project.CHECK_DATABASE");
@@ -67,6 +74,9 @@ public class service extends Service {
         Log.d("service: ", "broadcast sent");
     }
 
+    /**
+     * Stops the service
+     */
     private void stopCheck() {
         running = false;
     }
