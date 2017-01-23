@@ -40,7 +40,11 @@
         <service
             android:name="project.android.com.android5777_9254_6826.model.backend.service"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="model.backend.START_SERVICE" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name="project.android.com.android5777_9254_6826.controller.BusinessesActivity"
@@ -73,11 +77,11 @@
         <activity android:name="project.android.com.android5777_9254_6826.controller.Test" >
 
             <!--
-                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                            <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
             -->
         </activity>
         <activity android:name="project.android.com.android5777_9254_6826.controller.SplashScreen" />

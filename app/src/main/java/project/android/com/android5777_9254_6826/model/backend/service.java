@@ -2,14 +2,19 @@ package project.android.com.android5777_9254_6826.model.backend;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import project.android.com.android5777_9254_6826.controller.AddAttractionActivity;
+import project.android.com.android5777_9254_6826.controller.LoginActivity;
+
 public class service extends Service {
     Backend db;
-    private final int timeToSleep = 10000;
+    private final int timeToSleep = 1000;
     Thread background;
 
     public service() {
@@ -38,6 +43,7 @@ public class service extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         background.start();
+        //startActivity(new Intent(service.this, AddAttractionActivity.class));
         //Toast.makeText(getApplicationContext(),"hi2",Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }

@@ -1,7 +1,9 @@
 package project.android.com.second_app.controller;
 
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -97,6 +99,7 @@ public class StartingActivity extends AppCompatActivity
 
             }
         });
+        startService();
     }
 
     private void setUpDatabase(final Delegate func) {
@@ -137,6 +140,20 @@ public class StartingActivity extends AppCompatActivity
             return;
         }
 
+    }
+
+    private void startService(){
+        //Intent i = new Intent();
+        //String pkg = "project.android.com.android5777_9254_6826";
+        //String cls = pkg+".model.backend.service";
+        //i.setComponent(new ComponentName(pkg, cls));
+        //startService(i);
+        //Intent intent = new Intent("model.backend.START_SERVICE");
+        //intent.setPackage(this.getPackageName());
+        //startService(intent);
+
+/*        Intent bi = new Intent("model.backend.START_SERVICE");
+        bi.setPackage(pkg);*/
     }
 
     //region Navigation Drawer

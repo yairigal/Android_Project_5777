@@ -34,7 +34,11 @@
         <service
             android:name=".model.backend.service"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="model.backend.START_SERVICE" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".controller.BusinessesActivity"
@@ -46,15 +50,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controller.AddBusinessActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".controller.AddAttractionActivity"
             android:label="@string/title_activity_add_attraction"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controller.BusinessDeatilsActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_business_deatils"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -65,11 +69,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".controller.Test">
-<!--            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>-->
         </activity>
         <activity android:name=".controller.SplashScreen"></activity>
     </application>

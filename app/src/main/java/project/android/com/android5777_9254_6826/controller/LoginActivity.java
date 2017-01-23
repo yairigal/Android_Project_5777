@@ -86,10 +86,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static final String Password = "passKey";
     public static final String Email = "emailKey";
     public static ProgressDialog progressDialog;
-    String email,password;
+    String email, password;
     Account currentAccount;
     Backend DB;
-
 
 
     @Override
@@ -117,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    new UserLoginTask(mEmailView.getText().toString(), mPasswordView.getText().toString()).execute();
                     return true;
                 }
                 return false;
@@ -128,14 +127,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                new UserLoginTask(mEmailView.getText().toString(),mPasswordView.getText().toString()).execute();
+                new UserLoginTask(mEmailView.getText().toString(), mPasswordView.getText().toString()).execute();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         //add this to the main activity.
-        startService(new Intent(getBaseContext(),service.class));
+        startService(new Intent(getBaseContext(), service.class));
     }
 
     @Override
@@ -361,7 +360,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("LoginAsyncTask","preExecute");
+            Log.d("LoginAsyncTask", "preExecute");
             //progressDialog = LoginActivity.getProgressInstance(LoginActivity.this);
             //showLoadingAnimation(progressDialog,"Loading...",ProgressDialog.STYLE_SPINNER);
 /*            Intent inte = new Intent(LoginActivity.this,SplashScreen.class);
@@ -376,7 +375,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), toToast, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -400,8 +399,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here
             //calling Login();
-            Log.d("LoginAsyncTask","doInBackground");
-            switch(Login2(mEmail,mPassword)) {
+            Log.d("LoginAsyncTask", "doInBackground");
+            switch (Login2(mEmail, mPassword)) {
                 //OK
                 case 1:
                     try {
@@ -414,18 +413,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //publishProgress();
                     flag = true;
                     break;
-                    //FAIL TO LOGIN
+                //FAIL TO LOGIN
                 case 0:
                     toToast = "- Wrong password -";
                     //publishProgress();
                     flag = false;
                     break;
-                    //NOT REGISTERED
+                //NOT REGISTERED
                 default:
-                    try{
+                    try {
                         DB.addNewAccount(mEmail, mPassword);
-                    }catch (Exception ex){
-                        Snackbar.make(getCurrentFocus(),"Check your internet conncetion",Snackbar.LENGTH_LONG).show();
+                    } catch (Exception ex) {
+                        Snackbar.make(getCurrentFocus(), "Check your internet conncetion", Snackbar.LENGTH_LONG).show();
                     }
 
                     try {
@@ -449,10 +448,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            Log.d("LoginAsyncTask","postExecute");
+            Log.d("LoginAsyncTask", "postExecute");
             //showProgress(false);
             //if logged in
-            if(flag) {
+            if (flag) {
                 SaveSharedpreferences();
                 //stopProgressAnimation(progressDialog);
                 //StaticDeclarations.hideProgress();
@@ -461,10 +460,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //StaticDeclarations.hideLoadingScreen();
                 (findViewById(R.id.pBarLogin)).setVisibility(View.GONE);
                 IntentNextActivity(listarr);
-                Toast.makeText(getApplicationContext(),toToast,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), toToast, Toast.LENGTH_SHORT).show();
                 return;
-            }
-            else {
+            } else {
                 //stopProgressAnimation(progressDialog);
                 //StaticDeclarations.hideProgress();
                 //StaticDeclarations.hideSplashScreen(LoginActivity.this,R.layout.activity_login);
@@ -485,23 +483,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private void Login(String email, String pass) {
 
             try {
-                    //AccountListDB DB = AccountListDB.getDB();
+                //AccountListDB DB = AccountListDB.getDB();
 
-                    //if registered - log in
-                    //Thread.sleep(6000);
-                    currentAccount = DB.verifyPassword(email, pass);
-                    if (currentAccount != null){
-                        toToast = "- Logged in -";
-                        //publishProgress();
-                        flag = true;
-                     }
-                    else {
-                        toToast = "- Wrong password -";
-                        //publishProgress();
-                        flag = false;
-                    }
+                //if registered - log in
+                //Thread.sleep(6000);
+                currentAccount = DB.verifyPassword(email, pass);
+                if (currentAccount != null) {
+                    toToast = "- Logged in -";
+                    //publishProgress();
+                    flag = true;
+                } else {
+                    toToast = "- Wrong password -";
+                    //publishProgress();
+                    flag = false;
                 }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 //ast.makeText(getApplicationContext(),ex.toString(),Toast.LENGTH_SHORT);
                 //if couldn't find the account - register
                 DB.addNewAccount(email, pass);
@@ -518,6 +514,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //publishProgress();
             }
         }
+
         //returns 1 - OK
         //        0 - WRONG PASSWORD
         //       -1 - NOT REGISTERED
@@ -525,7 +522,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 Account thisAccount = DB.getAccount(email);
                 //if pass is ok
-                if(thisAccount.getPassword().equals(pass))
+                if (thisAccount.getPassword().equals(pass))
                     return 1;
                 else
                     return 0;
@@ -534,7 +531,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return -1;
             }
         }
-        private void SaveSharedpreferences(){
+
+        private void SaveSharedpreferences() {
             String n = mPasswordView.getText().toString();
             String e = mEmailView.getText().toString();
             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -545,20 +543,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void IntentNextActivity(Business[] arr){
+    private void IntentNextActivity(Business[] arr) {
 
 //        AsyncTask<Void,Void,Void> as = new AsyncTask<Void, Void, Void>() {
 //            @Override
 //            protected Void doInBackground(Void... params) {
-                try {
-                    Intent Bus = new Intent(LoginActivity.this,BusinessesActivity.class);
-                    Bus.putExtra("array",arr);
-                    Bus.putExtra("account",currentAccount);
-                    startActivity(Bus);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //return null;
+        try {
+            Intent Bus = new Intent(LoginActivity.this, BusinessesActivity.class);
+            Bus.putExtra("array", arr);
+            Bus.putExtra("account", currentAccount);
+            startActivity(Bus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //return null;
 //            }
 //        };
 //        as.execute();
@@ -576,7 +574,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //LoginActivity.showLoadingAnimation(progressDialog, "Loading Businesses...", ProgressDialog.STYLE_SPINNER);
                 //progressOverlay = findViewById(R.id.progress_overlay);
                 //Properties.animateView(progressOverlay, View.VISIBLE, 0.4f, 200);
-                StaticDeclarations.showProgress(LoginActivity.this,"Loading...");
+                StaticDeclarations.showProgress(LoginActivity.this, "Loading...");
             }
 
             @Override
@@ -610,10 +608,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        stopService(new Intent(this,service.class));
+        stopService(new Intent(this, service.class));
     }
+
     private Business[] getList(ArrayList<Business> bs) {
         Business[] toReturn = new Business[bs.size()];
         for (int i = 0; i < bs.size(); i++) {
@@ -621,16 +620,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         return toReturn;
     }
-    public static void showLoadingAnimation(ProgressDialog progDailog,String msg,int style) {
+
+    public static void showLoadingAnimation(ProgressDialog progDailog, String msg, int style) {
         progDailog.setMessage(msg);
         progDailog.setIndeterminate(false);
         progDailog.setProgressStyle(style);
         progDailog.setCancelable(false);
         progDailog.show();
     }
-    public static ProgressDialog getProgressInstance(Context currentActivity){
+
+    public static ProgressDialog getProgressInstance(Context currentActivity) {
         return new ProgressDialog(currentActivity);
     }
+
     public static void stopProgressAnimation(ProgressDialog progDailog) {
         progDailog.dismiss();
     }
