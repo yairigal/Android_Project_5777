@@ -5,7 +5,9 @@ package project.android.com.android5777_9254_6826.model.backend;
  */
 
 public class Constraints {
-
+    /**
+     * @params all the prepared strings for the php function
+     */
     public static final String WEB_URL = "http://adreyfus.vlab.jct.ac.il";
     public static final String getAccounts = "/getAccounts.php";
     public static final String getBusinesses = "/getBusinesses.php";

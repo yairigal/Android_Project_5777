@@ -41,13 +41,49 @@ public interface IAttractionDatabase extends IDatabase {
      * @return list of the attraction in the database
      */
     ArrayList<Attraction> getAttractionList();
+
+    /**
+     * gets tha attractionlist
+     * @param BusinessID
+     * @return  ArrayList<Attraction>
+     */
     ArrayList<Attraction> getAttractionList(String BusinessID);
+
+    /**
+     *
+     * @return Attraction in Cursor format
+     * @throws Exception
+     */
     Cursor getAttractionCursor() throws Exception;
+
+    /**
+     *  get Attraction by id
+     * @param attractionID
+     * @return Attraction
+     * @throws Exception
+     */
     Attraction getAttraction(String attractionID) throws Exception;
+    /**
+     *  get Attraction by business id and the attname
+     * @param BusinessID, AttrationName
+     * @return Attraction
+     * @throws Exception
+     */
     Attraction getAttraction(String BusinessID,String AttrationName) throws Exception;
+
+    /**
+     * checks if lately an attraction was added to database
+     * @return boolean
+     */
     boolean ifNewAttractionAdded();
 
     int removeAttraction(String attractionID);
+
+    /**
+     * deletes Attraction by id
+     * @param rowID
+     * @return
+     */
     int removeAttraction(int rowID);
     Uri insert(Attraction ac);
     int delete(Uri uri, String selection, String[] selectionArgs);

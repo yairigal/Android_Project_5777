@@ -27,9 +27,33 @@ public interface IAccountDatabase extends IDatabase {
      * @return true - if succeeded , else false;
      */
 	int addNewAccount(String UserName, String Password);
+
+	/**
+	 *
+	 * @param toInsert Account to add to database
+	 * @return account id
+     */
 	int addNewAccount(Account toInsert);
+
+	/**
+	 *
+	 * @return the Account List
+     */
 	ArrayList<Account> getAccountList();
+
+	/**
+	 *
+	 * @return Account in Cursor format
+	 * @throws Exception
+     */
 	Cursor getAccountCursor() throws Exception;
+
+	/**
+	 * get an account by some id
+	 * @param id
+	 * @return Account
+	 * @throws Exception
+     */
 	Account getAccount(long id) throws Exception;
 	Account getAccount(String username) throws Exception;
 	boolean isRegistered(String userName);
@@ -44,6 +68,12 @@ public interface IAccountDatabase extends IDatabase {
      */
 	Account verifyPassword(String userName, String passToCheck) throws Exception;
 	int removeAccount(String username);
+
+	/**
+	 * removes account
+	 * @param rowID
+	 * @return
+     */
 	int removeAccount(int rowID);
 	Uri insert(Account ac);
 	int delete(Uri uri, String selection, String[] selectionArgs);

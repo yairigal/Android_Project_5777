@@ -102,6 +102,10 @@ public class StartingActivity extends AppCompatActivity
         startService();
     }
 
+    /**
+     * set up the database, call the contentresolver
+     * @param func
+     */
     private void setUpDatabase(final Delegate func) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -118,6 +122,10 @@ public class StartingActivity extends AppCompatActivity
         }.execute();
     }
 
+    /**
+     * when the database is update by an account
+     * the ui is refreshed
+     */
     public void updateDatabase() {
         setUpDatabase(new Delegate() {
             @Override
@@ -127,6 +135,9 @@ public class StartingActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * the fragment are refreshed
+     */
     private void updateUI() {
         android.support.v4.app.Fragment current = PublicObjects.currentFrag;
         //found it bussiness
@@ -142,6 +153,9 @@ public class StartingActivity extends AppCompatActivity
 
     }
 
+    /**
+     * service from other app is started so he sends broadcasts once it updated the database
+     */
     private void startService(){
         //Intent i = new Intent();
         //String pkg = "project.android.com.android5777_9254_6826";
@@ -155,6 +169,7 @@ public class StartingActivity extends AppCompatActivity
 /*        Intent bi = new Intent("model.backend.START_SERVICE");
         bi.setPackage(pkg);*/
     }
+
 
     //region Navigation Drawer
     @Override

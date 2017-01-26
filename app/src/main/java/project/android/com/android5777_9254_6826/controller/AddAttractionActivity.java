@@ -206,6 +206,10 @@ public class AddAttractionActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * check if the details for a attraction that has been filled out are acceptable
+     * @return
+     */
     private boolean restIsFilledOut() {
         return
                 type.length() > 0 &&
@@ -218,6 +222,10 @@ public class AddAttractionActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * check if the dates inserted are acceptable
+     * @return
+     */
     private boolean datesAreOK() {
         String[] strt = StartDate.getText().toString().split("/");
         String[] end = EndDate.getText().toString().split("/");
@@ -261,6 +269,9 @@ public class AddAttractionActivity extends AppCompatActivity {
         popupWindow.showAtLocation(layout, Gravity.TOP, 5, 170);
     }
 
+    /**
+     * PICK UR dates from a date picker
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void datePickerPopup() {
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -309,9 +320,12 @@ public class AddAttractionActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * dates from picker to textview
+     */
+    private
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void updateLabel(int TextViewID) {
+  void updateLabel(int TextViewID) {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -322,6 +336,10 @@ public class AddAttractionActivity extends AppCompatActivity {
             EndDate.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * go back to businesses activity
+     * @return
+     */
     private Business getBusinessFromIntent() {
         Intent intent = getIntent();
         Business toReturn = (Business) intent.getSerializableExtra("business");

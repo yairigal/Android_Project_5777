@@ -20,6 +20,9 @@ import project.android.com.android5777_9254_6826.model.entities.Properties;
 
 public class ListDatabase implements Backend {
 
+    /**
+     * static databases
+     */
     private static ArrayList<Account> accountList = new ArrayList<Account>();
     private static ArrayList<Business> businessList = new ArrayList<Business>();
     private static ArrayList<Attraction> attractionsList = new ArrayList<Attraction>();

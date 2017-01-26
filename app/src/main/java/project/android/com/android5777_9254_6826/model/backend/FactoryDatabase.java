@@ -8,8 +8,15 @@ import project.android.com.android5777_9254_6826.model.entities.Delegate;
  */
 
 public class FactoryDatabase {
-
+    /**
+     * Manage all the databases
+     *
+     */
     private static Backend instance = null;
+    /**
+     * @returns or getSQLDatabase or listdatabase
+     * with singleton
+     */
     static Delegate<Backend> currentDatabase = new Delegate() {
         @Override
         public Backend function() {

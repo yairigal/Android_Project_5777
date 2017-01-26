@@ -60,6 +60,9 @@ public class MyBusinessesListFragmentRecyclerViewAdapter extends RecyclerView.Ad
         return mValues.size();
     }
 
+    /**
+     * the class which holds the business fragmnet
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;

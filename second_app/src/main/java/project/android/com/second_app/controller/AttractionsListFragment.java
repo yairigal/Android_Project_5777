@@ -270,6 +270,10 @@ public class AttractionsListFragment extends Fragment {
     //endregion
 
     //region other functions
+
+    /**
+     * get attractions by asynctask from contentprovider
+     */
     private void getAttractionListAsyncTask() {
         class myTask extends AsyncTask<Void,Void,Void> {
             ArrayList<Attraction> newList;
@@ -307,10 +311,17 @@ public class AttractionsListFragment extends Fragment {
         task.execute();
     }
 
+    /**
+     * refresh the database
+     */
     public void updateView() {
         getAttractionListAsyncTask();
     }
 
+    /**
+     * filter the results by the input in the search section
+     * @param s
+     */
     public void Filter(String s) {
         ArrayList list = new ArrayList();
         //saving current list

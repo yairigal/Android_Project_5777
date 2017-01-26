@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\business_icon_reversed.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\business_icon_reversed.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\new_second_app_icon.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-hdpi\\new_second_app_icon.png"
     },
@@ -10,5 +14,13 @@
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\new_second_app_icon.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\new_second_app_icon.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     }
 ]

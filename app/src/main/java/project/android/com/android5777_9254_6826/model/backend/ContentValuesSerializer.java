@@ -24,7 +24,7 @@ public class ContentValuesSerializer {
     /**
      * Converts a contentValue to an Account object
      * @param values
-     * @return
+     * @return Account
      */
     public static Account contentValuesToAccount(ContentValues values){
         Account toReturn = new Account(values.getAsLong("accountnumber"),values.getAsString("username"),
@@ -33,8 +33,8 @@ public class ContentValuesSerializer {
     }
     /**
      * Converts an account object to ConventValue object
-     * @param account
-     * @return
+     * @para maccount
+     * @return ContentValue
      */
     public static ContentValues accountToContentValues(Account account){
         ContentValues values = new ContentValues();

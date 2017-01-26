@@ -37,12 +37,21 @@ public class BusinessDetailsTab extends Fragment {
         return rootView;
     }
 
+    /**
+     * get from businessdetailsactivity the info to show here
+     * @param toUpdate
+     * @param currentaccount
+     */
     public void setBusiness(Business toUpdate, Account currentaccount){
         currentBusiness = toUpdate;
         currentAccount = currentaccount;
 
     }
 
+    /**
+     * show the businessdetails
+     * @param v
+     */
     public void setCurrentBusiness(View v) {
         Id = (TextView) v.findViewById(R.id.idTV);
         name = (TextView) v.findViewById(R.id.nameTV);

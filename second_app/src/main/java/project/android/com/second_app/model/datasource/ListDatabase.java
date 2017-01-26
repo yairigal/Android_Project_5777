@@ -15,6 +15,7 @@ import project.android.com.second_app.model.entities.Properties;
 
 /**
  * Created by Yair on 2017-01-15.
+ * The Database used in this app
  */
 
 public class ListDatabase implements Backend {
@@ -32,6 +33,10 @@ public class ListDatabase implements Backend {
         return businessList;
     }
 
+    /**
+     * get BusinessList with ContentResolver
+     * @return
+     */
     private ArrayList<Business> getAsyncListBusineesses() {
         Uri uri = Uri.parse(currentUri+"/"+Business.BUSINESS);
         Cursor Businesses;
@@ -45,6 +50,10 @@ public class ListDatabase implements Backend {
         return attractionList;
     }
 
+    /**
+     * get Attractionlist with ContentResolver
+     * @return
+     */
     private ArrayList<Attraction> getAsyncListAttractions() {
         Uri uri = Uri.parse(currentUri+"/"+Attraction.ATTRACTION);
         Cursor atts;
@@ -81,6 +90,11 @@ public class ListDatabase implements Backend {
         businessList = getAsyncListBusineesses();
     }
 
+    /**
+     * transfer contentresolvers answer from Cursor into Arraylist
+     * @param list
+     * @return
+     */
     private ArrayList<Attraction> getAttractionListFromCursor(Cursor list) {
         ArrayList<Attraction> toReturn = new ArrayList<>();
         try {
@@ -108,6 +122,11 @@ public class ListDatabase implements Backend {
         }
         return toReturn;
     }
+    /**
+     * transfer contentresolvers answer from Cursor into Arraylist
+     * @param list
+     * @return
+     */
     public ArrayList<Business> getBusinessListFromCursor(Cursor list) {
         ArrayList<Business> toReturn = new ArrayList<>();
 

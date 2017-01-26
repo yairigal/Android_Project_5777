@@ -8,6 +8,10 @@
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_gallery.png"
     },
     {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\att_nav_icon.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\att_nav_icon.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_slideshow.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_slideshow.png"
     },
@@ -16,19 +20,47 @@
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_camera.png"
     },
     {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_share.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_share.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_slideshow.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_slideshow.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\att_nav_icon.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\att_nav_icon.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_send.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_send.png"
     },
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_share.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_share.png"
     },
     {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\buss_nav_icon.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\buss_nav_icon.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\buss_nav_icon.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\buss_nav_icon.png"
     },
     {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_camera.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_camera.png"
+    },
+    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_send.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_send.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_manage.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_manage.png"
+    },
+    {
+        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_menu_gallery.png",
+        "source": "C:\\Android_Project_5777update\\second_app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_menu_gallery.png"
     }
 ]

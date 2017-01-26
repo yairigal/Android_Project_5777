@@ -56,10 +56,20 @@ public class AttractionListTab extends Fragment {
         initItemByListView(rootView);
     }
 
+    /**
+     * get business info from activity
+     * @param toUpdate
+     */
     public void setBusiness(Business toUpdate){
         currentBusiness = toUpdate;
     }
 
+    /**
+     * initialize the list of attractions
+     * first get them by asynctask
+     * than set up the listview
+     * @param v
+     */
     void initItemByListView(View v) {
         final Attraction[] myItemList = getAttractionListAsyncTask();
         if(myItemList.length == 0) {
@@ -110,6 +120,10 @@ public class AttractionListTab extends Fragment {
 
     }
 
+    /**
+     * get all the attractions from one business by async
+     * @return
+     */
     private Attraction[] getAttractionListAsyncTask() {
         AsyncTask<Void,Void,Attraction[]> asyncTask = new AsyncTask<Void, Void, Attraction[]>() {
             ProgressDialog pd = LoginActivity.getProgressInstance(getActivity());
@@ -141,6 +155,11 @@ public class AttractionListTab extends Fragment {
         return null;
     }
 
+    /**
+     * turn list into array
+     * @param bs
+     * @return
+     */
     private Attraction[] getList(ArrayList<Attraction> bs) {
         Attraction[] toReturn = new Attraction[bs.size()];
         for (int i = 0; i < bs.size(); i++) {
@@ -149,6 +168,10 @@ public class AttractionListTab extends Fragment {
         return toReturn;
     }
 
+    /**
+     * setup the floating button to add more attractions
+     * @param v
+     */
     private void init(View v){
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +182,9 @@ public class AttractionListTab extends Fragment {
         });
     }
 
+    /**
+     * go to add attraction activity in case the floating button as clicked
+     */
     private void moveToAttractionActivity() {
         Intent intent = new Intent(getContext(),AddAttractionActivity.class);
         intent.putExtra("business",currentBusiness);

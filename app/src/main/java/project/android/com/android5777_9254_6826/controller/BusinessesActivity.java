@@ -98,14 +98,23 @@ public class BusinessesActivity extends AppCompatActivity {
     //endregion
 
     //region private functions
+
+    /**
+     * get account data from intent extras
+     */
     private void getAccountfromIntent() {
         currentAccount = (Account) getIntent().getSerializableExtra("account");
     }
-
+    /**
+     * get array of businesses data from intent extras
+     */
     private void getBusinessesFromIntent(){
         BusinessArray = (Business[]) getIntent().getSerializableExtra("array");
     }
 
+    /**
+     * go to AddBusinessActivity
+     */
     private void moveToAddBusinessActivity() {
         Intent toBuss = new Intent(getBaseContext(), AddBusinessActivity.class);
         toBuss.putExtra("account", currentAccount);
@@ -118,6 +127,9 @@ public class BusinessesActivity extends AppCompatActivity {
         startActivity(toBuss);
     }
 
+    /**
+     * the func which shows the business list in the view using an adapter
+     */
     void initItemByListView() {
         final Business[] myItemList = BusinessArray;
 /*        if (myItemList.length == 0) {
@@ -130,7 +142,11 @@ public class BusinessesActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<Business>(this, R.layout.single_business_layout, myItemList) {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
+            /**
+             * inflate the cardview with info from each business
+             */
             public View getView(final int position, View convertView, ViewGroup parent) {
+
                 if (convertView == null)
                     convertView = View.inflate(BusinessesActivity.this, R.layout.single_business_layout, null);
 
@@ -160,6 +176,9 @@ public class BusinessesActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    /**
+     * every textview in the cardview get the business details
+     */
     private void setBusinessFields(final int position, final View convertView, final Business[] myItemList) {
         Business curr = myItemList[position];
         /**TextView Name = (TextView) convertView.findViewById(R.id.tvName);
@@ -198,6 +217,11 @@ public class BusinessesActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * delete the pressed business, not implemented
+     * @param curr
+     * @param v
+     */
     private void deleteThisCurrentBusiness(final Business curr, final View v) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog pd = LoginActivity.getProgressInstance(BusinessesActivity.this);
@@ -224,6 +248,10 @@ public class BusinessesActivity extends AppCompatActivity {
         }.execute();
     }
 
+    /**
+     * use the time to get the business list by asynctask
+     * to show a splashscreen which says loading....
+     */
     private void getBusinessesListAsyncTask() {
         Business[] toReturn = null;
         AsyncTask<Void, Void,Void> as = new AsyncTask<Void, Void,Void>() {

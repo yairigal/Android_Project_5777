@@ -9,6 +9,9 @@ import project.android.com.second_app.model.entities.Business;
  * Created by Yair on 2017-01-18.
  */
 
+/**
+ * filters the businesses by the search parameters
+ */
 public class BusinessFilter extends Filter<Business> {
 
     public BusinessFilter(String input, ArrayList<Business> data) {

@@ -23,19 +23,70 @@ import project.android.com.android5777_9254_6826.model.entities.Address;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public interface IBusinessDatabase extends IDatabase {
+	/**
+	 * add new business to database
+	 * @param accountID
+	 * @param Name
+	 * @param address
+	 * @param Email
+	 * @param Website
+     * @return businessid
+     */
 	int addNewBusiness(String accountID,String Name, Address address, String Email, String Website);
+
+	/**
+	 * add new business to database
+	 * @param toInsert
+	 * @return
+     */
 	int addNewBusiness(Business toInsert);
+
+	/**
+	 * get businesslist
+	 * @return
+     */
 	ArrayList<Business> getBusinessList();
+
+	/**
+	 * get businesslist in a cursor
+	 * @return cursor
+	 * @throws Exception
+     */
 	Cursor getBusinessCursor() throws Exception;
+
+	/**
+	 * checks if lately a business has been added
+	 * @return
+     */
 	boolean ifNewBusinessAdded();
+
+	/**
+	 * get business by id
+	 * @param businessID
+	 * @return
+	 * @throws Exception
+     */
 	Business getBusiness(String businessID) throws Exception;
+
+	/**
+	 * remove business by id
+	 * @param businessID
+	 * @return
+     */
 	int removeBusiness(String businessID);
 	int removeBusiness(int rowID);
+
+	/**
+	 * get a list of all businesses for one account
+	 * @param AccountID
+	 * @return
+	 * @throws Exception
+     */
+	ArrayList<Business> getBusinessList(String AccountID) throws Exception;
 	Uri insert(Business ac);
 	int delete(Uri uri, String selection, String[] selectionArgs);
 	int update(Uri uri, ContentValues values, String selection,
 			   String[] selectionArgs);
 	Cursor query(Uri uri, String[] projection, String selection,
 				 String[] selectionArgs, String sortOrder);
-	ArrayList<Business> getBusinessList(String AccountID) throws Exception;
 }

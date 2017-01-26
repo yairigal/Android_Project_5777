@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import project.android.com.second_app.R;
 
+/**
+ * this activity sets splashscreen before the first activity
+ */
 public class SplashScreen extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_LENGTH = 3000;

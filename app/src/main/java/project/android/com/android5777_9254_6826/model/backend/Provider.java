@@ -18,6 +18,7 @@ import project.android.com.android5777_9254_6826.model.entities.Attraction;
 import project.android.com.android5777_9254_6826.model.entities.Business;
 
 public class Provider extends ContentProvider {
+
     public static final String currentUri = "content://" + "project.android.com.android5777_9254_6826.model.backend.Provider";
     //public static final String currentUri = "content://" + ".model.backend.Provider";
     Uri thisUri = Uri.parse(currentUri);

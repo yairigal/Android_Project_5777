@@ -371,6 +371,13 @@ public class SQLDatabase implements Backend {
         return Integer.parseInt(String.valueOf(a.getBusinessID()));
     }
 
+    /**
+     *
+     * @param accountID
+     * @param name
+     * @return Business from database with the params
+     * @throws Exception if business not found
+     */
     private Business getBusiness(String accountID, String name) throws Exception {
         ArrayList<Business> list = getBusinessList();
         for (Business curr:list) {
@@ -579,6 +586,13 @@ public class SQLDatabase implements Backend {
     }
     //endregion
     //region Web Connection Functions
+
+    /**
+     *
+     * @param url to connenct to the php server
+     * @return the output of the php function called
+     * @throws Exception when no connection
+     */
     private static String GET(String url) throws Exception {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -601,6 +615,14 @@ public class SQLDatabase implements Backend {
             return "";
         }
     }
+
+    /**
+     *
+     * @param url  to connenct to the php server
+     * @param params an object to store in the database
+     * @return string that successfull or error
+     * @throws IOException
+     */
     private static String POST(String url, Map<String,Object> params) throws IOException {
 
         //Convert Map<String,Object> into key=value&key=value pairs.

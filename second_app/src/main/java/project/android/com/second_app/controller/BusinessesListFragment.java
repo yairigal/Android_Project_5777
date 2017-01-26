@@ -304,6 +304,9 @@ public class BusinessesListFragment extends Fragment {
         void onListFragmentInteraction(DummyItem item);
     }
 
+    /**
+     * get businesses with content provider
+     */
     private void getListAsyncTask() {
         class myTask extends AsyncTask<Void, Void, Void> {
             ArrayList<Business> newList = new ArrayList<>();
@@ -338,15 +341,29 @@ public class BusinessesListFragment extends Fragment {
         task.execute();
     }
 
+    /**
+     * refresh the adapter whos holding the view
+     * @param ad
+     * @param originList
+     * @param newList
+     */
     public static void refreshAdapter(BaseExpandableListAdapter ad, ArrayList originList, ArrayList newList) {
         originList.clear();
         originList.addAll(newList);
         ad.notifyDataSetChanged();
     }
 
+    /**
+     * all the intents when clicked on certain data
+     * @param current
+     * @param website
+     */
     public static void WebsiteIntet(Activity current,String website){
         current.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://" +website)));
     }
+    /**
+     * all the intents when clicked on certain data
+     */
     public static void MapsIntent(Activity curr,String city,String street){
         Intent Chooser;
         String url = "http://maps.google.com/maps?daddr="+city +" "+street;
@@ -354,6 +371,9 @@ public class BusinessesListFragment extends Fragment {
         Chooser = Intent.createChooser(iintent,"Launch Maps");
         curr.startActivity(Chooser);
     }
+    /**
+     * all the intents when clicked on certain data
+     */
     public static void emailIntent(Activity curr,String email){
         if(!email.matches(".+@.+[.]com"))
             if(!email.contains("@"))

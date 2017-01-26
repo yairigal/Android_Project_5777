@@ -63,6 +63,10 @@ public class Account implements Serializable{
 		}
 	}
 
+	/**
+	 * setters and getters for all fields
+	 *
+     */
 	//region getters and setters
 	public long getAccountNumber() {
 		return AccountNumber;

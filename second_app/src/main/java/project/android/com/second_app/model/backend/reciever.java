@@ -11,11 +11,20 @@ import project.android.com.second_app.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
+/**
+ * this class acts as the broadcast receiver
+ * once a broadcast is received, it updates the database
+ */
 public class reciever extends BroadcastReceiver {
     Delegate dlg = null;
     public reciever() {
     }
 
+    /**
+     * once a broadcast is received the database gets updated
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
@@ -29,6 +38,10 @@ public class reciever extends BroadcastReceiver {
         addNotification(context);
     }
 
+    /**
+     * make a notification in the phone
+     * @param context
+     */
     private void addNotification(Context context){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.mipmap.second_app_icon);

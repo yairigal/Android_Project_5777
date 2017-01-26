@@ -17,6 +17,10 @@ public class service extends Service {
     private final int timeToSleep = 1000;
     Thread background;
 
+    /**
+     * constructor gets database from factory
+     * creates new thread and runs func there
+     */
     public service() {
         db = FactoryDatabase.getDatabase();
         running = true;

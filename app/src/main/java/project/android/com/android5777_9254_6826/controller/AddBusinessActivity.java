@@ -139,7 +139,10 @@ public class AddBusinessActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * check if the details for a business that has been filled out are acceptible
+     * @return
+     */
     private boolean restIsFilledOut() {
 
         return BusinessName.getText().toString().length() > 0 &&

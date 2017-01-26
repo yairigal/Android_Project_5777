@@ -14,6 +14,12 @@ package project.android.com.android5777_9254_6826.model.entities;
 import java.io.Serializable;
 
 public class Address implements Serializable {
+	/**
+	 * Address class for a business
+	 * @param country
+	 * @param city
+	 * @param street
+     */
 	public Address(String country, String city, String street) {
 		Country = country;
 		City = city;

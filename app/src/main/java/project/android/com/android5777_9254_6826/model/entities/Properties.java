@@ -17,7 +17,13 @@ import android.view.View;
 
 import java.io.Serializable;
 
+/**
+ * all types of attractions
+ */
 public class Properties implements Serializable {
+	/**
+	 * constructor
+	 */
 	public enum AttractionType {
 		HotelDeal,
 		TravelAgency,
@@ -25,6 +31,12 @@ public class Properties implements Serializable {
 		Airline;
 
 	}
+
+	/**
+	 * returns a int for each attraction type
+	 * @param str
+	 * @return
+     */
 	public static int valueof(String str){
 		switch(str){
 			case "HotelDeal":
@@ -41,6 +53,12 @@ public class Properties implements Serializable {
 		}
 
 	}
+
+	/**
+	 * translate a string to the enum type
+	 * @param str
+	 * @return
+     */
 	public static AttractionType Valueof(String str){
 		switch(str){
 			case "HotelDeal":
@@ -57,6 +75,11 @@ public class Properties implements Serializable {
 		}
 
 	}
+
+	/**
+	 * get an array with strings of all attractiontypes
+	 * @return
+     */
 	public static String[] getTypes() {
 		return new String[]{"HotelDeal",
 				"TravelAgency",

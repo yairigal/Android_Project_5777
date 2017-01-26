@@ -5,5 +5,9 @@ package project.android.com.android5777_9254_6826.model.entities;
  */
 
 public interface Delegate<T> {
+    /**
+     * delegate function
+     * @return
+     */
     T function();
 }

@@ -8,10 +8,13 @@ import project.android.com.second_app.controller.StartingActivity;
 
 /**
  * Created by Yair on 2017-01-16.
+ * this class is being used to get the current instance of my fragment
  */
 
 public class PublicObjects {
-
+    /**
+     *
+     */
     public static StartingActivity start = null;
     public static AttractionsListFragment AttFrag = null;
     public static BusinessesListFragment BussFrag = null;

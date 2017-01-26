@@ -80,7 +80,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    /**
+     * shared preferences to save login details
+     */
     SharedPreferences sharedpreferences;
     public static final String mypreference = "mypref";
     public static final String Password = "passKey";
@@ -238,12 +240,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    /**
+     * checks if the email contains a @
+     * @param email
+     * @return
+     */
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         //ping email domain to check if valid.
         return email.contains("@");
     }
 
+    /**
+     * checks password
+     * @param password
+     * @return
+     */
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
@@ -543,6 +555,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    /**
+     * go to next activity
+     * @param arr
+     */
     private void IntentNextActivity(Business[] arr) {
 
 //        AsyncTask<Void,Void,Void> as = new AsyncTask<Void, Void, Void>() {
@@ -613,6 +629,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         stopService(new Intent(this, service.class));
     }
 
+    /**
+     * get list of businesses
+     * @param bs
+     * @return
+     */
     private Business[] getList(ArrayList<Business> bs) {
         Business[] toReturn = new Business[bs.size()];
         for (int i = 0; i < bs.size(); i++) {

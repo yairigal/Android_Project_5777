@@ -9,6 +9,7 @@ import project.android.com.second_app.model.entities.Attraction;
 
 /**
  * Created by Yair on 2017-01-18.
+ * The abstract class for filtering content
  */
 
 public abstract class Filter<Input> {
@@ -38,7 +39,7 @@ public abstract class Filter<Input> {
     /**
      * Abstract Filtering function
      *
-     * @param eachItemFilter the function to filter like
+     * eachItemFilter the function to filter like
      * @return the array after all was filtered.
      */
     public ArrayList<Input> filterOr(String[] input) {

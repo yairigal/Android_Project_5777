@@ -11,6 +11,9 @@ import project.android.com.second_app.model.entities.Business;
  * Created by Yair on 2017-01-18.
  */
 
+/**
+ * filters the attractions by the search input
+ */
 public class AttractionFilter extends Filter<Attraction> {
 
     public AttractionFilter(String input, ArrayList<Attraction> data) {

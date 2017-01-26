@@ -9,6 +9,7 @@ import project.android.com.second_app.model.entities.Business;
  * Created by Yair on 2017-01-15.
  */
 
+
 public interface Backend {
     ArrayList<Business> getBusinessList();
     ArrayList<Attraction> getAttractionList();

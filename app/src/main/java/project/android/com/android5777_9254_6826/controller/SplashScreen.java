@@ -13,7 +13,9 @@ import project.android.com.android5777_9254_6826.R;
 import project.android.com.android5777_9254_6826.model.entities.Properties;
 
 public class SplashScreen extends AppCompatActivity {
-
+    /**
+     * to show a splashscreen before starting the real app
+     */
     private static final int SPLASH_DISPLAY_LENGTH = 3000;
     static Activity ctx;
 
@@ -41,6 +43,9 @@ public class SplashScreen extends AppCompatActivity {
         ((TextView)  ctx.findViewById(R.id.loadingTV)).setText(text);
     }
 
+    /**
+     * kills the splashscreen
+     */
     public static void hideSplashScreen(){
         ctx.finish();
     }
