@@ -1,20 +1,15 @@
 package project.android.com.second_app.controller;
 
-import android.app.Fragment;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.SearchView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +18,6 @@ import android.widget.FrameLayout;
 import project.android.com.second_app.R;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
-import project.android.com.second_app.model.backend.BusinessFilter;
 import project.android.com.second_app.model.backend.Delegate;
 import project.android.com.second_app.model.backend.PublicObjects;
 
@@ -96,7 +90,6 @@ public class StartingActivity extends AppCompatActivity
         setUpDatabase(new Delegate() {
             @Override
             public void Do() {
-
             }
         });
         startService();
@@ -104,6 +97,7 @@ public class StartingActivity extends AppCompatActivity
 
     /**
      * set up the database, call the contentresolver
+     *
      * @param func
      */
     private void setUpDatabase(final Delegate func) {
@@ -148,7 +142,6 @@ public class StartingActivity extends AppCompatActivity
         //attractions
         if (current != null && current == PublicObjects.AttFrag) {
             PublicObjects.AttFrag.updateView();
-            return;
         }
 
     }
@@ -156,7 +149,7 @@ public class StartingActivity extends AppCompatActivity
     /**
      * service from other app is started so he sends broadcasts once it updated the database
      */
-    private void startService(){
+    private void startService() {
         //Intent i = new Intent();
         //String pkg = "project.android.com.android5777_9254_6826";
         //String cls = pkg+".model.backend.service";
@@ -206,29 +199,52 @@ public class StartingActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_container);
-
         try {
-            if (id == R.id.nav_bus) {
-                //open business fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getBusinessFragment(), "buss").commit();
-                PublicObjects.currentFrag = PublicObjects.BussFrag;
-            } else if (id == R.id.nav_att) {
-                //open attraction fragment
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(), "att").commit();
-                PublicObjects.currentFrag = PublicObjects.AttFrag;
-            } else if (id == R.id.nav_exit) {
-                finish();
-            }
+            ChangeFragment(id);
         } catch (Exception e) {
 
         }
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * setting up the selected fragment
+     *
+     * @param id the selected fragment id
+     */
+    private void ChangeFragment(int id) {
+        if (id == R.id.nav_bus)
+            //open business fragment
+            placeBusinessFragment();
+        else if (id == R.id.nav_att)
+            //open attraction fragment
+            placeAttractionFragment();
+        else if (id == R.id.nav_exit)
+            finish();
+
+    }
+
+    /**
+     * setting the current screen to show the attraction fragment
+     */
+    private void placeAttractionFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getAttractionFragment(), "att").commit();
+        PublicObjects.currentFrag = PublicObjects.AttFrag;
+        setTitle("Attractions");
+        String hint = getString(R.string.hint_attraction_query);
+        searchView.setQueryHint(hint);
+    }
+    /**
+     * setting the current screen to show the business fragment
+     */
+    private void placeBusinessFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, PublicObjects.getBusinessFragment(), "buss").commit();
+        PublicObjects.currentFrag = PublicObjects.BussFrag;
+        setTitle("Businesses");
+        String hint = getString(R.string.hint_business_query);
+        searchView.setQueryHint(hint);
     }
     //endregion
 

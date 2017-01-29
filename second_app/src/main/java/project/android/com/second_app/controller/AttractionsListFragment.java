@@ -1,41 +1,30 @@
 package project.android.com.second_app.controller;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 import project.android.com.second_app.R;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
 import project.android.com.second_app.model.backend.AttractionFilter;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
-import project.android.com.second_app.model.backend.PublicObjects;
 import project.android.com.second_app.model.entities.Attraction;
-import project.android.com.second_app.model.entities.Business;
-
-import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.

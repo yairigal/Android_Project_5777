@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import project.android.com.second_app.R;
-import project.android.com.second_app.model.entities.Account;
 
 public class MainActivity extends AppCompatActivity {
 

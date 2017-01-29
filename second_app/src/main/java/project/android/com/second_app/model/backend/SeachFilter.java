@@ -1,9 +1,5 @@
 package project.android.com.second_app.model.backend;
 
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-
 /**
  * Created by Yair on 2017-01-18.
  */

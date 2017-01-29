@@ -5,37 +5,53 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="82671924550320"
+    timestamp="535130450107259"
     token="5886183142258514268"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="263" />
+        duration="289" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="32" />
+        duration="29" />
     <task
         name="verifier"
-        duration="2" />
+        duration="3" />
 
+    <artifact
+        location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
+        type="DEX" />
     <artifact
         location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
         type="DEX" />
 
     <build
-        timestamp="79678377737086"
+        timestamp="531459462035358"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\outputs\apk\second_app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="82671924550320"
+        timestamp="534476062745679"
         verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_7\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="535130450107259"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
+            type="DEX" />
         <artifact
             location="C:\Users\Yair\AndroidStudioProjects\Android5777_9254_6826\second_app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
             type="DEX" />

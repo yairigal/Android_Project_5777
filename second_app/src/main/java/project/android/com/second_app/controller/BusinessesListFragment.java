@@ -3,44 +3,28 @@ package project.android.com.second_app.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import project.android.com.second_app.R;
 import project.android.com.second_app.controller.dummy.DummyContent.DummyItem;
-import project.android.com.second_app.model.backend.AttractionFilter;
 import project.android.com.second_app.model.backend.Backend;
 import project.android.com.second_app.model.backend.BackendFactory;
 import project.android.com.second_app.model.backend.BusinessFilter;
-import project.android.com.second_app.model.backend.PublicObjects;
 import project.android.com.second_app.model.backend.StaticDeclarations;
-import project.android.com.second_app.model.entities.Attraction;
 import project.android.com.second_app.model.entities.Business;
 
 /**
@@ -366,7 +350,7 @@ public class BusinessesListFragment extends Fragment {
      */
     public static void MapsIntent(Activity curr,String city,String street){
         Intent Chooser;
-        String url = "http://maps.google.com/maps?daddr="+city +" "+street;
+        String url = "http://maps.google.com/maps?daddr="+city +","+street;
         Intent iintent = new Intent(android.content.Intent.ACTION_VIEW,  Uri.parse(url));
         Chooser = Intent.createChooser(iintent,"Launch Maps");
         curr.startActivity(Chooser);

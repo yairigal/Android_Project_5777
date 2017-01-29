@@ -1,18 +1,18 @@
 [
     {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_background.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\start_background.png"
+    },
+    {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\icon_stroke.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\icon_stroke.png"
+    },
+    {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_background_xhdpi.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\start_background_xhdpi.png"
     },
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_activity_splash_screen.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\start_activity_splash_screen.png"
-    },
-    {
-        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
-        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_activity_splash_screen.png",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-mdpi\\start_activity_splash_screen.png"
     }
 ]

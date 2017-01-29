@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Tracvel</string>
-    <string name="title_activity_starting">StartingActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="hint_attraction_query">1-500,21/01/17-,hotel...</string>
+    <string name="hint_business_query">hotel,israel or israel | greek</string>
 
-    <string name="action_settings">Settings</string>
 </resources>

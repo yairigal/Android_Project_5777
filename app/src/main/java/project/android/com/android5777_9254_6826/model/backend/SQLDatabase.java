@@ -191,7 +191,7 @@ public class SQLDatabase implements Backend {
 
             params.put(Attraction.TYPE, toInsert.getType());
             params.put(Attraction.COUNTRY, toInsert.getCountry());
-            params.put(Attraction.STARTDATE, toInsert.getEndDate());
+            params.put(Attraction.STARTDATE, toInsert.getStartDate());
             params.put(Attraction.ENDDATE, toInsert.getEndDate());
             params.put(Attraction.PRICE, toInsert.getPrice());
             params.put(Attraction.DESCRIPITION, toInsert.getDescription());

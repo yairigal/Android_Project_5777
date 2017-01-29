@@ -1,18 +1,18 @@
 [
     {
-        "merged": "C:\\Android_Project_5777update\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_businesses.xml",
-        "source": "C:\\Android_Project_5777update\\app\\src\\main\\res\\menu\\menu_businesses.xml"
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_details.xml",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\src\\main\\res\\menu\\menu_business_details.xml"
     },
     {
-        "merged": "C:\\Android_Project_5777update\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_page.xml",
-        "source": "C:\\Android_Project_5777update\\app\\src\\main\\res\\menu\\menu_business_page.xml"
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_businesses.xml",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\src\\main\\res\\menu\\menu_businesses.xml"
     },
     {
-        "merged": "C:\\Android_Project_5777update\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_details.xml",
-        "source": "C:\\Android_Project_5777update\\app\\src\\main\\res\\menu\\menu_business_details.xml"
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_page.xml",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\src\\main\\res\\menu\\menu_business_page.xml"
     },
     {
-        "merged": "C:\\Android_Project_5777update\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_deatils.xml",
-        "source": "C:\\Android_Project_5777update\\app\\src\\main\\res\\menu\\menu_business_deatils.xml"
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_business_deatils.xml",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\app\\src\\main\\res\\menu\\menu_business_deatils.xml"
     }
 ]

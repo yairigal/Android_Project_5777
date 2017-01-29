@@ -12,9 +12,7 @@
         android:id="@+id/pBarBusinessFragment"
         android:layout_weight="1" />
 
-    <ExpandableListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/Busslist"
         android:groupIndicator="@null"

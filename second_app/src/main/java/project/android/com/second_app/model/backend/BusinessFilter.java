@@ -2,7 +2,6 @@ package project.android.com.second_app.model.backend;
 
 import java.util.ArrayList;
 
-import project.android.com.second_app.model.entities.Attraction;
 import project.android.com.second_app.model.entities.Business;
 
 /**
@@ -36,7 +35,7 @@ public class BusinessFilter extends Filter<Business> {
         String[] cols = Business.getColumns();
         for (Business item:toRunOn)
             for (String val:cols)
-                if(item.getValue(val).contains(i))
+                if(item.getValue(val).toLowerCase().contains(i.toLowerCase()))
                     toReturn.add(item);
         return toReturn;
     }

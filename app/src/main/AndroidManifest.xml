@@ -50,6 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controller.AddBusinessActivity"
+            android:label="Add Business"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".controller.AddAttractionActivity"

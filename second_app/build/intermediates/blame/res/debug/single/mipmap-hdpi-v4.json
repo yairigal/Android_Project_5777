@@ -8,10 +8,6 @@
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-hdpi\\travel_icon.PNG"
     },
     {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\travel_icon.PNG",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\travel_icon.PNG"
-    },
-    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\enterintemnt_icon.PNG",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-hdpi\\enterintemnt_icon.PNG"
     },
@@ -22,21 +18,5 @@
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\hotel_icon.PNG",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-hdpi\\hotel_icon.PNG"
-    },
-    {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\second_app_icon.PNG",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\second_app_icon.PNG"
-    },
-    {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\hotel_icon.PNG",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\hotel_icon.PNG"
-    },
-    {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\enterintemnt_icon.PNG",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\enterintemnt_icon.PNG"
-    },
-    {
-        "merged": "C:\\Android_Project_5777update\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\airline_icon.PNG",
-        "source": "C:\\Android_Project_5777update\\second_app\\src\\main\\res\\mipmap-hdpi\\airline_icon.PNG"
     }
 ]

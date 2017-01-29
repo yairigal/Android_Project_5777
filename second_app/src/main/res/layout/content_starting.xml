@@ -6,11 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@mipmap/start_activity_splash_screen"
+    android:background="@mipmap/start_background"
     tools:context="project.android.com.second_app.controller.StartingActivity"
     tools:showIn="@layout/app_bar_starting">
 
     <!-- FrameLayout to display Fragments -->
+
+    <ImageView
+        android:layout_width="149dp"
+        android:layout_height="163dp"
+        android:layout_marginLeft="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@mipmap/icon_stroke"
+        android:id="@+id/imageView2" />
+
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
