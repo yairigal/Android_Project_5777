@@ -14,7 +14,7 @@ import project.android.com.android5777_9254_6826.controller.LoginActivity;
 
 public class service extends Service {
     Backend db;
-    private final int timeToSleep = 1000;
+    private final int timeToSleep = 5000;
     Thread background;
 
     /**

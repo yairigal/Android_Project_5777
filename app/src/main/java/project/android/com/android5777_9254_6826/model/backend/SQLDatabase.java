@@ -53,6 +53,7 @@ public class SQLDatabase implements Backend {
 
     public SQLDatabase() {
         currentBusinessTimestamp = new java.util.Date();
+        currentAttractionTimestamp = new java.util.Date();
     }
 
     //region Interface Functions
