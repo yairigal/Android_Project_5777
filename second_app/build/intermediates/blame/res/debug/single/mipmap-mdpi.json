@@ -1,11 +1,15 @@
 [
     {
-        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_background.png",
-        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\start_background.png"
-    },
-    {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\icon_stroke.png",
         "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\icon_stroke.png"
+    },
+    {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\app_icon.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\app_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_background.png",
+        "source": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\src\\main\\res\\mipmap-mdpi\\start_background.png"
     },
     {
         "merged": "C:\\Users\\Yair\\AndroidStudioProjects\\Android5777_9254_6826\\second_app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\start_background_xhdpi.png",

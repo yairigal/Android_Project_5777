@@ -15,6 +15,8 @@ public class Constraints {
     public static final String addAttraction = "/InsertAttraction.php";
     public static final String addBusiness = "/InsertBusiness.php";
     public static final String addAccount = "/InsertAccount.php";
+    public static final String getTimestampBusiness= "/timestampBusiness.php";
+    public static final String getTimestampAttraction= "/timestampAttraction.php";
     public static final String setBusinessIndex = "";
     public static final String setAttractionIndex = "";
     public static final String setAccountIndex = "";
